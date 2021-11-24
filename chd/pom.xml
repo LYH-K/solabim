@@ -20,7 +20,7 @@
   </properties>
 
   <dependencies>
-	     <dependency>
+	 <dependency>
 	      <groupId>aopalliance</groupId>
 	      <artifactId>aopalliance</artifactId>
 	      <version>1.0</version>
