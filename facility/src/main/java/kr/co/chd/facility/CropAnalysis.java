@@ -1,4 +1,4 @@
-package kr.co.facility.facility.model;
+package kr.co.chd.facility;
 
 import java.io.Serializable;
 

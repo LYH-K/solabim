@@ -10,7 +10,7 @@ public class AccessServiceImp implements AccessService {
 
     @Override
     public void login(Manager manager) {
-        if(managerMapper.selectAll(manager) == 1){
+        if(managerMapper.select(manager) == 1){
             System.out.print(manager.getId());
         } else {
             System.out.print("bad");

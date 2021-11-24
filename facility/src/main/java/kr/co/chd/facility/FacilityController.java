@@ -1,6 +1,5 @@
-package kr.co.facility.facility.presentation;
+package kr.co.chd.facility;
 
-import kr.co.facility.facility.model.EnvirInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

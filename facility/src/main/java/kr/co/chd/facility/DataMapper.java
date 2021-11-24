@@ -1,6 +1,5 @@
-package kr.co.facility.facility.persistence;
+package kr.co.chd.facility;
 
-import kr.co.facility.facility.model.CropData;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

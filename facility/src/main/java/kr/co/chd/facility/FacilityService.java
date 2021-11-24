@@ -1,7 +1,4 @@
-package kr.co.facility.facility.service;
-
-import kr.co.facility.facility.model.CropAnalysis;
-import kr.co.facility.facility.model.EnvirInfo;
+package kr.co.chd.facility;
 
 public interface FacilityService {
     public EnvirInfo receiveFacilityInfo(EnvirInfo envirInfo);

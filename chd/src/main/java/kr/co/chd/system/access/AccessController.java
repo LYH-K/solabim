@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/chd")
 public class AccessController {
     @Autowired
-    AccessServiceImp accessService;
+    AccessService accessService;
 
     @GetMapping("/login")
     public ModelAndView login(){
