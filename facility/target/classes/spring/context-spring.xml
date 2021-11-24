@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        ">
 
-    <context:component-scan base-package="kr.co.facility.facility"/>
+    <context:component-scan base-package="kr.co.chd.facility"/>
 
     <mvc:annotation-driven />
 
