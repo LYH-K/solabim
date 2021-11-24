@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        ">
 
-    <context:component-scan base-package="kr.co.chd.system"/>
+    <context:component-scan base-package="kr.co.facility.facility"/>
 
     <mvc:annotation-driven />
 
@@ -21,4 +21,5 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp"/>
     </bean>
+
 </beans>
