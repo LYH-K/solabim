@@ -58,6 +58,9 @@
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.16" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+          <element id="library" level="project" name="Maven: com.pi4j:pi4j-core:1.2" />
+          <element id="library" level="project" name="Maven: com.pi4j:pi4j-device:1.2" />
+          <element id="library" level="project" name="Maven: com.pi4j:pi4j-gpio-extension:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">
