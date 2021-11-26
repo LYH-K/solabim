@@ -9,5 +9,8 @@
         <module name="envir" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="envir" target="10" />
+    </bytecodeTargetLevel>
   </component>
 </project>

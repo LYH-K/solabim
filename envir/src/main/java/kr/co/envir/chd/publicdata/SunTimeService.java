@@ -44,13 +44,15 @@ public class SunTimeService {
                 .addHeader("Content-type", "application/json")
                 .build();
 
-        StringBuffer buffer = new StringBuffer();
+        LocalTime[] sun = null;
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.code());
-            buffer.append(response.body().string());
+            if (response.code() == 200) {
+                String xml = response.body().string();
+                sun = sunRiseAndSet(xml);
+            }else {
+                return isRunMeasuremen();
+            }
         }
-
-        LocalTime[] sun = sunRiseAndSet(buffer.toString());
 
         result = dayTime(time,sun);
 
