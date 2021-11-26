@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class EnvirServiceImple {
 	public void get() {
-		String url = "http://172.16.30.7/chd/analysis/control";
+		String url = "http://localhost/chd/analysis/control";
 
 		try {
 			OkHttpClient client = new OkHttpClient();
