@@ -1,20 +1,18 @@
-package kr.co.envir.chd.publicdata;
+package kr.co.envir.chd.envirmanagement;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
-import org.intellij.lang.annotations.JdkConstants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public class MeasureEnvirUtil {
 
-    public static void main(String[] args) throws Exception {
+    public EnvirInfo measureEnvirUtile() throws Exception {
         MeasureEnvirUtil measureEnvirUtil = new MeasureEnvirUtil();
 
         final GpioController horizontalgpio = GpioFactory.getInstance();
@@ -43,15 +41,15 @@ public class MeasureEnvirUtil {
         EnvirInfo[] horizontalEnvirInfo = new EnvirInfo[5];
         for(int i = 1; i < 5; i++) {
             int illuminance = measureEnvirUtil.horizontalAngle(horizontalmotor);
-            horizontalEnvirInfo[i-1].setIlluminance(illuminance);
+            horizontalEnvirInfo[i-1].setLux(illuminance);
         }
 
         //최대값 구하기
-        int horizontalmax = horizontalEnvirInfo[0].getIlluminance();
+        int horizontalmax = horizontalEnvirInfo[0].getLux();
         for(int i = 0; i < 4; i++){
-            if(horizontalmax < horizontalEnvirInfo[i].getIlluminance()){
+            if(horizontalmax < horizontalEnvirInfo[i].getLux()){
                 int horizontAlangle = (i+1) * 30;
-                horizontalEnvirInfo[0].setIlluminance(horizontalEnvirInfo[1].getIlluminance());
+                horizontalEnvirInfo[0].setLux(horizontalEnvirInfo[1].getLux());
                 horizontalEnvirInfo[0].setHorizontalAngle(horizontAlangle);
             }
         }
@@ -92,11 +90,11 @@ public class MeasureEnvirUtil {
         }
 
         //최대값 구하기
-        int verticalmax = verticalEnvirInfo[0].getIlluminance();
+        int verticalmax = verticalEnvirInfo[0].getLux();
         for(int i = 0; i < 11; i++){
-            if(verticalmax < verticalEnvirInfo[i].getIlluminance()){
+            if(verticalmax < verticalEnvirInfo[i].getLux()){
                 int verticalAlangle = (i+1) * 30;
-                verticalEnvirInfo[0].setIlluminance(verticalEnvirInfo[1].getIlluminance());
+                verticalEnvirInfo[0].setLux(verticalEnvirInfo[1].getLux());
                 verticalEnvirInfo[0].setHorizontalAngle(verticalAlangle);
             }
         }
@@ -109,6 +107,8 @@ public class MeasureEnvirUtil {
 
         horizontalgpio.shutdown();
         verticalgpio.shutdown();
+
+        return maxEnvirInfo;
     }
     
     //각도 예외

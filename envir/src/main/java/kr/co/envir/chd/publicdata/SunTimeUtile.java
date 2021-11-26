@@ -9,28 +9,41 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class SunTimeService {
+public class SunTimeUtile {
     private static final String WEATHER_SERVICE_URL = "http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo";
     private static final String SERVICE_KEY = "=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D";
     private static final String LOCAL = "서울";
-    private boolean result = true;
+    private static boolean result = true;
 
     public static void main(String[] args) throws Exception{
-        boolean measuremen = new SunTimeService().isRunMeasuremen();
-        System.out.println(measuremen);
+        LocalDateTime localDateTime = LocalDateTime.now();
+        boolean result = SunTimeUtile.resetSignal(localDateTime);
+        System.out.println(result);
+        LocalTime[] localTimes = SunTimeUtile.isRunMeasuremen(localDateTime);
+        for(int i = 0; i < localTimes.length; i++){
+            System.out.println(localTimes[i]);
+        }
+    }
+
+    //위치 변경 신호
+    public static boolean resetSignal(LocalDateTime localDateTime) throws Exception {
+        LocalTime time = LocalTime.of(localDateTime.getHour(), localDateTime.getMinute());
+
+        LocalTime[] measuremen = isRunMeasuremen(localDateTime);
+
+        result = dayTime(time,measuremen);
+
+        return result;
     }
 
     //태양광 측정명령
-    public boolean isRunMeasuremen()
+    public static LocalTime[] isRunMeasuremen(LocalDateTime localDateTime)
             throws Exception {
-        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime = LocalDateTime.now();
+
         String currentDate = String.valueOf(localDateTime.getYear())
                 + localDateTime.getMonthValue()
                 + localDateTime.getDayOfMonth();
-
-        LocalTime time = LocalTime.of(localDateTime.getHour(), localDateTime.getMinute());
-        LocalTime sunriseTime = null;
-        LocalTime sunsetTime = null;
 
         StringBuffer urlBuffer = new StringBuffer(WEATHER_SERVICE_URL);
         urlBuffer.append("?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + SERVICE_KEY);
@@ -50,17 +63,15 @@ public class SunTimeService {
                 String xml = response.body().string();
                 sun = sunRiseAndSet(xml);
             }else {
-                return isRunMeasuremen();
+                return isRunMeasuremen(localDateTime);
             }
         }
 
-        result = dayTime(time,sun);
-
-        return result;
+        return sun;
     }
 
     //공공 데이터 xml문자열 파싱
-    private LocalTime[] sunRiseAndSet(String xml){
+    private static LocalTime[] sunRiseAndSet(String xml){
         LocalTime sunriseTime = null;
         LocalTime sunsetTime = null;
         String[] sbs = xml.split("<");
@@ -89,7 +100,7 @@ public class SunTimeService {
     }
 
     //낮시간 판단
-    private boolean dayTime(LocalTime time ,LocalTime[] sun) {
+    private static boolean dayTime(LocalTime time, LocalTime[] sun) {
         //현재시간이 일출시간이후인가? 그리고 현재시간이  일몰시간 이후 인가?
         if(time.isAfter(sun[0]) && time.isBefore(sun[1])){
             return true;
