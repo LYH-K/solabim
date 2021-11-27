@@ -4,14 +4,5 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.chd.system.analysis_management.EnvirMapper">
-<<<<<<< HEAD
-    <insert id = "insert" parameterType="kr.co.chd.system.analysis_management.EnvirInfo">
-        INSERT INTO CROP_ENVIR_INFO
-        VALUES(NULL,sysdate(),#{lux},#{verticalAngle},#{horizontalAngle})
-=======
-    <insert id="insert" parameterType="kr.co.chd.system.analysis_management.EnvirMapper">
-        INSERT INTO CROP_ENVIR_INFO
-            VALUES(null, #{DATE_TIME}, #{ILLUMINANCE}, #{VERTICAL_ANGLE}, #{HORIZONTAL_ANGLE})
->>>>>>> 3b3ef85df8d35bd8df70b210289df8527fd60050
-    </insert>
+
 </mapper>

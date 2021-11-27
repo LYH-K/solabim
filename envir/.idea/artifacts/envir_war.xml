@@ -9,7 +9,7 @@
         <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
-    <root id="archive" name="envir.war">
+    <root id="archive" name="chd-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="envir:war exploded" />
     </root>
   </artifact>
