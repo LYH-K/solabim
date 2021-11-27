@@ -47,9 +47,4 @@ AccessController {
 
         return new ModelAndView(new RedirectView("/chd/login"));
     }
-
-    @GetMapping("/list")
-    public ModelAndView searchCropList(){
-        return new ModelAndView("/chd/list");
-    }
 }
