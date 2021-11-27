@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CropAverage implements Serializable {
     String date;
     int growthAvg;
-    int luxAvg;
+    int illuminaceAvg;
 
     public CropAverage() {
     }
@@ -26,11 +26,11 @@ public class CropAverage implements Serializable {
         this.growthAvg = growthAvg;
     }
 
-    public int getLuxAvg() {
-        return luxAvg;
+    public int getIlluminaceAvg() {
+        return illuminaceAvg;
     }
 
-    public void setLuxAvg(int luxAvg) {
-        this.luxAvg = luxAvg;
+    public void setIlluminaceAvg(int illuminaceAvg) {
+        this.illuminaceAvg = illuminaceAvg;
     }
 }

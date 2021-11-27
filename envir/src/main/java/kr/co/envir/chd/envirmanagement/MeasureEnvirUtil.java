@@ -41,15 +41,15 @@ public class MeasureEnvirUtil {
 //        EnvirInfo[] horizontalEnvirInfo = new EnvirInfo[5];
 //        for(int i = 1; i < 5; i++) {
 //            int illuminance = measureEnvirUtil.horizontalAngle(horizontalmotor);
-//            horizontalEnvirInfo[i-1].setLux(illuminance);
+//            horizontalEnvirInfo[i-1].setIlluminace(illuminance);
 //        }
 //
 //        //최대값 구하기
-//        int horizontalmax = horizontalEnvirInfo[0].getLux();
+//        int horizontalmax = horizontalEnvirInfo[0].getIlluminace();
 //        for(int i = 0; i < 4; i++){
-//            if(horizontalmax < horizontalEnvirInfo[i].getLux()){
+//            if(horizontalmax < horizontalEnvirInfo[i].getIlluminace()){
 //                int horizontAlangle = (i+1) * 30;
-//                horizontalEnvirInfo[0].setLux(horizontalEnvirInfo[1].getLux());
+//                horizontalEnvirInfo[0].setIlluminace(horizontalEnvirInfo[1].getIlluminace());
 //                horizontalEnvirInfo[0].setHorizontalAngle(horizontAlangle);
 //            }
 //        }
@@ -90,11 +90,11 @@ public class MeasureEnvirUtil {
 //        }
 //
 //        //최대값 구하기
-//        int verticalmax = verticalEnvirInfo[0].getLux();
+//        int verticalmax = verticalEnvirInfo[0].getIlluminace();
 //        for(int i = 0; i < 11; i++){
-//            if(verticalmax < verticalEnvirInfo[i].getLux()){
+//            if(verticalmax < verticalEnvirInfo[i].getIlluminace()){
 //                int verticalAlangle = (i+1) * 30;
-//                verticalEnvirInfo[0].setLux(verticalEnvirInfo[1].getLux());
+//                verticalEnvirInfo[0].setIlluminace(verticalEnvirInfo[1].getIlluminace());
 //                verticalEnvirInfo[0].setHorizontalAngle(verticalAlangle);
 //            }
 //        }

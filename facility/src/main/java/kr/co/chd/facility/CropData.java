@@ -3,8 +3,8 @@ package kr.co.chd.facility;
 import java.io.Serializable;
 
 public class CropData implements Serializable {
-    int dataNo;
-    int RGBData;
+    private int dataNo;
+    private int RGBData;
 
     public CropData() {
     }

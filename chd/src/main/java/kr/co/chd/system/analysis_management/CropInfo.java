@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class CropInfo implements Serializable {
     String date;
     int growth;
-    int lux;
+    int illuminace;
     int horizontalAngle;
     int verticalAngle;
     String horizontalImage;
@@ -30,12 +30,12 @@ public class CropInfo implements Serializable {
         this.growth = growth;
     }
 
-    public int getLux() {
-        return lux;
+    public int getIlluminace() {
+        return illuminace;
     }
 
-    public void setLux(int lux) {
-        this.lux = lux;
+    public void setIlluminace(int illuminace) {
+        this.illuminace = illuminace;
     }
 
     public int getHorizontalAngle() {

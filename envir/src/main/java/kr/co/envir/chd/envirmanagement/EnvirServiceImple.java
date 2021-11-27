@@ -31,7 +31,7 @@ public class EnvirServiceImple implements EnvirService{
     //송신
     public void sendEnvirInfo(EnvirInfo envirInfo){
         StringBuffer urlBuffer = new StringBuffer(ENVIR_SERVICE_URL);
-        urlBuffer.append("?" + URLEncoder.encode("lux", StandardCharsets.UTF_8) + envirInfo.getLux());
+        urlBuffer.append("?" + URLEncoder.encode("illuminance", StandardCharsets.UTF_8) + envirInfo.getIluuminance());
         urlBuffer.append("&" + URLEncoder.encode("horizontalAngle", StandardCharsets.UTF_8) + "=" + envirInfo.getHorizontalAngle());
         urlBuffer.append("&" + URLEncoder.encode("verticalAngle", StandardCharsets.UTF_8) + "=" + envirInfo.getVerticalAngle());
 

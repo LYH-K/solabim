@@ -24,4 +24,16 @@ public class FacilityController {
         msg.put("mssage", "OK");
         return msg;
     }
+
+    @GetMapping("/tt")
+    public String te() {
+        facilityService.analysisCrop();
+        return "/jsp/test.jsp";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        facilityService.analysisCrop();
+        return "test";
+    }
 }

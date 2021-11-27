@@ -18,18 +18,7 @@
     <mvc:default-servlet-handler/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/chd/" />
+        <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp"/>
     </bean>
-
-    <!--
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/chd/login"/>
-            <bean class="kr.co.chd.system.access.AccessServiceImp"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
-    -->
-    
 </beans>

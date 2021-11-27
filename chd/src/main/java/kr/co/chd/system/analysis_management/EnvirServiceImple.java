@@ -34,7 +34,7 @@ public class EnvirServiceImple implements EnvirService{
             StringBuffer json = new StringBuffer();
             json.append("{");
             json.append("\"envirNo\" : " + envirInfo.getEnvirNo());
-            json.append("\"lux\" : " + envirInfo.getLux());
+            json.append("\"illuminace\" : " + envirInfo.getIlluminace());
             json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
             json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
             json.append("\"resetSignal\" : " + envirInfo.isResetSignal());
