@@ -3,11 +3,11 @@ package kr.co.chd.system.analysis_management;
 import java.io.Serializable;
 
 public class EnvirInfo implements Serializable {
-    int envirNo;
-    int lux;
-    int verticalAngle;
-    int horizontalAngle;
-    boolean resetSignal;
+    private int envirNo;
+    private int illuminace;
+    private int verticalAngle;
+    private int horizontalAngle;
+    private boolean resetSignal;
 
     public EnvirInfo(){
     }
@@ -20,12 +20,12 @@ public class EnvirInfo implements Serializable {
         this.envirNo = envirNo;
     }
 
-    public int getLux() {
-        return lux;
+    public int getIlluminace() {
+        return illuminace;
     }
 
-    public void setLux(int lux) {
-        this.lux = lux;
+    public void setIlluminace(int illuminace) {
+        this.illuminace = illuminace;
     }
 
     public int getVerticalAngle() {

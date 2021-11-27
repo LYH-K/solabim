@@ -1,5 +1,6 @@
 package kr.co.envir.chd.publicdata;
 
+import kr.co.envir.chd.envirmanagement.SunTimeInfo;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -17,19 +18,18 @@ public class SunTimeUtile {
 
     public static void main(String[] args) throws Exception{
         LocalDateTime localDateTime = LocalDateTime.now();
-        boolean result = SunTimeUtile.resetSignal(localDateTime);
-        System.out.println(result);
-        LocalTime[] localTimes = SunTimeUtile.isRunMeasuremen(localDateTime);
-        for(int i = 0; i < localTimes.length; i++){
-            System.out.println(localTimes[i]);
-        }
+        boolean resetSignal = SunTimeUtile.resetSignal(localDateTime);
+        System.out.println(resetSignal);
+        SunTimeInfo sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDateTime);
+        System.out.println(sunTimeInfo.getSunSet());
+        System.out.println(sunTimeInfo.getSunRise());
     }
 
     //위치 변경 신호
     public static boolean resetSignal(LocalDateTime localDateTime) throws Exception {
         LocalTime time = LocalTime.of(localDateTime.getHour(), localDateTime.getMinute());
 
-        LocalTime[] measuremen = isRunMeasuremen(localDateTime);
+        SunTimeInfo measuremen = isRunMeasuremen(localDateTime);
 
         result = dayTime(time,measuremen);
 
@@ -37,7 +37,7 @@ public class SunTimeUtile {
     }
 
     //태양광 측정명령
-    public static LocalTime[] isRunMeasuremen(LocalDateTime localDateTime)
+    public static SunTimeInfo isRunMeasuremen(LocalDateTime localDateTime)
             throws Exception {
         localDateTime = LocalDateTime.now();
 
@@ -57,7 +57,7 @@ public class SunTimeUtile {
                 .addHeader("Content-type", "application/json")
                 .build();
 
-        LocalTime[] sun = null;
+        SunTimeInfo sun = null;
         try (Response response = client.newCall(request).execute()) {
             if (response.code() == 200) {
                 String xml = response.body().string();
@@ -71,7 +71,7 @@ public class SunTimeUtile {
     }
 
     //공공 데이터 xml문자열 파싱
-    private static LocalTime[] sunRiseAndSet(String xml){
+    private static SunTimeInfo sunRiseAndSet(String xml){
         LocalTime sunriseTime = null;
         LocalTime sunsetTime = null;
         String[] sbs = xml.split("<");
@@ -94,15 +94,17 @@ public class SunTimeUtile {
             }
         }
 
-        LocalTime[] sun = {sunriseTime, sunsetTime};
+        SunTimeInfo sun = new SunTimeInfo();
+        sun.setSunRise(sunriseTime);
+        sun.setSunSet(sunsetTime);
 
         return sun;
     }
 
     //낮시간 판단
-    private static boolean dayTime(LocalTime time, LocalTime[] sun) {
+    private static boolean dayTime(LocalTime time, SunTimeInfo sun) {
         //현재시간이 일출시간이후인가? 그리고 현재시간이  일몰시간 이후 인가?
-        if(time.isAfter(sun[0]) && time.isBefore(sun[1])){
+        if(time.isAfter(sun.getSunRise()) && time.isBefore(sun.getSunSet())){
             return true;
         }
         return false;

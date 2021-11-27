@@ -1,37 +1,37 @@
 package kr.co.envir.chd.envirmanagement;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalTime;
 
-public class EnvirServiceImple implements EnvirService {
+public class EnvirServiceImple implements EnvirService{
     private final static String ENVIR_SERVICE_URL = "http://192.168.137.1/chd/envir";
-    private static LocalTime localTime;
 
-//    static{
-//        int start = 0;
-//
-//
-//
-//        int end = 1;
-//    }
+    public static void main(String[] args) throws Exception {
+        EnvirServiceImple envirServiceImple = new EnvirServiceImple();
+        envirServiceImple.sendEnvirInfo();
+    }
 
     @Override
     public EnvirInfo measureEnvir() throws Exception{
-        EnvirInfo envirInfo = new MeasureEnvirUtil().measureEnvirUtile();
-        return envirInfo;
+//        EnvirInfo envirInfo = new MeasureEnvirUtil().measureEnvirUtile();
+//        return envirInfo;
+        return new EnvirInfo();
     }
 
     @Override
     public void sendEnvirInfo() throws Exception {
-        EnvirInfo envirInfo = measureEnvir();
-
+//        EnvirInfo envirInfo = measureEnvir();
+//        sendEnvirInfo(envirInfo);
+        sendEnvirInfo(new EnvirInfo());
+    }
+    
+    //송신
+    public void sendEnvirInfo(EnvirInfo envirInfo){
         StringBuffer urlBuffer = new StringBuffer(ENVIR_SERVICE_URL);
-        urlBuffer.append("?" + URLEncoder.encode("lux", StandardCharsets.UTF_8) + envirInfo.getLux());
+        urlBuffer.append("?" + URLEncoder.encode("illuminance", StandardCharsets.UTF_8) + envirInfo.getIluuminance());
         urlBuffer.append("&" + URLEncoder.encode("horizontalAngle", StandardCharsets.UTF_8) + "=" + envirInfo.getHorizontalAngle());
         urlBuffer.append("&" + URLEncoder.encode("verticalAngle", StandardCharsets.UTF_8) + "=" + envirInfo.getVerticalAngle());
 
@@ -41,33 +41,17 @@ public class EnvirServiceImple implements EnvirService {
                 .addHeader("Content-type", "application/json")
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.code() != 200) {
-                sendEnvirInfo();
+        client.newCall(request).enqueue(new Callback() {
+            //비동기 처리를 위해 Callback 구현
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("error + Connect Server Error is " + e.toString());
             }
-        }
-    }
 
-    //실행 명령
-//    public static boolean RunCommand(){
-//        LocalDateTime localDateTime = LocalDateTime.now();
-//        boolean result = false;
-//        LocalTime[] localTimes;
-//        try {
-//            result = new SunTimeUtile().resetSignal(localDateTime);
-//
-//            if(result){
-//                localTimes = new SunTimeUtile().isRunMeasuremen(localDateTime);
-//                localTime = LocalTime.of(localTimes[0].getHour(), localTimes[0].getMinute(), 00);
-//                if(localTimes[0].equals(localTime)){
-//
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return false;
-//    }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("Response Body is " + response.body().string());
+            }
+        });
+    }
 }
