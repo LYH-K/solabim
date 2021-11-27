@@ -3,9 +3,9 @@ package kr.co.chd.system.analysis_management;
 import java.io.Serializable;
 
 public class CropAverage implements Serializable {
-    String date;
-    int growthAvg;
-    int illuminaceAvg;
+    private String date;
+    private int growthAvg;
+    private int illuminanceAvg;
 
     public CropAverage() {
     }
@@ -26,11 +26,11 @@ public class CropAverage implements Serializable {
         this.growthAvg = growthAvg;
     }
 
-    public int getIlluminaceAvg() {
-        return illuminaceAvg;
+    public int getilluminanceAvg() {
+        return illuminanceAvg;
     }
 
-    public void setIlluminaceAvg(int illuminaceAvg) {
-        this.illuminaceAvg = illuminaceAvg;
+    public void setilluminanceAvg(int illuminanceAvg) {
+        this.illuminanceAvg = illuminanceAvg;
     }
 }

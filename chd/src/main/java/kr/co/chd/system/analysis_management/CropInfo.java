@@ -3,13 +3,14 @@ package kr.co.chd.system.analysis_management;
 import java.io.Serializable;
 
 public class CropInfo implements Serializable {
-    String date;
-    int growth;
-    int illuminace;
-    int horizontalAngle;
-    int verticalAngle;
-    String horizontalImage;
-    String verticalImage;
+    private String date;
+    private String time;
+    private int growth;
+    private int illuminance;
+    private int horizontalAngle;
+    private int verticalAngle;
+    private String cropSideImageURL;
+    private String cropVerticalImageURL;
 
     public CropInfo(){
     }
@@ -22,6 +23,14 @@ public class CropInfo implements Serializable {
         this.date = date;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public int getGrowth() {
         return growth;
     }
@@ -30,12 +39,28 @@ public class CropInfo implements Serializable {
         this.growth = growth;
     }
 
-    public int getIlluminace() {
-        return illuminace;
+    public int getilluminance() {
+        return illuminance;
     }
 
-    public void setIlluminace(int illuminace) {
-        this.illuminace = illuminace;
+    public void setilluminance(int illuminance) {
+        this.illuminance = illuminance;
+    }
+
+    public String getCropSideImageURL() {
+        return cropSideImageURL;
+    }
+
+    public void setCropSideImageURL(String cropSideImageURL) {
+        this.cropSideImageURL = cropSideImageURL;
+    }
+
+    public String getCropVerticalImageURL() {
+        return cropVerticalImageURL;
+    }
+
+    public void setCropVerticalImageURL(String cropVerticalImageURL) {
+        this.cropVerticalImageURL = cropVerticalImageURL;
     }
 
     public int getHorizontalAngle() {
@@ -52,21 +77,5 @@ public class CropInfo implements Serializable {
 
     public void setVerticalAngle(int verticalAngle) {
         this.verticalAngle = verticalAngle;
-    }
-
-    public String getHorizontalImage() {
-        return horizontalImage;
-    }
-
-    public void setHorizontalImage(String horizontalImage) {
-        this.horizontalImage = horizontalImage;
-    }
-
-    public String getVerticalImage() {
-        return verticalImage;
-    }
-
-    public void setVerticalImage(String verticalImage) {
-        this.verticalImage = verticalImage;
     }
 }

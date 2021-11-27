@@ -3,26 +3,12 @@ package kr.co.chd.system.analysis_management;
 import java.io.Serializable;
 
 public class CropAnalysis implements Serializable {
-    String date;
-    int analysisNo;
-    int growth;
-    String verticalImage;
-    String horizontalImage;
+    private int growth;
+    private String cropSideImageURL;
+    private String cropVerticalImageURL;
 
-    public String getDate() {
-        return date;
-    }
+    public CropAnalysis() {
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getAnalysisNo() {
-        return analysisNo;
-    }
-
-    public void setAnalysisNo(int analysisNo) {
-        this.analysisNo = analysisNo;
     }
 
     public int getGrowth() {
@@ -33,22 +19,19 @@ public class CropAnalysis implements Serializable {
         this.growth = growth;
     }
 
-    public CropAnalysis() {
+    public String getCropSideImageURL() {
+        return cropSideImageURL;
     }
 
-    public String getVerticalImage() {
-        return verticalImage;
+    public void setCropSideImageURL(String cropSideImageURL) {
+        this.cropSideImageURL = cropSideImageURL;
     }
 
-    public void setVerticalImage(String verticalImage) {
-        this.verticalImage = verticalImage;
+    public String getCropVerticalImageURL() {
+        return cropVerticalImageURL;
     }
 
-    public String getHorizontalImage() {
-        return horizontalImage;
-    }
-
-    public void setHorizontalImage(String horizontalImage) {
-        this.horizontalImage = horizontalImage;
+    public void setCropVerticalImageURL(String cropVerticalImageURL) {
+        this.cropVerticalImageURL = cropVerticalImageURL;
     }
 }
