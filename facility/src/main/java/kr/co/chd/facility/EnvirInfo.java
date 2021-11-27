@@ -3,8 +3,9 @@ package kr.co.chd.facility;
 import java.io.Serializable;
 
 public class EnvirInfo implements Serializable {
-    int horizonAngle;
-    int verticalAngle;
+    private int horizonAngle;
+    private int verticalAngle;
+    private boolean resetSignal;
 
     public EnvirInfo() {
     }
@@ -23,5 +24,13 @@ public class EnvirInfo implements Serializable {
 
     public void setVerticalAngle(int verticalAngle) {
         this.verticalAngle = verticalAngle;
+    }
+
+    public boolean isResetSignal() {
+        return resetSignal;
+    }
+
+    public void setResetSignal(boolean resetSignal) {
+        this.resetSignal = resetSignal;
     }
 }
