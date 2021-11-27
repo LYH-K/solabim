@@ -16,7 +16,7 @@ public class EnvirServiceImple implements EnvirService{
 
     @Override
     public void receiveEnvirInfo(EnvirInfo envirInfo) {
-        addEnvirInfo(envirInfo);
+//        addEnvirInfo(envirInfo);
         sendEnvirInfo (envirInfo);
     }
 
@@ -24,34 +24,36 @@ public class EnvirServiceImple implements EnvirService{
     public void addEnvirInfo(EnvirInfo envirInfo) {
         sqlSessionTemplate.insert("kr.co.chd.system.analysis_management.EnvirMapper.insert", envirInfo);
     }
-    
+
+    public static void main(String[] args) {
+        EnvirServiceImple envirServiceImple = new EnvirServiceImple();
+        envirServiceImple.sendEnvirInfo(new EnvirInfo());
+    }
+
     //농작물 환경 정보 송신
     public void sendEnvirInfo (EnvirInfo envirInfo) {
         try {
             OkHttpClient client = new OkHttpClient();
-            String strURL = "http://localhost/chd/analysis/control";
+            String strURL = "http://10.20.30.9/chd/analysis/control";
 
             StringBuffer json = new StringBuffer();
             json.append("{");
-            json.append("\"envirNo\" : " + envirInfo.getEnvirNo());
-            json.append("\"illuminace\" : " + envirInfo.getIlluminace());
+            json.append("\"illuminace\" : " + envirInfo.getIlluminance());
             json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
             json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
             json.append("\"resetSignal\" : " + envirInfo.isResetSignal());
             json.append("}");
 
             String strBody = json.toString();
-
             RequestBody requestBody =
                     RequestBody.create(
                             MediaType.parse(
                                     "application/json; charset=utf-8"), strBody);
 
             Request.Builder builder = new Request.Builder()
+                    .addHeader("Content-type", "application/json")
                     .url(strURL)
                     .post(requestBody);
-
-            builder.addHeader("Content-type", "application/json");
 
             Request request = builder.build();
 
@@ -64,8 +66,6 @@ public class EnvirServiceImple implements EnvirService{
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                     System.out.println(response.body());
-                    System.out.println("not");
-
                     if (response.body() != null) {
                         System.out.println(response.body().string());
                     }

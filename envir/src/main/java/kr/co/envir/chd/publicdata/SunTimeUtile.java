@@ -7,6 +7,7 @@ import okhttp3.Response;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -17,33 +18,26 @@ public class SunTimeUtile {
     private static boolean result = true;
 
     public static void main(String[] args) throws Exception{
-        LocalDateTime localDateTime = LocalDateTime.now();
-        boolean resetSignal = SunTimeUtile.resetSignal(localDateTime);
-        System.out.println(resetSignal);
-        SunTimeInfo sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDateTime);
-        System.out.println(sunTimeInfo.getSunSet());
-        System.out.println(sunTimeInfo.getSunRise());
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        boolean resetSignal = SunTimeUtile.resetSignal(localDateTime);
+//        System.out.println(resetSignal);
+//        SunTimeInfo sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDateTime);
+//        System.out.println(sunTimeInfo.getSunSet());
+//        System.out.println(sunTimeInfo.getSunRise());
     }
 
     //위치 변경 신호
-    public static boolean resetSignal(LocalDateTime localDateTime) throws Exception {
-        LocalTime time = LocalTime.of(localDateTime.getHour(), localDateTime.getMinute());
-
-        SunTimeInfo measuremen = isRunMeasuremen(localDateTime);
-
-        result = dayTime(time,measuremen);
-
+    public static boolean resetSignal(LocalTime localTime, SunTimeInfo sunTimeInfo) throws Exception {
+        boolean result = dayTime(localTime,sunTimeInfo);
         return result;
     }
 
     //태양광 측정명령
-    public static SunTimeInfo isRunMeasuremen(LocalDateTime localDateTime)
+    public static SunTimeInfo isRunMeasuremen(LocalDate localDate)
             throws Exception {
-        localDateTime = LocalDateTime.now();
+        localDate = LocalDate.now();
 
-        String currentDate = String.valueOf(localDateTime.getYear())
-                + localDateTime.getMonthValue()
-                + localDateTime.getDayOfMonth();
+        String currentDate = localDate.toString();
 
         StringBuffer urlBuffer = new StringBuffer(WEATHER_SERVICE_URL);
         urlBuffer.append("?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + SERVICE_KEY);
@@ -63,7 +57,7 @@ public class SunTimeUtile {
                 String xml = response.body().string();
                 sun = sunRiseAndSet(xml);
             }else {
-                return isRunMeasuremen(localDateTime);
+                return isRunMeasuremen(localDate);
             }
         }
 

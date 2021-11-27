@@ -1,7 +1,10 @@
 package kr.co.chd.system.access;
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
+@Component
 public class Manager implements Serializable {
     private String id;
     private String password;
