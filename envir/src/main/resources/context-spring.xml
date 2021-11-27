@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        ">
 
-    <context:component-scan base-package="kr.co.envir."/>
+    <context:component-scan base-package="kr.co.envir.chd"/>
 
     <mvc:annotation-driven />
 
