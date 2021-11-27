@@ -3,13 +3,14 @@ package kr.co.chd.system.analysis_management;
 import java.io.Serializable;
 
 public class CropInfo implements Serializable {
-    String date;
-    int growth;
-    int lux;
-    int horizontalAngle;
-    int verticalAngle;
-    String horizontalImage;
-    String verticalImage;
+    private String date;
+    private String time;
+    private int growth;
+    private int lux;
+    private int horizontalAngle;
+    private int verticalAngle;
+    private String cropSideImageURL;
+    private String cropVerticalImageURL;
 
     public CropInfo(){
     }
@@ -20,6 +21,14 @@ public class CropInfo implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public int getGrowth() {
@@ -38,6 +47,22 @@ public class CropInfo implements Serializable {
         this.lux = lux;
     }
 
+    public String getCropSideImageURL() {
+        return cropSideImageURL;
+    }
+
+    public void setCropSideImageURL(String cropSideImageURL) {
+        this.cropSideImageURL = cropSideImageURL;
+    }
+
+    public String getCropVerticalImageURL() {
+        return cropVerticalImageURL;
+    }
+
+    public void setCropVerticalImageURL(String cropVerticalImageURL) {
+        this.cropVerticalImageURL = cropVerticalImageURL;
+    }
+
     public int getHorizontalAngle() {
         return horizontalAngle;
     }
@@ -52,21 +77,5 @@ public class CropInfo implements Serializable {
 
     public void setVerticalAngle(int verticalAngle) {
         this.verticalAngle = verticalAngle;
-    }
-
-    public String getHorizontalImage() {
-        return horizontalImage;
-    }
-
-    public void setHorizontalImage(String horizontalImage) {
-        this.horizontalImage = horizontalImage;
-    }
-
-    public String getVerticalImage() {
-        return verticalImage;
-    }
-
-    public void setVerticalImage(String verticalImage) {
-        this.verticalImage = verticalImage;
     }
 }

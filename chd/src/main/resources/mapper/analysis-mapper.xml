@@ -4,8 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.chd.system.analysis_management.AnalysisMapper">
-    <insert id = "insert" parameterType="kr.co.chd.system.analysis_management.EnvirInfo">
+    <insert id = "insert" parameterType="kr.co.chd.system.analysis_management.CropAnalysis">
         INSERT INTO CROP_ANALYSIS_INFO
-        VALUES(NULL,sysdate(),#{},'CROP_SIDE_IMAGE1','CROP_VERTICAL_IMAGE2');
+            (GROWTH,CROP_SIDE_IMAGE,CROP_VERTICAL_IMAGE)
+        VALUES(#{growth},#{cropSideImageURL},#{cropVerticalImageURL});
     </insert>
+
+    <select id = "selectByDate" resultType="kr.co.chd.system.analysis_management.CropAverage">
+        SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date ,ROUND(AVG(ENVIR.ILLUMINANCE),1) AS luxAvg, (ANALYSIS.GROWTH) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
+        WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
+        GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D');
+    </select>
+
+    <select id = "selectByTime" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropInfo">
+        SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%m/%d') AS date, DATE_FORMAT(ENVIR.DATE_TIME,'%H:%i') AS time, ENVIR.ILLUMINANCE AS lux, ENVIR.HORIZONTAL_ANGLE AS horizontalAngle, ENVIR.VERTICAL_ANGLE AS verticalAngle,
+        ANALYSIS.GROWTH AS growth, ANALYSIS.CROP_SIDE_IMAGE AS cropSideImageURL , ANALYSIS.CROP_VERTICAL_IMAGE AS cropVerticalImageURL
+        FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
+        WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
+        GROUP BY DATE_FORMAT(#{date},'%H:%i')
+    </select>
+
 </mapper>
