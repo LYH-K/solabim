@@ -9,114 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b57c477-840d-4215-b2c1-1921576ac034" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/AnalysisServiceImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1b57c477-840d-4215-b2c1-1921576ac034" name="Changes" comment="농작물 분석 정보 등록, 목록 조회, 정보 조회 업데이트">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/access/AccessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/access/AccessController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/access/AccessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/access/AccessService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/AnalysisMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/AnalysisMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/AnalysisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/AnalysisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropAnalysis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropAverage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropAverage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/CropInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/chd/system/analysis_management/SystemController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/analysis-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/analysis-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/envir-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/envir-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/spring/context-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring/context-spring.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/access/AccessController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/access/AccessService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/access/AccessServiceImp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/access/Manager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/access/ManagerMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/AnalysisMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/AnalysisService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/CropAnalysis.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/CropAverage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/CropInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/EnvirInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/EnvirMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/EnvirService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/FacilityService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/kr/co/chd/system/analysis_management/SystemController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/mapper/access-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/mapper/analysis-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/mapper/envir-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/spring/context-mybatis.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/spring/context-spring.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/classes/spring/database.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/jsp/chd/list.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/jsp/chd/login.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/annotations-13.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/aopalliance-1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/asm-9.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/aspectjweaver-1.8.14.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/cglib-3.3.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/ecj-3.18.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/jackson-annotations-2.12.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/jackson-core-2.12.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/jackson-core-asl-1.9.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/jackson-databind-2.12.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/jackson-mapper-asl-1.9.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/javax.servlet-api-4.0.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/javax.servlet.jsp-api-2.3.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/jstl-1.2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/kotlin-stdlib-1.3.70.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/kotlin-stdlib-common-1.3.61.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/log4j-api-2.14.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/log4j-core-2.14.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/mybatis-3.4.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/mybatis-spring-2.0.6.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/mysql-connector-java-8.0.16.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/ojdbc8-21.3.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/okhttp-4.5.0-RC1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/okio-2.4.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/protobuf-java-3.6.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-aop-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-beans-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-context-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-core-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-expression-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-jcl-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-jdbc-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-tx-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-web-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/spring-webmvc-5.2.18.RELEASE.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/tomcat-annotations-api-10.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/tomcat-dbcp-10.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/tomcat-embed-core-10.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/tomcat-embed-el-10.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/tomcat-embed-jasper-10.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/lib/tomcat-juli-10.0.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/chd-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/access/AccessController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/access/AccessService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/access/AccessServiceImp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/access/Manager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/access/ManagerMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/AnalysisMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/AnalysisService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/CropAnalysis.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/CropAverage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/CropInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/EnvirInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/EnvirMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/EnvirService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/FacilityService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kr/co/chd/system/analysis_management/SystemController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/access-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/analysis-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/envir-mapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring/context-mybatis.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring/context-spring.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/spring/database.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facility/out/artifacts/ROOT/ROOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/../facility/out/artifacts/ROOT/ROOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facility/src/main/java/kr/co/chd/facility/EnvirInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facility/src/main/java/kr/co/chd/facility/EnvirInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facility/src/main/java/kr/co/chd/facility/FacilityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facility/src/main/java/kr/co/chd/facility/FacilityController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +169,7 @@
       <workItem from="1637717028422" duration="6691000" />
       <workItem from="1637738776807" duration="22279000" />
       <workItem from="1637912207849" duration="1440000" />
-      <workItem from="1637914809228" duration="19463000" />
+      <workItem from="1637914809228" duration="20613000" />
     </task>
     <task id="LOCAL-00001" summary="login, logout update">
       <created>1637749713052</created>
@@ -304,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637914648157</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="농작물 분석 정보 등록, 목록 조회, 정보 조회 업데이트">
+      <created>1637981812060</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1637981812060</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,6 +227,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="login, logout update" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="농작물 분석 정보 등록, 목록 조회, 정보 조회 업데이트" />
+    <option name="LAST_COMMIT_MESSAGE" value="농작물 분석 정보 등록, 목록 조회, 정보 조회 업데이트" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/chd$Tomcat_8_5_70.ic" NAME="Tomcat 8.5.70 Coverage Results" MODIFIED="1637984113794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
