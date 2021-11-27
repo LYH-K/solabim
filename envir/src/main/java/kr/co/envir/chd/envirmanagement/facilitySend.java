@@ -1,10 +1,10 @@
-package kr.co.envir.chd.publicdata;
+package kr.co.envir.chd.envirmanagement;
 
 import okhttp3.*;
 
 import java.io.IOException;
 
-public class EnvirServiceImple {
+public class facilitySend {
 	public void get() {
 		String url = "http://localhost/chd/analysis/control";
 

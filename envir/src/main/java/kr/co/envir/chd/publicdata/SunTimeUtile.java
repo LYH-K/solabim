@@ -1,6 +1,5 @@
 package kr.co.envir.chd.publicdata;
 
-import kr.co.envir.chd.envirmanagement.EnvirInfo;
 import kr.co.envir.chd.envirmanagement.SunTimeInfo;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -19,15 +18,12 @@ public class SunTimeUtile {
 
     public static void main(String[] args) throws Exception{
         LocalDateTime localDateTime = LocalDateTime.now();
-        boolean afternoon = SunTimeUtile.resetSignal(localDateTime);
-        SunTimeInfo localTimes = SunTimeUtile.isRunMeasuremen(localDateTime);
-
-        System.out.println(afternoon);
-        System.out.println(localTimes.getSunRise());
-        System.out.println(localTimes.getSunSet());
+        boolean resetSignal = SunTimeUtile.resetSignal(localDateTime);
+        System.out.println(resetSignal);
+        SunTimeInfo sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDateTime);
+        System.out.println(sunTimeInfo.getSunSet());
+        System.out.println(sunTimeInfo.getSunRise());
     }
-
-
 
     //위치 변경 신호
     public static boolean resetSignal(LocalDateTime localDateTime) throws Exception {
@@ -40,7 +36,7 @@ public class SunTimeUtile {
         return result;
     }
 
-    //태양광 측정
+    //태양광 측정명령
     public static SunTimeInfo isRunMeasuremen(LocalDateTime localDateTime)
             throws Exception {
         localDateTime = LocalDateTime.now();

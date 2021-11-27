@@ -1,13 +1,12 @@
 package kr.co.envir.chd.envirmanagement;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 
-public class SunTimeInfo implements Serializable {
+public class SunTimeInfo {
     private LocalTime sunRise;
     private LocalTime sunSet;
 
-    public SunTimeInfo () {
+    public SunTimeInfo(){
 
     }
 
