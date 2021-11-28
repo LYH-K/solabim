@@ -19,10 +19,11 @@
                 <th width="120" align="center">출하 예측 일자</th>
             </tr>
             <tr>
-                <td width="120" align="center">${list[list.size()-1].date}</td>
-                <td width="120" align="center">${list[list.size()-1].illuminanceAvg}</td>
-                <td width="120" align="center">${list[list.size()-1].growthAvg}</td>
-                <td width="120" align="center">출하 예측 일자</td>
+                <td width="120" align="center"><a href='/chd/view/?date=${list.get(list.size()-1).date}'>
+                ${list.get(list.size()-1).date}</a></td>
+                <td width="120" align="center">${list.get(list.size()-1).illuminanceAvg}</td>
+                <td width="120" align="center">${list.get(list.size()-1).growthAvg}</td>
+                <td width="120" align="center">${predictHarvest}</td>
             </tr>
         </table>
 
@@ -39,7 +40,11 @@
 
         <div id="table" align="center"></div>
 
+
+
         <script>
+            <%--var list = '${list}';--%>
+
             function sendData() {
                 xmlRequest = new XMLHttpRequest();
 
@@ -64,7 +69,7 @@
 
                 var tag = "<table border='2'>"
                     + "<tr><th>NO</th><th>날짜</th><th>조도 평균(Lux)</th><th>생장률 평균(%)</th></tr>"
-                for (var i = 0; i < json.length; i++) {
+                for (var i = json.length-1; i >=0; i--) {
                     tag +=
                         "<tr>" +"<td align = center>"+(i+1)+"</td>"
                         + "<td align = center><a href='/chd/view/?date=" + json[i].date + "'>"

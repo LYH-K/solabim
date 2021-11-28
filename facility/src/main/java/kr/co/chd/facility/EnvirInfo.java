@@ -3,19 +3,19 @@ package kr.co.chd.facility;
 import java.io.Serializable;
 
 public class EnvirInfo implements Serializable {
-    private int horizonAngle;
+    private int horizontalAngle;
     private int verticalAngle;
     private boolean resetSignal;
 
     public EnvirInfo() {
     }
 
-    public int getHorizonAngle() {
-        return horizonAngle;
+    public int getHorizontalAngle() {
+        return horizontalAngle;
     }
 
-    public void setHorizonAngle(int horizonAngle) {
-        this.horizonAngle = horizonAngle;
+    public void setHorizontalAngle(int horizontalAngle) {
+        this.horizontalAngle = horizontalAngle;
     }
 
     public int getVerticalAngle() {

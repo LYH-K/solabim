@@ -26,20 +26,20 @@
             </th>
         </tr>
         <tr>
-            <th width="120">시간</th>
-            <th width="120">생장률</th>
-            <th width="120">조도</th>
-            <th width="120">세로축 각도</th>
-            <th width="120">가로축 각도</th>
+            <th width="120" align="center">시간</th>
+            <th width="120" align="center">생장률</th>
+            <th width="120" align="center">조도</th>
+            <th width="120" align="center">세로축 각도</th>
+            <th width="120" align="center">가로축 각도</th>
         </tr>
 
         <c:forEach items="${list}" var="list">
             <tr>
-                <td width="120">${list.time}</td>
-                <td width="120">${list.growth}</td>
-                <td width="120">${list.illuminance}</td>
-                <td width="120">${list.horizontalAngle}</td>
-                <td width="120">${list.verticalAngle}</td>
+                <td width="120" align="center">${list.time}</td>
+                <td width="120" align="center">${list.growth}</td>
+                <td width="120" align="center">${list.illuminance}</td>
+                <td width="120" align="center">${list.horizontalAngle}</td>
+                <td width="120" align="center">${list.verticalAngle}</td>
             </tr>
         </c:forEach>
     </table>
