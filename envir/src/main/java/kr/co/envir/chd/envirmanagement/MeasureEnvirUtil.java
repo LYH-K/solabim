@@ -40,7 +40,7 @@ public class MeasureEnvirUtil {
 //
 //        EnvirInfo[] horizontalEnvirInfo = new EnvirInfo[5];
 //        for(int i = 1; i < 5; i++) {
-//            int illuminance = measureEnvirUtil.horizontalAngle(horizontalmotor);
+//            int illuminance = measureEnvirUtil.cron (horizontalmotor);
 //            horizontalEnvirInfo[i-1].setIlluminace(illuminance);
 //        }
 //
