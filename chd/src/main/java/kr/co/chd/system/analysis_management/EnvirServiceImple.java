@@ -16,7 +16,7 @@ public class EnvirServiceImple implements EnvirService{
 
     @Override
     public void receiveEnvirInfo(EnvirInfo envirInfo) {
-//        addEnvirInfo(envirInfo);
+        addEnvirInfo(envirInfo);
         sendEnvirInfo (envirInfo);
     }
 
