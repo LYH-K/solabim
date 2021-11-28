@@ -5,7 +5,8 @@ import com.pi4j.io.gpio.*;
 
 public class MeasureEnvirUtil {
     public static void main(String[] args) throws InterruptedException {
-        new MeasureEnvirUtil().measure();
+        MeasureEnvirUtil measureEnvirUtil = new MeasureEnvirUtil();
+        measureEnvirUtil.measure();
     }
 
     public EnvirInfo measure() throws InterruptedException {
@@ -52,17 +53,13 @@ public class MeasureEnvirUtil {
         //최대 각도로 돌아가기
         maxVerticalMotor(envirInfo.getVerticalAngle(), verticalMotor);
 
-
         horizontalMotor(horizontalMotor);
 
          envirInfo = maxHorizontalMotor(horizontalMotor);
          envirInfo.setVerticalAngle(verticalAngle);
 
-        //각도 초기화
-//        int verticalMaxAngle = 0;
-//        int horizontalMaxAngle = 0;
-//        verticalreset(verticalMaxAngle,verticalMotor);
-//        horizontalreset(horizontalMaxAngle, horizontalMotor);
+        verticalreset(envirInfo.getVerticalAngle(),verticalMotor);
+        horizontalreset(envirInfo.getHorizontalAngle(), horizontalMotor);
 
         verticalMotor.stop();
         horizontalMotor.stop();
@@ -90,6 +87,11 @@ public class MeasureEnvirUtil {
                 angle = envirInfos[i].getVerticalAngle();
             }
         }
+
+        if(angle > 60) {
+            angle = 60;
+        }
+
         return angle;
     }
 
@@ -135,6 +137,10 @@ public class MeasureEnvirUtil {
                 max = envirInfos[i].getIlluminance();
                 angle = envirInfos[i].getVerticalAngle();
             }
+        }
+
+        if(angle > 60) {
+            angle = 60;
         }
 
         EnvirInfo envirInfo = new EnvirInfo();
