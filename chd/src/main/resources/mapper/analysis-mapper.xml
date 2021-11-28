@@ -7,13 +7,23 @@
     <insert id = "insert" parameterType="kr.co.chd.system.analysis_management.CropAnalysis">
         INSERT INTO CROP_ANALYSIS_INFO
             (GROWTH,CROP_SIDE_IMAGE,CROP_VERTICAL_IMAGE)
-        VALUES(#{growth},#{cropSideImageURL},#{cropVerticalImageURL});
+        VALUES(#{growth},#{cropSideImageURL},#{cropVerticalImageURL})
     </insert>
 
-    <select id = "select" resultType="kr.co.chd.system.analysis_management.CropAverage">
+    <select id = "selectAll" resultType="kr.co.chd.system.analysis_management.CropAverage">
         SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date ,ROUND(AVG(ENVIR.ILLUMINANCE),1) AS illuminanceAvg, (ANALYSIS.GROWTH) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
-        GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D');
+        GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
+    </select>
+
+    <select id = "select" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropAverage">
+        SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date ,ROUND(AVG(ENVIR.ILLUMINANCE),1) AS illuminanceAvg, (ANALYSIS.GROWTH) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
+        WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
+        GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
+        <if test = "!value.equals('') and value != null">
+            HAVING date like '%${value}%'
+        </if>
+
     </select>
 
     <select id = "selectByDate" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropInfo">
@@ -21,7 +31,8 @@
         ANALYSIS.GROWTH AS growth, ANALYSIS.CROP_SIDE_IMAGE AS cropSideImageURL , ANALYSIS.CROP_VERTICAL_IMAGE AS cropVerticalImageURL
         FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
-        GROUP BY DATE_FORMAT(#{date},'%H:%i')
+        GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%H:%i')
+        HAVING date like '${value}'
     </select>
 
 </mapper>

@@ -15,7 +15,7 @@ public class FacilityController {
     private FacilityService facilityService;
 
     @PostMapping("/control")
-    public Map<String, String> receiveFacilityInfo(@RequestBody EnvirInfo envirInfo) throws InterruptedException {
+    public Map<String, String> receiveFacilityInfo(EnvirInfo envirInfo) throws InterruptedException {
         ModelAndView modelAndView = new ModelAndView("test"); //라즈비안에서 수신했는지 확인하기 위함 추후 void로 변경해야함.
 //      facilityService.controlFacility(envirInfo);
         System.out.println("don");

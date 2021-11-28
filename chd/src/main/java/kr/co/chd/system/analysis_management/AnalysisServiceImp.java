@@ -3,7 +3,9 @@ package kr.co.chd.system.analysis_management;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AnalysisServiceImp implements AnalysisService {
@@ -17,15 +19,22 @@ public class AnalysisServiceImp implements AnalysisService {
 
     @Override
     public List<CropAverage> searchCropList() {
-        List<CropAverage> cropAverages = analysisMapper.select();
+        List<CropAverage> cropAverageList = analysisMapper.selectAll();
 
-        for(CropAverage cropAnalysisInfo : cropAverages){
+        for(CropAverage cropAnalysisInfo : cropAverageList){
             System.out.println(cropAnalysisInfo.getDate());
             System.out.println(cropAnalysisInfo.getGrowthAvg());
             System.out.println(cropAnalysisInfo.getilluminanceAvg());
         }
 
-        return null;
+        return cropAverageList;
+    }
+
+    @Override
+    public List<CropAverage> searchCrop(String date) {
+        List<CropAverage> cropAverageList = analysisMapper.select(date);
+
+        return cropAverageList;
     }
 
     @Override
@@ -48,6 +57,6 @@ public class AnalysisServiceImp implements AnalysisService {
             System.out.println(cropInfo.getCropVerticalImageURL());
         }
 
-        return null;
+        return cropInfoList;
     }
 }
