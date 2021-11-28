@@ -20,35 +20,38 @@ public class AnalysisServiceImp implements AnalysisService {
     private int imageNo = 0; // 이미지 넘버 추가
     private String today = LocalDate.now().toString();//오늘 날짜
     private String path = "C:\\cropImage\\"+today;//수신한 이미지들을 저장할 폴더
-    private final String imageNoInfoPath = "spring/analysisno.properties";
-    private Properties imageNoInfo;
+    private final String propertiesPath = "spring/analysisno.properties";
+    private Properties imageNoProperties;
 
 
     //수신한 이미지의 생장률, 측면, 수직 이미지 url 등록
     @Override
     public void addCropAnalysis(CropAnalysis cropAnalysis) {
         try{
-            InputStream inputStream = Resources.getResourceAsStream(imageNoInfoPath);
-            imageNoInfo = new Properties();
-            imageNoInfo.load(inputStream);
-            imageNo = Integer.parseInt(imageNoInfo.getProperty("imageNo"));
+            InputStream inputStream = Resources.getResourceAsStream(propertiesPath);
+            imageNoProperties = new Properties();
+            imageNoProperties.load(inputStream);
+            imageNo = Integer.parseInt(imageNoProperties.getProperty("imageNo"));
+
+            System.out.println(imageNo);
+
+            cropAnalysis.setCropSideImageURL("cropSideImage"+imageNo+".jpg");
+            cropAnalysis.setCropVerticalImageURL("cropVerticleImage"+imageNo+".jpg");
+
+            imageNo++;
+            imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
+            OutputStream outputStream = new FileOutputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
+            imageNoProperties.store(outputStream,null);
+
             System.out.println(imageNo);
 
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        cropAnalysis.setCropSideImageURL("cropSideImage"+imageNo+".jpg");
-        cropAnalysis.setCropVerticalImageURL("cropVerticleImage"+imageNo+".jpg");
+        saveImage(cropAnalysis);
 
-//        imageNo++;
-//        imageNoInfo.setProperty("")
-//
-//        imageNoInfo.store();
-//
-//        saveImage(cropAnalysis);
-
-        //analysisMapper.insert(cropAnalysis);
+        analysisMapper.insert(cropAnalysis);
     }
     
     //수신한 이미지를 저장
