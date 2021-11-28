@@ -8,62 +8,84 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Service
 public class EnvirServiceImple implements EnvirService{
-    private static SunTimeInfo sunTimeInfo;
+    public static SunTimeInfo sunTimeInfo;
+    public static boolean resetSignal;
 
-    public static void main(String[] args) throws Exception {
-        EnvirServiceImple envirServiceImple = new EnvirServiceImple();
-        envirServiceImple.sendEnvirInfo();
+    static {
+        try {
+            sunTimeInfo = SunTimeUtile.isRunMeasuremen(LocalDate.now());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    //농작물 환경 정보 측정
     @Override
     public EnvirInfo measureEnvir() throws Exception{
 //        EnvirInfo envirInfo = new MeasureEnvirUtil().measureEnvirUtile();
+//        envirInfo.setResetSignal(resetSignal);
 //        return envirInfo;
         return new EnvirInfo();
     }
 
+    //송신 및 측정
+    @Override
+    @Scheduled(fixedDelay = 45000)
+    public void mesureSend() throws Exception {
+        if(resetSignal){
+            EnvirInfo envirInfo = measureEnvir();
+            envirInfo.setResetSignal(resetSignal);
+            sendEnvirInfo(envirInfo);
+        } else {
+            EnvirInfo envirInfo = new EnvirInfo();
+            envirInfo.setResetSignal(resetSignal);
+            sendEnvirInfo(envirInfo);
+        }
+    }
+
+    //현재시간 측정에 따른 업무
+    @Override
+    @Scheduled(fixedDelay = 3600000)
+    public void now() throws Exception {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    LocalDate localDate = LocalDate.now();
+                    LocalTime localTime = LocalTime.now();
+                    LocalTime midnight = LocalTime.of(0,1,0);
+                    if(localTime.equals(midnight)){
+                        sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDate);
+                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
+                        resetSignal = true;
+                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
+                        resetSignal = false;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public static void main(String[] args) throws Exception {
+        EnvirInfo envirInfo = new EnvirInfo();
+        new EnvirServiceImple().sendEnvirInfo(envirInfo);
+    }
+
     //송신 및 조도 및 각도 측정
     @Override
-    public void sendEnvirInfo() throws Exception {
-//        EnvirInfo envirInfo = measureEnvir();
-//        sendEnvirInfo(envirInfo);
-        sendEnvirInfo(new EnvirInfo());
-    }
-
-//    //1시간 30분마다 송신 및 조도 및 각도 측정
-//    @Scheduled(fixedDelay = 5400000)
-//    public void sch() throws Exception {
-//        sendEnvirInfo();
-//    }
-//
-//    //일출시에 시작
-////    @Scheduled(cron = "")
-//    public void start() throws Exception {
-//        sch();
-//    }
-//
-//    //일몰에 일시정지
-//    public void end() throws Exception {
-//
-//    }
-
-    //자정마다 일출 및 일몰시간 조회
-    @Scheduled(cron = "0 1 0 * *")
-    public void midnight() throws Exception {
-        SunTimeUtile sunTimeUtile = new SunTimeUtile();
-        LocalDate localDate = LocalDate.now();
-        sunTimeInfo = sunTimeUtile.isRunMeasuremen(localDate);
-    }
-
-    //송신
-    public void sendEnvirInfo(EnvirInfo envirInfo){
+    public void sendEnvirInfo(EnvirInfo envirInfo) throws Exception {
         try {
-
             OkHttpClient client = new OkHttpClient();
-            String strURL = "http://localhost/chd/envir";
+            String strURL = "http://192.168.0.127/chd/envir";
 
             StringBuffer json = new StringBuffer();
             json.append("{");

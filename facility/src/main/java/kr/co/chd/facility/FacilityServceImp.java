@@ -23,7 +23,7 @@ public class FacilityServceImp implements FacilityService{
         Thread thread = new Thread(new MotorMapper());
 
         int verticalAngle = envirInfo.getVerticalAngle();//세로축 각도
-        int horizontalAngle = envirInfo.getHorizonAngle();
+        int horizontalAngle = envirInfo.getHorizontalAngle();
 
         System.out.println("start motorController");
 

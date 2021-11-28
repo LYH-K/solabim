@@ -18,7 +18,7 @@ public class FacilityController {
     public Map<String, String> receiveFacilityInfo(EnvirInfo envirInfo) throws InterruptedException {
         ModelAndView modelAndView = new ModelAndView("test"); //라즈비안에서 수신했는지 확인하기 위함 추후 void로 변경해야함.
 //      facilityService.controlFacility(envirInfo);
-        System.out.println(envirInfo.getHorizonAngle());
+        System.out.println(envirInfo.getHorizontalAngle());
         Map<String, String> msg = new HashMap<String, String>();
         msg.put("code", "200");
         msg.put("message", "OK");

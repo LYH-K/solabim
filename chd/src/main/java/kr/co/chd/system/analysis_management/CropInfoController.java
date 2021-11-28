@@ -1,5 +1,6 @@
 package kr.co.chd.system.analysis_management;
 
+import jakarta.annotation.Resource;
 import org.apache.ibatis.javassist.bytecode.analysis.MultiType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

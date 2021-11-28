@@ -8,7 +8,6 @@ import okhttp3.Response;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class SunTimeUtile {
@@ -24,12 +23,6 @@ public class SunTimeUtile {
 //        SunTimeInfo sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDateTime);
 //        System.out.println(sunTimeInfo.getSunSet());
 //        System.out.println(sunTimeInfo.getSunRise());
-    }
-
-    //위치 변경 신호
-    public static boolean resetSignal(LocalTime localTime, SunTimeInfo sunTimeInfo) throws Exception {
-        boolean result = dayTime(localTime,sunTimeInfo);
-        return result;
     }
 
     //태양광 측정명령
@@ -60,7 +53,6 @@ public class SunTimeUtile {
                 return isRunMeasuremen(localDate);
             }
         }
-
         return sun;
     }
 
@@ -95,10 +87,9 @@ public class SunTimeUtile {
         return sun;
     }
 
-    //낮시간 판단
-    private static boolean dayTime(LocalTime time, SunTimeInfo sun) {
-        //현재시간이 일출시간이후인가? 그리고 현재시간이  일몰시간 이후 인가?
-        if(time.isAfter(sun.getSunRise()) && time.isBefore(sun.getSunSet())){
+    //위치 변경 신호
+    public static boolean resetSignal(LocalTime localTime, SunTimeInfo sunTimeInfo) throws Exception {
+        if(localTime.isAfter(sunTimeInfo.getSunRise()) && localTime.isBefore(sunTimeInfo.getSunSet())){
             return true;
         }
         return false;

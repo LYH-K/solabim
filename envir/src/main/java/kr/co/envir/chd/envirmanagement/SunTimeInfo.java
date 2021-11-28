@@ -8,7 +8,6 @@ public class SunTimeInfo {
     private boolean resetSignal;;
 
     public SunTimeInfo(){
-
     }
 
     public void setResetSignal(boolean resetSignal) {
