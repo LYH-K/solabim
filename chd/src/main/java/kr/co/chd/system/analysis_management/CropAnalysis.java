@@ -6,9 +6,10 @@ public class CropAnalysis implements Serializable {
     private int growth;
     private String cropSideImageURL;
     private String cropVerticalImageURL;
+    private MultipartFile cropSideImage;
+    private MultipartFile cropVericalImage;
 
     public CropAnalysis() {
-
     }
 
     public int getGrowth() {
@@ -33,5 +34,21 @@ public class CropAnalysis implements Serializable {
 
     public void setCropVerticalImageURL(String cropVerticalImageURL) {
         this.cropVerticalImageURL = cropVerticalImageURL;
+    }
+
+    public MultipartFile getCropSideImage() {
+        return cropSideImage;
+    }
+
+    public void setCropSideImage(MultipartFile cropSideImage) {
+        this.cropSideImage = cropSideImage;
+    }
+
+    public MultipartFile getCropVericalImage() {
+        return cropVericalImage;
+    }
+
+    public void setCropVericalImage(MultipartFile cropVericalImage) {
+        this.cropVericalImage = cropVericalImage;
     }
 }

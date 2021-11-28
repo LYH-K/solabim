@@ -10,4 +10,5 @@ public interface FacilityService {
     public void controlFacility(EnvirInfo envirInfo) throws InterruptedException, IOException;
     public void analysisCrop();
     public void sendCropInfo(CropAnalysis cropAnalysis);
+    public int search(List<Integer> horizonRGB, List<Integer> verticalRGB)
 }

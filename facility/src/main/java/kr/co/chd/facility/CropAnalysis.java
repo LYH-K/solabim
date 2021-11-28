@@ -3,34 +3,35 @@ package kr.co.chd.facility;
 import java.io.Serializable;
 
 public class CropAnalysis implements Serializable {
-    int analysisNo;
-    int horizonAngle;
-    int verticalAngle;
+    private int growth;
+    private String cropSideImageURL;
+    private String cropVerticalImageURL;
 
     public CropAnalysis() {
+
     }
 
-    public int getAnalysisNo() {
-        return analysisNo;
+    public int getGrowth() {
+        return growth;
     }
 
-    public void setAnalysisNo(int analysisNo) {
-        this.analysisNo = analysisNo;
+    public void setGrowth(int growth) {
+        this.growth = growth;
     }
 
-    public int getHorizonAngle() {
-        return horizonAngle;
+    public String getCropSideImageURL() {
+        return cropSideImageURL;
     }
 
-    public void setHorizonAngle(int horizonAngle) {
-        this.horizonAngle = horizonAngle;
+    public void setCropSideImageURL(String cropSideImageURL) {
+        this.cropSideImageURL = cropSideImageURL;
     }
 
-    public int getVerticalAngle() {
-        return verticalAngle;
+    public String getCropVerticalImageURL() {
+        return cropVerticalImageURL;
     }
 
-    public void setVerticalAngle(int verticalAngle) {
-        this.verticalAngle = verticalAngle;
+    public void setCropVerticalImageURL(String cropVerticalImageURL) {
+        this.cropVerticalImageURL = cropVerticalImageURL;
     }
 }

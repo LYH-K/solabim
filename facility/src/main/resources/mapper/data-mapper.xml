@@ -4,4 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.chd.facility.DataMapper">
+    <select id="selectAll" parameterType="kr.co.chd.facility.CropData" resultType="kr.co.chd.facility.CropData">
+        SELECT AVG(CROP_SIDE_R), AVG(CROP_SIDE_G), AVG(CROP_SIDE_B), AVG(CROP_VERTICAL_R), AVG(CROP_VERTICAL_G), AVG(CROP_VERTICAL_B)
+        FROM CROP_ANALYSIS_DATA
+    </select>
 </mapper>
