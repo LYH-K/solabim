@@ -1,8 +1,10 @@
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
+import kr.co.chd.facility.CropAnalysis;
 
-public class MotorMapper {
-
+public class MotorDriver {
+    AnalysisInfoSender analysisInfoSender = new AnalysisInfoSender();
+    
     final GpioController gpio = GpioFactory.getInstance();
 
     final GpioPinDigitalOutput[] verticalpins = {
@@ -59,6 +61,11 @@ public class MotorMapper {
         verticalmotor.stop();
         horizontalmotor.stop();
         gpio.shutdown();
+        
+        if(resetSignal != true){
+            CropAnalysis cropAnalysis = new CropAnalysis();//농작물 촬영 및 분석 이후 반환해주는 객체로 변경할 것
+            analysisInfoSender.sendInfo(cropAnalysis);
+        }
     }
 
 }

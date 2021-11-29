@@ -7,7 +7,7 @@ import java.util.List;
 
 public class WatchServiceDriver {
     private StringBuilder controlInfo = new StringBuilder();
-    private MotorMapper motorMapper = new MotorMapper();
+    private MotorDriver motorMapper = new MotorDriver();
 
     public static void main(String args[]) {
         new WatchServiceDriver().startService();

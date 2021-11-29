@@ -36,7 +36,6 @@ public class AccessServiceImp extends HandlerInterceptorAdapter implements Acces
 
     public boolean searchManager(Manager manager){
         int check = managerMapper.select(manager);
-        System.out.println(manager.getPassword());
 
         if(check ==1 ){
             return true;

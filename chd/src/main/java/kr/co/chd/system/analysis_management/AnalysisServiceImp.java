@@ -17,7 +17,6 @@ import org.apache.ibatis.io.Resources;
 public class AnalysisServiceImp implements AnalysisService {
     @Autowired
     private AnalysisMapper analysisMapper;
-    private int imageNo = 0; // 이미지 넘버 추가
     private String today = LocalDate.now().toString();//오늘 날짜
     private String path = "C:\\cropImage\\"+today;//수신한 이미지들을 저장할 폴더
     private final String propertiesPath = "spring/analysisno.properties";
@@ -27,10 +26,14 @@ public class AnalysisServiceImp implements AnalysisService {
     //수신한 이미지의 생장률, 측면, 수직 이미지 url 등록
     @Override
     public void addCropAnalysis(CropAnalysis cropAnalysis) {
+        FileInputStream fileInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        int imageNo = 0;
+
         try{
-            InputStream inputStream = Resources.getResourceAsStream(propertiesPath);
+            fileInputStream = new FileInputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
             imageNoProperties = new Properties();
-            imageNoProperties.load(inputStream);
+            imageNoProperties.load(fileInputStream);
             imageNo = Integer.parseInt(imageNoProperties.getProperty("imageNo"));
 
             System.out.println(imageNo);
@@ -40,17 +43,29 @@ public class AnalysisServiceImp implements AnalysisService {
 
             imageNo++;
             imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
-            OutputStream outputStream = new FileOutputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
-            imageNoProperties.store(outputStream,null);
+            System.out.println(imageNoProperties.getProperty("imageNo"));
+            fileOutputStream = new FileOutputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
+            imageNoProperties.store(fileOutputStream,"변경");
+            fileOutputStream.flush();
 
             System.out.println(imageNo);
 
         } catch (Exception e){
             e.printStackTrace();
+        } finally {
+            try{
+               if(fileInputStream != null){
+                   fileInputStream.close();
+               }
+               if(fileOutputStream != null){
+                   fileOutputStream.close();
+               }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         saveImage(cropAnalysis);
-
         analysisMapper.insert(cropAnalysis);
     }
     

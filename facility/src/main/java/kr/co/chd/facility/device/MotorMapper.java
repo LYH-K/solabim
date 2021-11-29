@@ -25,6 +25,7 @@ public class MotorMapper implements Runnable {
         try {
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
             bufferedWriter.write(String.valueOf(envirInfo.getHorizontalAngle()+"/"+ envirInfo.getVerticalAngle()+"/"+envirInfo.isResetSignal()));
+            bufferedWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
