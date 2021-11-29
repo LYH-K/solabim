@@ -14,7 +14,7 @@
        http://www.springframework.org/schema/task/spring-task.xsd
        ">
 
-    <context:component-scan base-package="kr.co.envir.chd"/>
+    <context:component-scan base-package="kr.co.chd.envir"/>
 
     <mvc:annotation-driven />
 
@@ -30,15 +30,4 @@
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="10"/>
     <task:scheduler id="scheduler" pool-size="10"/>
-
-    <!--
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/chd/login"/>
-            <bean class="kr.co.chd.system.access.AccessServiceImp"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
-    -->
-    
 </beans>

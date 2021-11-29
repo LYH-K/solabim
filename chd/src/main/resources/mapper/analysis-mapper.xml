@@ -30,7 +30,7 @@
         ANALYSIS.GROWTH AS growth, ANALYSIS.CROP_SIDE_IMAGE AS cropSideImageURL , ANALYSIS.CROP_VERTICAL_IMAGE AS cropVerticalImageURL
         FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
-          AND  DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') like '${value}'
+          AND  DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') like #{value}
     </select>
 
 </mapper>

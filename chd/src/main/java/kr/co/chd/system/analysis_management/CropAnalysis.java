@@ -1,5 +1,7 @@
 package kr.co.chd.system.analysis_management;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 
 public class CropAnalysis implements Serializable {

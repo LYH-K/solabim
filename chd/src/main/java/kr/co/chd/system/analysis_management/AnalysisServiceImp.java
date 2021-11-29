@@ -1,9 +1,15 @@
 package kr.co.chd.system.analysis_management;
 
+import org.apache.ibatis.io.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Properties;
 
 @Service
 public class AnalysisServiceImp implements AnalysisService {
@@ -83,6 +89,8 @@ public class AnalysisServiceImp implements AnalysisService {
 
     @Override
     public String predictHarvest() {
+
+
         return "2021.12.01";
     }
 

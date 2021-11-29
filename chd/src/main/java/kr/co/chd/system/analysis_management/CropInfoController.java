@@ -3,6 +3,7 @@ package kr.co.chd.system.analysis_management;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.javassist.bytecode.analysis.MultiType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
