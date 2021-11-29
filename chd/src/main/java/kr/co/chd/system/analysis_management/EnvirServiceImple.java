@@ -31,16 +31,16 @@ public class EnvirServiceImple implements EnvirService{
     }
 
     //농작물 환경 정보 송신
-    public void sendEnvirInfo (EnvirInfo envirInfo) {
+    private void sendEnvirInfo (EnvirInfo envirInfo) {
         try {
             OkHttpClient client = new OkHttpClient();
-            String strURL = "http://10.20.30.9/chd/analysis/control";
+            String strURL = "http://localhost/chd/analysis/control";
 
             StringBuffer json = new StringBuffer();
             json.append("{");
             json.append("\"illuminace\" : " + envirInfo.getIlluminance());
             json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
-            json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
+            json.append("\"horizontalAngle\" : " + envirInfo.getHorizontalAngle());
             json.append("\"resetSignal\" : " + envirInfo.isResetSignal());
             json.append("}");
 

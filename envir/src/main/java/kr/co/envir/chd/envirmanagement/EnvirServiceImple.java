@@ -34,7 +34,7 @@ public class EnvirServiceImple implements EnvirService{
 
     //송신 및 측정
     @Override
-    @Scheduled(fixedDelay = 45000)
+    @Scheduled(fixedDelay = 324000000)
     public void mesureSend() throws Exception {
         if(resetSignal){
             EnvirInfo envirInfo = measureEnvir();
@@ -58,6 +58,7 @@ public class EnvirServiceImple implements EnvirService{
                     LocalDate localDate = LocalDate.now();
                     LocalTime localTime = LocalTime.now();
                     LocalTime midnight = LocalTime.of(0,1,0);
+                    System.out.println(localDate);
                     if(localTime.equals(midnight)){
                         sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDate);
                     } else if(localTime.equals(sunTimeInfo.getSunRise())){
@@ -73,11 +74,6 @@ public class EnvirServiceImple implements EnvirService{
 
         thread.setDaemon(true);
         thread.start();
-    }
-
-    public static void main(String[] args) throws Exception {
-        EnvirInfo envirInfo = new EnvirInfo();
-        new EnvirServiceImple().sendEnvirInfo(envirInfo);
     }
 
     //송신 및 조도 및 각도 측정

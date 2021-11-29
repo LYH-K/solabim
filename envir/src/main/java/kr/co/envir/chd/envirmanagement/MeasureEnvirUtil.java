@@ -8,7 +8,8 @@ public class MeasureEnvirUtil {
         MeasureEnvirUtil measureEnvirUtil = new MeasureEnvirUtil();
         measureEnvirUtil.measure();
     }
-
+    
+    //측정
     public EnvirInfo measure() throws InterruptedException {
         EnvirInfo envirInfo = new EnvirInfo();
 
@@ -46,20 +47,20 @@ public class MeasureEnvirUtil {
         horizontalMotor.setStepSequence(single_step_sequence);
         horizontalMotor.setStepsPerRevolution(2038);
 
-        int verticalAngle = maxVerticalAngle(verticalMotor);
+//        int verticalAngle = maxVerticalAngle(verticalMotor);
 
         verticalMotor(verticalMotor);
 
         //최대 각도로 돌아가기
-        maxVerticalMotor(envirInfo.getVerticalAngle(), verticalMotor);
+//        maxVerticalMotor(envirInfo.getVerticalAngle(), verticalMotor);
 
         horizontalMotor(horizontalMotor);
 
-         envirInfo = maxHorizontalMotor(horizontalMotor);
-         envirInfo.setVerticalAngle(verticalAngle);
+//         envirInfo = maxHorizontalMotor(horizontalMotor);
+//         envirInfo.setVerticalAngle(verticalAngle);
 
-        verticalreset(envirInfo.getVerticalAngle(),verticalMotor);
-        horizontalreset(envirInfo.getHorizontalAngle(), horizontalMotor);
+//        verticalreset(envirInfo.getVerticalAngle(),verticalMotor);
+//        horizontalreset(envirInfo.getHorizontalAngle(), horizontalMotor);
 
         verticalMotor.stop();
         horizontalMotor.stop();
@@ -70,7 +71,7 @@ public class MeasureEnvirUtil {
     }
 
     //세로축 최대값 구하기
-    public int maxVerticalAngle(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
+    private int maxVerticalAngle(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
         EnvirInfo[] envirInfos = new EnvirInfo[4];
         for(int i = 0; i < 4; i++) {
             verticalMotor(verticalMotor);
@@ -96,30 +97,40 @@ public class MeasureEnvirUtil {
     }
 
     //조도 측정
-    public int illuminanceMeasurement(){
+    private int illuminanceMeasurement(){
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+
+            }
+        };
+
+
+        thread.start();
+
         return 0;
     }
 
     //세로축 각도
-    public void verticalMotor(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
+    private void verticalMotor(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
         verticalMotor.step(-336);
         Thread.sleep(10000);
     }
 
     //세로축 각도 최대 위치로
-    public void maxVerticalMotor(int MaxAngle, GpioStepperMotorComponent verticalMotor){
+    private void maxVerticalMotor(int MaxAngle, GpioStepperMotorComponent verticalMotor){
         int angle = (180 - MaxAngle) / 30 * 336;
         verticalMotor.step(angle);
     }
 
     //가로축 각도
-    public void horizontalMotor(GpioStepperMotorComponent horizontalMotor) throws InterruptedException {
+    private void horizontalMotor(GpioStepperMotorComponent horizontalMotor) throws InterruptedException {
         horizontalMotor.step(-336);
         Thread.sleep(10000);
     }
 
     //가로축 각도 최대각도
-    public EnvirInfo maxHorizontalMotor(GpioStepperMotorComponent horizontalMotor) throws InterruptedException {
+    private EnvirInfo maxHorizontalMotor(GpioStepperMotorComponent horizontalMotor) throws InterruptedException {
 
         EnvirInfo[] envirInfos = new EnvirInfo[11];
 
@@ -151,13 +162,13 @@ public class MeasureEnvirUtil {
     }
 
     //세로축 각도 초기화
-    public void verticalreset(int maxAngle, GpioStepperMotorComponent motor) {
+    private void verticalreset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = (180 - maxAngle) / 30 * 336;
         motor.step(angle);
     }
 
     //가로축 각도 초기화
-    public void horizontalreset(int maxAngle, GpioStepperMotorComponent motor) {
+    private void horizontalreset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = (360 - maxAngle) / 30 * 336;
         motor.step(angle);
     }
