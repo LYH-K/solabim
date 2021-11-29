@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class EnvirInfo implements Serializable {
     private int envirNo;
-    private int illuminance;
+    private float illuminance;
     private int verticalAngle;
     private int horizontalAngle;
     private boolean resetSignal;
@@ -20,11 +20,11 @@ public class EnvirInfo implements Serializable {
         this.envirNo = envirNo;
     }
 
-    public int getIlluminance() {
+    public float getIlluminance() {
         return illuminance;
     }
 
-    public void setIlluminance(int illuminance) {
+    public void setIlluminance(float illuminance) {
         this.illuminance = illuminance;
     }
 

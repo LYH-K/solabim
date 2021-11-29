@@ -17,7 +17,7 @@ public class CropInfoController {
     @Autowired
     private AnalysisService analysisService;
     @Autowired
-    private EnvirService envirService;
+    private EnvirMapper envirMapper;
 
     @PostMapping("/analysis")//농작물 측면, 수직, 생장률 받는다.
     public Map<String,String> receiveAnalysisInfo(MultiType multiType){
@@ -48,8 +48,9 @@ public class CropInfoController {
     }
 
     @PostMapping("/envir") //농작물 환경 정보 수신
-    public Map<String, String> reciveEnvirInfo(EnvirInfo envirInfo) throws InterruptedException {
-        envirService.receiveEnvirInfo(envirInfo);
+    public Map<String, String> reciveEnvirInfo(@RequestBody EnvirInfo envirInfo) throws InterruptedException {
+//        envirMapper.insert(envirInfo);
+        System.out.println(envirInfo.getHorizontalAngle());
         Map<String, String> msg = new HashMap<String, String>();
         msg.put("code", "200");
         msg.put("message", "OK");

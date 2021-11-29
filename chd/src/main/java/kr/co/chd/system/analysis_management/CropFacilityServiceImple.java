@@ -2,24 +2,30 @@ package kr.co.chd.system.analysis_management;
 
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Service
 public class CropFacilityServiceImple implements CropFacilityService {
 
+    public static void main(String[] args) {
+
+        new CropFacilityServiceImple().sendEnvirInfo(new EnvirInfo());
+    }
 
     //농작물 환경 정보 송신
     @Override
     public void sendEnvirInfo (EnvirInfo envirInfo) {
         try {
             OkHttpClient client = new OkHttpClient();
-            String strURL = "http://localhost/chd/analysis/control";
+            String strURL = "http://192.168.0.151:8080/chd/analysis/control";
 
             StringBuffer json = new StringBuffer();
             json.append("{");
-            json.append("\"illuminace\" : " + envirInfo.getIlluminance());
-            json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
-            json.append("\"horizontalAngle\" : " + envirInfo.getHorizontalAngle());
+            json.append("\"illuminace\" : " + envirInfo.getIlluminance() + ",");
+            json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle() + ",");
+            json.append("\"horizontalAngle\" : " + envirInfo.getHorizontalAngle() + ",");
             json.append("\"resetSignal\" : " + envirInfo.isResetSignal());
             json.append("}");
 

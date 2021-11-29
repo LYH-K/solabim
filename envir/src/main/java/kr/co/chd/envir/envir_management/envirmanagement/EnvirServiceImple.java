@@ -76,18 +76,27 @@ public class EnvirServiceImple implements EnvirService{
         thread.start();
     }
 
-    //송신 및 조도 및 각도 측정
+    public static void main(String[] args) throws Exception {
+        EnvirInfo envirInfo = new EnvirInfo();
+        envirInfo.setIlluminance(1);
+        envirInfo.setResetSignal(true);
+        envirInfo.setVerticalAngle(1);
+        envirInfo.setHorizontalAngle(1);
+        new EnvirServiceImple().sendEnvirInfo(envirInfo);
+    }
+
+    //송신
     @Override
     public void sendEnvirInfo(EnvirInfo envirInfo) throws Exception {
         try {
             OkHttpClient client = new OkHttpClient();
-            String strURL = "http://192.168.0.127/chd/envir";
+            String strURL = "http://localhost/chd/envir";
 
             StringBuffer json = new StringBuffer();
             json.append("{");
-            json.append("\"illuminance\" : " + envirInfo.getIlluminance());
-            json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle());
-            json.append("\"horizontalAngle\" : " + envirInfo.getVerticalAngle());
+            json.append("\"illuminance\" : " + envirInfo.getIlluminance() + ",");
+            json.append("\"verticalAngle\" : " + envirInfo.getVerticalAngle() + ",");
+            json.append("\"horizontalAngle\" : " + envirInfo.getHorizontalAngle() + ",");
             json.append("\"resetSignal\" : " + envirInfo.isResetSignal());
             json.append("}");
 
