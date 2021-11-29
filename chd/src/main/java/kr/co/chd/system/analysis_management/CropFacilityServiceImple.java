@@ -8,12 +8,6 @@ import java.io.IOException;
 
 @Service
 public class CropFacilityServiceImple implements CropFacilityService {
-
-    public static void main(String[] args) {
-
-        new CropFacilityServiceImple().sendEnvirInfo(new EnvirInfo());
-    }
-
     //농작물 환경 정보 송신
     @Override
     public void sendEnvirInfo (EnvirInfo envirInfo) {

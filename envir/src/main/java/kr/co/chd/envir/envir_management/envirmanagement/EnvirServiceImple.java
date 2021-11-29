@@ -3,6 +3,7 @@ package kr.co.chd.envir.envir_management.envirmanagement;
 import kr.co.chd.envir.public_data.SunTimeUtile;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class EnvirServiceImple implements EnvirService{
     public static SunTimeInfo sunTimeInfo;
     public static boolean resetSignal;
 
+    @Autowired
+    private MeasureEnvirUtile measureEnvirUtile;
+
     static {
         try {
             sunTimeInfo = SunTimeUtile.isRunMeasuremen(LocalDate.now());
@@ -26,10 +30,9 @@ public class EnvirServiceImple implements EnvirService{
     //농작물 환경 정보 측정
     @Override
     public EnvirInfo measureEnvir() throws Exception{
-//        EnvirInfo envirInfo = new MeasureEnvirUtil().measureEnvirUtile();
-//        envirInfo.setResetSignal(resetSignal);
-//        return envirInfo;
-        return new EnvirInfo();
+        EnvirInfo envirInfo = new MeasureEnvirUtile().measure();
+        envirInfo.setResetSignal(resetSignal);
+        return envirInfo;
     }
 
     //송신 및 측정
@@ -74,15 +77,6 @@ public class EnvirServiceImple implements EnvirService{
 
         thread.setDaemon(true);
         thread.start();
-    }
-
-    public static void main(String[] args) throws Exception {
-        EnvirInfo envirInfo = new EnvirInfo();
-        envirInfo.setIlluminance(1);
-        envirInfo.setResetSignal(true);
-        envirInfo.setVerticalAngle(1);
-        envirInfo.setHorizontalAngle(1);
-        new EnvirServiceImple().sendEnvirInfo(envirInfo);
     }
 
     //송신

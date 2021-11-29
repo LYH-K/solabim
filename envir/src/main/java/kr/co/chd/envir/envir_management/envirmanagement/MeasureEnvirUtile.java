@@ -3,10 +3,11 @@ package kr.co.chd.envir.envir_management.envirmanagement;
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.i2c.I2CBus;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
-
+@Component
 public class MeasureEnvirUtile {
     static float illuminance;
     public static void main(String[] args) throws Exception {
