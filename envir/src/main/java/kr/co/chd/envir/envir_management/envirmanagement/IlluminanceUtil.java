@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class IlluminanceUtile {
+public class IlluminanceUtil {
 
     public static final byte I2C_ADDRESS_23 = 0x23;
     public static final byte I2C_ADDRESS_5C = 0x5c;
@@ -37,19 +37,19 @@ public class IlluminanceUtile {
 
     private final AtomicInteger useCount = new AtomicInteger(0);
 
-    private static final ConcurrentHashMap<String, IlluminanceUtile> map = new ConcurrentHashMap<String, IlluminanceUtile>();
+    private static final ConcurrentHashMap<String, IlluminanceUtil> map = new ConcurrentHashMap<String, IlluminanceUtil>();
 
-    synchronized public static IlluminanceUtile getInstance(int i2cBusNumber, byte i2cAddress) {
+    synchronized public static IlluminanceUtil getInstance(int i2cBusNumber, byte i2cAddress) {
         String key = i2cBusNumber + ":" + String.format("%x", i2cAddress);
-        IlluminanceUtile bh1750fvi = map.get(key);
+        IlluminanceUtil bh1750fvi = map.get(key);
         if (bh1750fvi == null) {
-            bh1750fvi = new IlluminanceUtile(i2cBusNumber, i2cAddress);
+            bh1750fvi = new IlluminanceUtil(i2cBusNumber, i2cAddress);
             map.put(key, bh1750fvi);
         }
         return bh1750fvi;
     }
 
-    private IlluminanceUtile(int i2cBusNumber, byte i2cAddress) {
+    private IlluminanceUtil(int i2cBusNumber, byte i2cAddress) {
         if (i2cBusNumber != I2CBus.BUS_0 && i2cBusNumber != I2CBus.BUS_1) {
             throw new IllegalArgumentException("The set " + i2cBusNumber + " is not " +
                     I2CBus.BUS_0 + " or " + I2CBus.BUS_1 + ".");
@@ -126,24 +126,5 @@ public class IlluminanceUtile {
         byte[] data = read(SENSOR_DATA_LENGTH);
 
         return (float)((((int)(data[0] & 0xff) << 8) + (int)(data[1] & 0xff)) / 1.2);
-    }
-
-    public static void main(String[] args) throws IOException {
-        IlluminanceUtile bh1750fvi = null;
-        try {
-            bh1750fvi = IlluminanceUtile.getInstance(I2CBus.BUS_1, IlluminanceUtile.I2C_ADDRESS_23);
-
-            int value = (int) bh1750fvi.getOptical();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (bh1750fvi != null) {
-                try {
-                    bh1750fvi.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

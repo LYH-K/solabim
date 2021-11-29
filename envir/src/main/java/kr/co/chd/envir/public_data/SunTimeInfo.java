@@ -1,4 +1,4 @@
-package kr.co.chd.envir.envir_management.envirmanagement;
+package kr.co.chd.envir.public_data;
 
 import java.time.LocalTime;
 

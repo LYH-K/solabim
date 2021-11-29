@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
+
 @Component
-public class MeasureEnvirUtile {
+public class MeasureEnvirUtil {
     static float illuminance;
     public static void main(String[] args) throws Exception {
-        MeasureEnvirUtile measureEnvirUtil = new MeasureEnvirUtile();
+        MeasureEnvirUtil measureEnvirUtil = new MeasureEnvirUtil();
         System.out.println("result : " + measureEnvirUtil.measure().getIlluminance());
     }
     
@@ -72,8 +73,8 @@ public class MeasureEnvirUtile {
          envirInfo = maxHorizontalMotor(horizontalMotor);
          envirInfo.setVerticalAngle(verticalAngle);
 
-        verticalreset(envirInfo.getVerticalAngle(),verticalMotor);
-        horizontalreset(envirInfo.getHorizontalAngle(), horizontalMotor);
+        verticalReset(envirInfo.getVerticalAngle(),verticalMotor);
+        horizontalReset(envirInfo.getHorizontalAngle(), horizontalMotor);
 
         verticalMotor.stop();
         horizontalMotor.stop();
@@ -122,9 +123,9 @@ public class MeasureEnvirUtile {
 
     //조도 측정
     private float illuminanceMeasurement(){
-        IlluminanceUtile bh1750fvi = null;
+        IlluminanceUtil bh1750fvi = null;
         try {
-            bh1750fvi = IlluminanceUtile.getInstance(I2CBus.BUS_1, IlluminanceUtile.I2C_ADDRESS_23);
+            bh1750fvi = IlluminanceUtil.getInstance(I2CBus.BUS_1, IlluminanceUtil.I2C_ADDRESS_23);
 
             illuminance = bh1750fvi.getOptical();
 
@@ -206,13 +207,13 @@ public class MeasureEnvirUtile {
     }
 
     //세로축 각도 초기화
-    private void verticalreset(int maxAngle, GpioStepperMotorComponent motor) {
+    private void verticalReset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = (180 - maxAngle) / 30 * 336;
         motor.step(angle);
     }
 
     //가로축 각도 초기화
-    private void horizontalreset(int maxAngle, GpioStepperMotorComponent motor) {
+    private void horizontalReset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = (360 - maxAngle) / 30 * 336;
         motor.step(angle);
     }

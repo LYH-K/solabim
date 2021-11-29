@@ -1,6 +1,7 @@
 package kr.co.chd.envir.envir_management.envirmanagement;
 
-import kr.co.chd.envir.public_data.SunTimeUtile;
+import kr.co.chd.envir.public_data.SunTimeInfo;
+import kr.co.chd.envir.public_data.SunTimeUtil;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,11 @@ public class EnvirServiceImple implements EnvirService{
     public static boolean resetSignal;
 
     @Autowired
-    private MeasureEnvirUtile measureEnvirUtile;
+    private MeasureEnvirUtil measureEnvirUtile;
 
     static {
         try {
-            sunTimeInfo = SunTimeUtile.isRunMeasuremen(LocalDate.now());
+            sunTimeInfo = SunTimeUtil.searchSunTime(LocalDate.now());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,54 +31,54 @@ public class EnvirServiceImple implements EnvirService{
     //농작물 환경 정보 측정
     @Override
     public EnvirInfo measureEnvir() throws Exception{
-        EnvirInfo envirInfo = new MeasureEnvirUtile().measure();
+        EnvirInfo envirInfo = new MeasureEnvirUtil().measure();
         envirInfo.setResetSignal(resetSignal);
         return envirInfo;
     }
 
     //송신 및 측정
-    @Override
-    @Scheduled(fixedDelay = 324000000)
-    public void mesureSend() throws Exception {
-        if(resetSignal){
-            EnvirInfo envirInfo = measureEnvir();
-            envirInfo.setResetSignal(resetSignal);
-            sendEnvirInfo(envirInfo);
-        } else {
-            EnvirInfo envirInfo = new EnvirInfo();
-            envirInfo.setResetSignal(resetSignal);
-            sendEnvirInfo(envirInfo);
-        }
-    }
-
-    //현재시간 측정에 따른 업무
-    @Override
-    @Scheduled(fixedDelay = 3600000)
-    public void now() throws Exception {
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    LocalDate localDate = LocalDate.now();
-                    LocalTime localTime = LocalTime.now();
-                    LocalTime midnight = LocalTime.of(0,1,0);
-                    System.out.println(localDate);
-                    if(localTime.equals(midnight)){
-                        sunTimeInfo = SunTimeUtile.isRunMeasuremen(localDate);
-                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
-                        resetSignal = true;
-                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
-                        resetSignal = false;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        thread.setDaemon(true);
-        thread.start();
-    }
+//    @Override
+//    @Scheduled(fixedDelay = 324000000)
+//    public void mesureSend() throws Exception {
+//        if(resetSignal){
+//            EnvirInfo envirInfo = measureEnvir();
+//            envirInfo.setResetSignal(resetSignal);
+//            sendEnvirInfo(envirInfo);
+//        } else {
+//            EnvirInfo envirInfo = new EnvirInfo();
+//            envirInfo.setResetSignal(resetSignal);
+//            sendEnvirInfo(envirInfo);
+//        }
+//    }
+//
+//    //현재시간 측정에 따른 업무
+//    @Override
+//    @Scheduled(fixedDelay = 3600000)
+//    public void now() throws Exception {
+//        Thread thread = new Thread(){
+//            @Override
+//            public void run() {
+//                try {
+//                    LocalDate localDate = LocalDate.now();
+//                    LocalTime localTime = LocalTime.now();
+//                    LocalTime midnight = LocalTime.of(0,1,0);
+//                    System.out.println(localDate);
+//                    if(localTime.equals(midnight)){
+//                        sunTimeInfo = SunTimeUtil.searchSunTime(localDate);
+//                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
+//                        resetSignal = true;
+//                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
+//                        resetSignal = false;
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//
+//        thread.setDaemon(true);
+//        thread.start();
+//    }
 
     //송신
     @Override

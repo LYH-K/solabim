@@ -1,6 +1,5 @@
 package kr.co.chd.envir.public_data;
 
-import kr.co.chd.envir.envir_management.envirmanagement.SunTimeInfo;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -10,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class SunTimeUtile {
+public class SunTimeUtil {
     private static final String WEATHER_SERVICE_URL = "http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo";
     private static final String SERVICE_KEY = "=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D";
     private static final String LOCAL = "서울";
@@ -25,8 +24,8 @@ public class SunTimeUtile {
 //        System.out.println(sunTimeInfo.getSunRise());
     }
 
-    //태양광 측정명령
-    public static SunTimeInfo isRunMeasuremen(LocalDate localDate)
+    //태양광 측정시간
+    public static SunTimeInfo searchSunTime(LocalDate localDate)
             throws Exception {
         localDate = LocalDate.now();
 
@@ -50,7 +49,7 @@ public class SunTimeUtile {
                 String xml = response.body().string();
                 sun = sunRiseAndSet(xml);
             }else {
-                return isRunMeasuremen(localDate);
+                return searchSunTime(localDate);
             }
         }
         return sun;
