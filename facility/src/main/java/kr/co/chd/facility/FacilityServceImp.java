@@ -1,19 +1,22 @@
 package kr.co.chd.facility;
 
 import kr.co.chd.facility.device.MotorMapper;
+import okhttp3.*;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.PumpStreamHandler;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class FacilityServceImp implements FacilityService{
     @Autowired
     DataMapper dataMapper;
+    @Autowired
+    CropAnalysis cropAnalysis;
 
     @Override
     public EnvirInfo receiveFacilityInfo(EnvirInfo envirInfo) {
@@ -24,21 +27,6 @@ public class FacilityServceImp implements FacilityService{
     public void controlFacility(EnvirInfo envirInfo) throws InterruptedException, IOException {
         Thread thread = new Thread(new MotorMapper());
         thread.start();//농작물 위치 변경 기능
-    }
-
-    @Override
-    public void analysisCrop() {
-        String[] command = new String[2];
-        command[0] = "python";
-        command[1] = "C:\\Users\\djaak\\Desktop\\computervision\\project\\camera.py";
-
-        try {
-            byProcessBuilder(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -73,6 +61,21 @@ public class FacilityServceImp implements FacilityService{
         }
     }
 
+    @Override
+    public void analysisCrop() {
+        String[] command = new String[2];
+        command[0] = "python";
+        command[1] = "C:\\Users\\djaak\\Desktop\\computervision\\project\\camera.py";
+
+        try {
+            byProcessBuilder(command);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void byProcessBuilder(String[] command)
             throws IOException,InterruptedException {
         ProcessBuilder builder = new ProcessBuilder(command);
@@ -83,39 +86,54 @@ public class FacilityServceImp implements FacilityService{
     private void printStream(Process process)
             throws IOException, InterruptedException {
         process.waitFor();
-        try (InputStream psout = process.getInputStream()) {
-            readPythonResult(psout, System.out);
+        try (InputStream pythonResult = process.getInputStream()) {
+            readPythonResult(pythonResult, System.out);
         }
     }
 
-    private void readPythonResult(InputStream input, OutputStream output) throws IOException {
+    private CropAnalysis readPythonResult(InputStream input, OutputStream output) throws IOException {
         try {
+            CropData analysisCropData = dataMapper.selectAll();
+
             String steamToString = IOUtils.toString(input);
 
             String[] rgbs = steamToString.split("'");
-            String[] pythonHorizonRGB = rgbs[1].split(",");
-            String[] pythonVerticalRGB = rgbs[3].split(",");
+            String[] pythonSideRGB = rgbs[5].split(",");
+            String[] pythonVerticalRGB = rgbs[7].split(",");
 
-            List<Integer> horizonRGB = new ArrayList<Integer>();
+            List<Float> sideRGB = new ArrayList<Float>();
 
-            for (int i = 0; i < pythonHorizonRGB.length; i++){
-                horizonRGB.add(Integer.parseInt(pythonHorizonRGB[i]));
+            for (int i = 0; i < pythonSideRGB.length; i++) {
+                sideRGB.add(Float.parseFloat(pythonSideRGB[i]));
             }
 
-            List<Integer> verticalRGB = new ArrayList<Integer>();
+            List<Float> verticalRGB = new ArrayList<Float>();
 
-            for (int i = 0; i < pythonVerticalRGB.length; i++){
-                verticalRGB.add(Integer.parseInt(pythonVerticalRGB[i]));
+            for (int i = 0; i < pythonVerticalRGB.length; i++) {
+                verticalRGB.add(Float.parseFloat(pythonVerticalRGB[i]));
             }
 
+            int sideR = (int)(sideRGB.get(0) / analysisCropData.getCropSideR());
+            int sideG = (int)(sideRGB.get(1) / analysisCropData.getCropSideG());
+            int sideB = (int)(sideRGB.get(2) / analysisCropData.getCropSideB());
+            int sideGrowth = (int)Math.round(((sideR * 0.299) + (sideG * 0.587) + (sideB * 0.114)) * 100);
+
+            int verticalR = (int)(verticalRGB.get(0) / analysisCropData.getCropVerticalR());
+            int verticalG = (int)(verticalRGB.get(1) / analysisCropData.getCropVerticalG());
+            int verticalB = (int)(verticalRGB.get(2) / analysisCropData.getCropVerticalB());
+            int verticalGrowth = (int)Math.round(((verticalR * 0.299) + (verticalG * 0.587) + (verticalB * 0.114)) * 100);
+
+            int growth = ((sideGrowth + verticalGrowth) / 2);
+
+            cropAnalysis.setCropSideImageURL(rgbs[1]);
+            cropAnalysis.setCropVerticalImageURL(rgbs[3]);
+            cropAnalysis.setGrowth(growth);
+
+            System.out.print(cropAnalysis);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    @Override
-    public int search(List<Integer> horizonRGB, List<Integer> verticalRGB) {
-        dataMapper.selectAll();
-        return 0;
+        return cropAnalysis;
     }
 }

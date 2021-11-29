@@ -3,25 +3,61 @@ package kr.co.chd.facility;
 import java.io.Serializable;
 
 public class CropData implements Serializable {
-    private int dataNo;
-    private int RGBData;
+    private int cropSideR;
+    private int cropSideB;
+    private int cropSideG;
+    private int cropVerticalR;
+    private int cropVerticalB;
+    private int cropVerticalG;
 
     public CropData() {
     }
 
-    public int getDataNo() {
-        return dataNo;
+    public int getCropSideR() {
+        return cropSideR;
     }
 
-    public void setDataNo(int dataNo) {
-        this.dataNo = dataNo;
+    public void setCropSideR(int cropSideR) {
+        this.cropSideR = cropSideR;
     }
 
-    public int getRGBData() {
-        return RGBData;
+    public int getCropSideB() {
+        return cropSideB;
     }
 
-    public void setRGBData(int RGBData) {
-        this.RGBData = RGBData;
+    public void setCropSideB(int cropSideB) {
+        this.cropSideB = cropSideB;
+    }
+
+    public int getCropSideG() {
+        return cropSideG;
+    }
+
+    public void setCropSideG(int cropSideG) {
+        this.cropSideG = cropSideG;
+    }
+
+    public int getCropVerticalR() {
+        return cropVerticalR;
+    }
+
+    public void setCropVerticalR(int cropVerticalR) {
+        this.cropVerticalR = cropVerticalR;
+    }
+
+    public int getCropVerticalB() {
+        return cropVerticalB;
+    }
+
+    public void setCropVerticalB(int cropVerticalB) {
+        this.cropVerticalB = cropVerticalB;
+    }
+
+    public int getCropVerticalG() {
+        return cropVerticalG;
+    }
+
+    public void setCropVerticalG(int cropVerticalG) {
+        this.cropVerticalG = cropVerticalG;
     }
 }

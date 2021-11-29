@@ -1,7 +1,10 @@
 package kr.co.chd.facility;
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
+@Component
 public class CropAnalysis implements Serializable {
     private int growth;
     private String cropSideImageURL;
