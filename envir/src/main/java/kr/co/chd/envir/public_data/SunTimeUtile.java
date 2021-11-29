@@ -1,6 +1,6 @@
-package kr.co.envir.chd.publicdata;
+package kr.co.chd.envir.public_data;
 
-import kr.co.envir.chd.envirmanagement.SunTimeInfo;
+import kr.co.chd.envir.envir_management.envirmanagement.SunTimeInfo;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

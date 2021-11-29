@@ -1,11 +1,11 @@
-package kr.co.envir.chd.envirmanagement;
+package kr.co.chd.envir.envir_management.envirmanagement;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 
-public class MeasureEnvirUtil {
+public class MeasureEnvirUtile {
     public static void main(String[] args) throws InterruptedException {
-        MeasureEnvirUtil measureEnvirUtil = new MeasureEnvirUtil();
+        MeasureEnvirUtile measureEnvirUtil = new MeasureEnvirUtile();
         measureEnvirUtil.measure();
     }
     

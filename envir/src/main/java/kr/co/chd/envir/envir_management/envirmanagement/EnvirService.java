@@ -1,4 +1,4 @@
-package kr.co.envir.chd.envirmanagement;
+package kr.co.chd.envir.envir_management.envirmanagement;
 
 public interface EnvirService {
     public EnvirInfo measureEnvir() throws Exception;

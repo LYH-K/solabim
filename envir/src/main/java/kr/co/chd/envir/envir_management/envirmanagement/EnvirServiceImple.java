@@ -1,6 +1,6 @@
-package kr.co.envir.chd.envirmanagement;
+package kr.co.chd.envir.envir_management.envirmanagement;
 
-import kr.co.envir.chd.publicdata.SunTimeUtile;
+import kr.co.chd.envir.public_data.SunTimeUtile;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.scheduling.annotation.Scheduled;
