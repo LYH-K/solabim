@@ -1,10 +1,10 @@
-package kr.co.chd.envir.envir_management;
+package kr.co.envir.chd.envirmanagement;
 
 import java.io.Serializable;
 
 public class EnvirInfo implements Serializable {
     private int envirNo;
-    private int illuminance;
+    private int lux;
     private int verticalAngle;
     private int horizontalAngle;
     private boolean resetSignal;
@@ -20,12 +20,12 @@ public class EnvirInfo implements Serializable {
         this.envirNo = envirNo;
     }
 
-    public int getIlluminance() {
-        return illuminance;
+    public int getLux() {
+        return lux;
     }
 
-    public void setIlluminance(int illuminance) {
-        this.illuminance = illuminance;
+    public void setLux(int lux) {
+        this.lux = lux;
     }
 
     public int getVerticalAngle() {
