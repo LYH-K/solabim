@@ -6,8 +6,6 @@ import java.io.IOException;
 
 @Service
 public interface FacilityService {
-    public EnvirInfo receiveFacilityInfo(EnvirInfo envirInfo);
     public void controlFacility(EnvirInfo envirInfo) throws InterruptedException, IOException;
-    public void analysisCrop();
     public void sendCropInfo(CropAnalysis cropAnalysis);
 }

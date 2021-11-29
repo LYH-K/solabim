@@ -12,7 +12,7 @@ import java.io.IOException;
 @Service
 public class EnvirServiceImple implements EnvirService{
     @Resource
-    private SqlSessionTemplate sqlSessionTemplate;
+    private EnvirMapper envirMapper;
 
     @Override
     public void receiveEnvirInfo(EnvirInfo envirInfo) {
@@ -22,7 +22,7 @@ public class EnvirServiceImple implements EnvirService{
 
     @Override
     public void addEnvirInfo(EnvirInfo envirInfo) {
-        sqlSessionTemplate.insert("kr.co.chd.system.analysis_management.EnvirMapper.insert", envirInfo);
+        envirMapper.insert(envirInfo);
     }
     
     //농작물 환경 정보 송신
