@@ -51,14 +51,14 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             e.printStackTrace();
         }
 
-        saveImage(cropAnalysis);
+        saveCropFacilityInfo(cropAnalysis);
 
         analysisMapper.insert(cropAnalysis);
     }
 
     //수신한 이미지를 저장
     @Override
-    public void saveImage(CropAnalysis CropAnalysis){
+    public void saveCropFacilityInfo(CropAnalysis CropAnalysis){
         File imagesFile = new File(path);
 
         //오늘 날짜에 해당하는 폴더가 없으면 생성
