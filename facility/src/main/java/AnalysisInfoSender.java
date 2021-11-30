@@ -1,4 +1,4 @@
-import kr.co.chd.facility.CropAnalysis;
+import kr.co.chd.facility.facility_control.CropAnalysis;
 import okhttp3.*;
 
 import java.io.File;

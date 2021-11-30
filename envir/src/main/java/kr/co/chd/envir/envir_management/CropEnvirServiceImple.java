@@ -1,5 +1,6 @@
 package kr.co.chd.envir.envir_management;
 
+import kr.co.chd.envir.envirdevice.MeasureCropEnvirUtil;
 import kr.co.chd.envir.weather_info.SunTimeInfo;
 import kr.co.chd.envir.weather_info.SunTimeUtil;
 import okhttp3.*;
@@ -30,10 +31,6 @@ public class CropEnvirServiceImple implements CropEnvirService {
         CropEnvirInfo cropEnvirInfo = new MeasureCropEnvirUtil().measure();
         cropEnvirInfo.setResetSignal(resetSignal);
         return cropEnvirInfo;
-    }
-
-    public static void main(String[] args) throws Exception {
-        new CropEnvirServiceImple().sendCropEnvirInfo(new CropEnvirInfo());
     }
 
     //송신

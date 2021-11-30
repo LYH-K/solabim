@@ -1,4 +1,4 @@
-package kr.co.chd.facility;
+package kr.co.chd.facility.facility_control;
 
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,9 @@
-package kr.co.chd.envir.envir_management;
+package kr.co.chd.envir.envirdevice;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.i2c.I2CBus;
+import kr.co.chd.envir.envir_management.CropEnvirInfo;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
