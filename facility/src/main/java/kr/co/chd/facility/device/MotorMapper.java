@@ -2,12 +2,12 @@ package kr.co.chd.facility.device;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
-import kr.co.chd.facility.FacilityService;
+import kr.co.chd.facility.CropFacilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MotorMapper implements Runnable {
     @Autowired
-    private FacilityService facilityService;
+    private CropFacilityService facilityService;
 
     @Override
     public void run() {

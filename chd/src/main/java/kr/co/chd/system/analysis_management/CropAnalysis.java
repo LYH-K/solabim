@@ -1,15 +1,17 @@
 package kr.co.chd.system.analysis_management;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
+@Component
 public class CropAnalysis implements Serializable {
     private int growth;
     private String cropSideImageURL;
     private String cropVerticalImageURL;
     private MultipartFile cropSideImage;
-    private MultipartFile cropVericalImage;
+    private MultipartFile cropVerticalImage;
 
     public CropAnalysis() {
     }
@@ -46,11 +48,11 @@ public class CropAnalysis implements Serializable {
         this.cropSideImage = cropSideImage;
     }
 
-    public MultipartFile getCropVericalImage() {
-        return cropVericalImage;
+    public MultipartFile getCropVerticalImage() {
+        return cropVerticalImage;
     }
 
-    public void setCropVericalImage(MultipartFile cropVericalImage) {
-        this.cropVericalImage = cropVericalImage;
+    public void setCropVerticalImage(MultipartFile cropVerticalImage) {
+        this.cropVerticalImage = cropVerticalImage;
     }
 }

@@ -11,7 +11,6 @@ public class CropAnalysis implements Serializable {
     private String cropVerticalImageURL;
 
     public CropAnalysis() {
-
     }
 
     public int getGrowth() {
