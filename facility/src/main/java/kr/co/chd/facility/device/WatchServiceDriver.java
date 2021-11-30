@@ -19,7 +19,7 @@ public class WatchServiceDriver {
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
 
-            Path path = Paths.get("/home/pi/Desktop/workspace");
+            Path path = Paths.get("/home/pi/Desktop/facilityControlInfo");
             path.register(watchService,
                     StandardWatchEventKinds.ENTRY_CREATE,
                     StandardWatchEventKinds.ENTRY_DELETE,
@@ -45,7 +45,7 @@ public class WatchServiceDriver {
     }
 
     public void readFile(){
-        File file = new File("/home/pi/Desktop/workspace/control.txt");
+        File file = new File("/home/pi/Desktop/facilityControlInfo/control.txt");
         BufferedReader bufferedReader = null;
 
         try {

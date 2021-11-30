@@ -6,6 +6,9 @@ import kr.co.chd.facility.facility_control.CropAnalysis;
 
 public class MotorDriver {
     CropAnalysisInfoSender cropAnalysisInfoSender = new CropAnalysisInfoSender();
+    private int horizontalAngle = 0;
+    private int verticalAngle = 0;
+    private boolean resetSignal = false;
     
     final GpioController gpio = GpioFactory.getInstance();
 
@@ -26,8 +29,8 @@ public class MotorDriver {
 
     public void controlFacility(StringBuilder controlInfo) throws InterruptedException {
         String parseInfo[] = controlInfo.toString().split("/");
-        int horizontalAngle = Integer.parseInt(parseInfo[0]);
-        int verticalAngle = Integer.parseInt(parseInfo[1]);
+        horizontalAngle = Integer.parseInt(parseInfo[0]);
+        verticalAngle = Integer.parseInt(parseInfo[1]);
         boolean resetSignal = Boolean.parseBoolean(parseInfo[2]);
 
         System.out.println(horizontalAngle);

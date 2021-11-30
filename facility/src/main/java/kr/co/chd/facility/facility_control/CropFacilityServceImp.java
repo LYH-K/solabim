@@ -18,7 +18,7 @@ public class CropFacilityServceImp implements CropFacilityService{
 
     @Override
     public void saveCrioFacilityInfo(CropEnvirInfo cropEnvirInfo){
-        final String filePath = "/home/pi/Desktop/workspace/control.txt";
+        final String filePath = "/home/pi/Desktop/facilityControlInfo/control.txt";
         BufferedWriter bufferedWriter = null;
         File file = new File(filePath);
         try {
