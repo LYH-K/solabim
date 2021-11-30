@@ -11,7 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="720fb129-2ae8-40c5-992a-442f76428c39" name="Changes" comment="facility update!">
       <change beforePath="$PROJECT_DIR$/../chd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../chd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chd/src/main/java/kr/co/chd/system/analysis_management/CropInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../chd/src/main/java/kr/co/chd/system/analysis_management/CropInfoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +185,7 @@
       <workItem from="1638243137014" duration="1005000" />
       <workItem from="1638246353259" duration="459000" />
       <workItem from="1638266202387" duration="70000" />
-      <workItem from="1638267418558" duration="3870000" />
+      <workItem from="1638267418558" duration="4077000" />
     </task>
     <task id="LOCAL-00001" summary="crop_growth_analysis update">
       <created>1638160075092</created>
