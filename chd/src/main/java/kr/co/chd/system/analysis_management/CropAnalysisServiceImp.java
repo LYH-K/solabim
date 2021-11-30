@@ -4,10 +4,7 @@ import org.apache.ibatis.io.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
@@ -29,10 +26,14 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     //수신한 이미지의 생장률, 측면, 수직 이미지 url 등록
     @Override
     public void addCropAnalysis(CropAnalysis cropAnalysis) {
+        FileInputStream fileInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        int imageNo = 0;
+
         try{
-            InputStream inputStream = Resources.getResourceAsStream(propertiesPath);
+            fileInputStream = new FileInputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
             imageNoProperties = new Properties();
-            imageNoProperties.load(inputStream);
+            imageNoProperties.load(fileInputStream);
             imageNo = Integer.parseInt(imageNoProperties.getProperty("imageNo"));
 
             System.out.println(imageNo);
@@ -42,13 +43,26 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
             imageNo++;
             imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
-            OutputStream outputStream = new FileOutputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
-            imageNoProperties.store(outputStream,null);
+            System.out.println(imageNoProperties.getProperty("imageNo"));
+            fileOutputStream = new FileOutputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
+            imageNoProperties.store(fileOutputStream,"변경");
+            fileOutputStream.flush();
 
             System.out.println(imageNo);
 
         } catch (Exception e){
             e.printStackTrace();
+        } finally {
+            try{
+                if(fileInputStream != null){
+                    fileInputStream.close();
+                }
+                if(fileOutputStream != null){
+                    fileOutputStream.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         saveCropFacilityInfo(cropAnalysis);
