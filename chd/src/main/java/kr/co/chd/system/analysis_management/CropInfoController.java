@@ -15,7 +15,9 @@ public class CropInfoController {
     @Autowired
     private CropAnalysisService cropAnalysisService;
     @Autowired
-    private CropEnvirService cropEnvirService;
+    private CropEnvirMapper cropEnvirMapper;
+    @Autowired
+    private CropFacilityService cropFacilityService;
 
     @PostMapping("/analysis")//농작물 측면, 수직, 생장률 받는다.
     public Map<String,String> receiveAnalysisInfo(CropAnalysis cropAnalysis){
@@ -62,7 +64,8 @@ public class CropInfoController {
 
     @PostMapping("/envir") //농작물 환경 정보 수신
     public Map<String, String> reciveEnvirInfo(CropEnvirInfo cropEnvirInfo) throws InterruptedException {
-        cropEnvirService.receiveCropEnvirInfo(cropEnvirInfo);
+        cropEnvirMapper.insert(cropEnvirInfo);
+        cropFacilityService.sendCropEnvirInfo (cropEnvirInfo);
         Map<String, String> msg = new HashMap<String, String>();
         msg.put("code", "200");
         msg.put("message", "OK");

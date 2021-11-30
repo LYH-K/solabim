@@ -32,57 +32,13 @@ public class CropEnvirServiceImple implements CropEnvirService {
         return cropEnvirInfo;
     }
 
-    //송신 및 측정
-//    @Override
-//    @Scheduled(fixedDelay = 324000000)
-//    public void mesureSend() throws Exception {
-//        if(resetSignal){
-//            CropEnvirInfo envirInfo = measureEnvir();
-//            envirInfo.setResetSignal(resetSignal);
-//            sendEnvirInfo(envirInfo);
-//        } else {
-//            CropEnvirInfo envirInfo = new CropEnvirInfo();
-//            envirInfo.setResetSignal(resetSignal);
-//            sendEnvirInfo(envirInfo);
-//        }
-//    }
-//
-//    //현재시간 측정에 따른 업무
-//    @Override
-//    @Scheduled(fixedDelay = 3600000)
-//    public void now() throws Exception {
-//        Thread thread = new Thread(){
-//            @Override
-//            public void run() {
-//                try {
-//                    LocalDate localDate = LocalDate.now();
-//                    LocalTime localTime = LocalTime.now();
-//                    LocalTime midnight = LocalTime.of(0,1,0);
-//                    System.out.println(localDate);
-//                    if(localTime.equals(midnight)){
-//                        sunTimeInfo = SunTimeUtil.searchSunTime(localDate);
-//                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
-//                        resetSignal = true;
-//                    } else if(localTime.equals(sunTimeInfo.getSunRise())){
-//                        resetSignal = false;
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//
-//        thread.setDaemon(true);
-//        thread.start();
-//    }
-
     public static void main(String[] args) throws Exception {
-        new CropEnvirServiceImple().sendEnvirInfo(new CropEnvirInfo());
+        new CropEnvirServiceImple().sendCropEnvirInfo(new CropEnvirInfo());
     }
 
     //송신
     @Override
-    public void sendEnvirInfo(CropEnvirInfo cropEnvirInfo) throws Exception {
+    public void sendCropEnvirInfo(CropEnvirInfo cropEnvirInfo) throws Exception {
         try {
             OkHttpClient client = new OkHttpClient();
             String strURL = "http://localhost/chd/envir";
