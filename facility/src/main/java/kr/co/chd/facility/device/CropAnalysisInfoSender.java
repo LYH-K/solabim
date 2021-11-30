@@ -1,18 +1,20 @@
+package kr.co.chd.facility.device;
+
 import kr.co.chd.facility.facility_control.CropAnalysis;
 import okhttp3.*;
 
 import java.io.File;
 
-public class AnalysisInfoSender {
+public class CropAnalysisInfoSender {
 
     public void sendInfo(CropAnalysis cropAnalysis){
         try {
             final MediaType MULTIPART = MediaType.parse("multipart/form-data");
-            final String requestUrl = "http://localhost:80/chd/analysis";
+            final String requestUrl = "http://192.168.0.127:80/chd/analysis";
 
-            //파일의 위치는 수정이 필요함함
-            File cropSideImage = new File("C:\\Users\\sdm05\\Desktop\\cropInfo\\cropSideImage.jpg");
-            File cropVerticalImage = new File("C:\\Users\\sdm05\\Desktop\\cropInfo\\cropVerticalImage.jpg");
+            //파일의 위치, 생장률은 추후에 cropAnalysis에서 추출
+            File cropSideImage = new File("/home/pi/Desktop/pictures/cropSideImage.jpg");
+            File cropVerticalImage = new File("/home/pi/Desktop/pictures/cropVerticalImage.jpg");
             String growth = "50";
 
             OkHttpClient client = new OkHttpClient();

@@ -45,7 +45,7 @@ public class CropInfoController {
     @GetMapping(value = "/list" ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CropAverage> searchCropList(String date) {
         System.out.println(date);
-        List<CropAverage> cropAverageList = cropAnalysisService.searchCrop(date);
+        List<CropAverage> cropAverageList = cropAnalysisService.searchCropList(date);
 
         return cropAverageList;
     }

@@ -14,11 +14,10 @@ public class CropFacilityController {
     private CropFacilityService cropFacilityService;
 
     @PostMapping("/control")
-    public Map<String, String> receiveFacilityInfo(@RequestBody CropEnvirInfo cropEnvirInfo)
-            throws InterruptedException, IOException {
+    public Map<String, String> receiveFacilityInfo(@RequestBody CropEnvirInfo cropEnvirInfo) {
         System.out.println(cropEnvirInfo.isResetSignal());
 
-        cropFacilityService.controlCropFacility(cropEnvirInfo);
+        cropFacilityService.saveCrioFacilityInfo(cropEnvirInfo);
 
         Map<String, String> msg = new HashMap<String, String>();
         msg.put("code", "200");

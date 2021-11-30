@@ -88,7 +88,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
     //날짜로 검색
     @Override
-    public List<CropAverage> searchCrop(String date) {
+    public List<CropAverage> searchCropList(String date) {
         List<CropAverage> cropAverageList = analysisMapper.select(date);
 
         return cropAverageList;

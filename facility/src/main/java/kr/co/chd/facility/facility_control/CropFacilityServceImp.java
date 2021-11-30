@@ -1,6 +1,5 @@
 package kr.co.chd.facility.facility_control;
 
-import kr.co.chd.facility.device.MotorMapper;
 import okhttp3.*;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,45 +17,24 @@ public class CropFacilityServceImp implements CropFacilityService{
     CropAnalysis cropAnalysis;
 
     @Override
-    public CropEnvirInfo receiveCropFacilityInfo(CropEnvirInfo cropEnvirInfo) {
-        return null;
-    }
-
-    @Override
-    public void controlCropFacility(CropEnvirInfo cropEnvirInfo) throws InterruptedException, IOException {
-        Thread thread = new Thread(new MotorMapper());
-        thread.start();//농작물 위치 변경 기능
-    }
-
-    @Override
-    public void sendCropInfo(CropAnalysis cropAnalysis) {
+    public void saveCrioFacilityInfo(CropEnvirInfo cropEnvirInfo){
+        final String filePath = "/home/pi/Desktop/workspace/control.txt";
+        BufferedWriter bufferedWriter = null;
+        File file = new File(filePath);
         try {
-            final MediaType MULTIPART = MediaType.parse("multipart/form-data");
-            final String requestUrl = "http://localhost:80/chd/analysis";
-
-            //파일의 위치는 수정이 필요함함
-            File cropSideImage = new File("C:\\Users\\sdm05\\Desktop\\cropInfo\\cropSideImage.jpg");
-            File cropVerticalImage = new File("C:\\Users\\sdm05\\Desktop\\cropInfo\\cropVerticalImage.jpg");
-            String growth = "50";
-
-            OkHttpClient client = new OkHttpClient();
-
-            RequestBody requestBody = new MultipartBody.Builder().
-                    setType(MultipartBody.FORM).
-                    addFormDataPart("growth", String.valueOf(growth)).
-                    addFormDataPart("cropSideImage", cropSideImage.getName(), RequestBody.create(MULTIPART, cropSideImage)).
-                    addFormDataPart("cropVerticalImage", cropVerticalImage.getName(), RequestBody.create(MULTIPART, cropVerticalImage))
-                    .build();
-
-            Request request = new Request.Builder().
-                    url(requestUrl).
-                    post(requestBody).
-                    build();
-
-            Response response = client.newCall(request).execute();
-
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+            bufferedWriter.write(String.valueOf(cropEnvirInfo.getHorizontalAngle()+"/"+ cropEnvirInfo.getVerticalAngle()+"/"+cropEnvirInfo.isResetSignal()));
+            bufferedWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try{
+                if(bufferedWriter != null){
+                    bufferedWriter.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

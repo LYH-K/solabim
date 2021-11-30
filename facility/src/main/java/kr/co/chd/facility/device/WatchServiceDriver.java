@@ -1,3 +1,5 @@
+package kr.co.chd.facility.device;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,7 +9,7 @@ import java.util.List;
 
 public class WatchServiceDriver {
     private StringBuilder controlInfo = new StringBuilder();
-    private MotorMapper motorMapper = new MotorMapper();
+    private MotorDriver motorMapper = new MotorDriver();
 
     public static void main(String args[]) {
         new WatchServiceDriver().startService();
