@@ -2,5 +2,5 @@ package kr.co.chd.system.analysis_management;
 
 
 public interface CropFacilityService {
-    public void sendCropAnalysisInfo(CropEnvirInfo cropEnvirInfo);
+    public void sendCropEnvirInfo (CropEnvirInfo cropenvirInfo);
 }
