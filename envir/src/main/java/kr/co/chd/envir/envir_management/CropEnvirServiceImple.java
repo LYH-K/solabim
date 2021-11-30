@@ -1,6 +1,6 @@
 package kr.co.chd.envir.envir_management;
 
-import kr.co.chd.envir.envirdevice.MeasureCropEnvirUtil;
+import kr.co.chd.envir.envir_device.MeasureCropEnvirUtil;
 import kr.co.chd.envir.weather_info.SunTimeInfo;
 import kr.co.chd.envir.weather_info.SunTimeUtil;
 import okhttp3.*;

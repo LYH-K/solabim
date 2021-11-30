@@ -1,4 +1,4 @@
-package kr.co.chd.envir.envirdevice;
+package kr.co.chd.envir.envir_device;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;

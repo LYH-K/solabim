@@ -1,4 +1,4 @@
-package kr.co.chd.envir.envirdevice;
+package kr.co.chd.envir.envir_device;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
