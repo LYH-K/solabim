@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.TimerTask;
 
-public class CropEnvirServiceImpl extends TimerTask implements CropEnvirService {
+public class CropEnvirServiceImp extends TimerTask implements CropEnvirService {
     public static SunTimeInfo sunTimeInfo;
     public static boolean resetSignal;
 

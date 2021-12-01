@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MeasurementSchedulerImpl extends TimerTask implements MeasurementScheduler {
+public class MeasurementSchedulerImp extends TimerTask implements MeasurementScheduler {
     private static LocalDateTime localDateTime;
     private static SunTimeUtil util = new SunTimeUtil();
 
@@ -21,7 +21,7 @@ public class MeasurementSchedulerImpl extends TimerTask implements MeasurementSc
     }
 
     public static void main(String[] args) throws Exception {
-        MeasurementSchedulerImpl measurementSchedulerImple = new MeasurementSchedulerImpl();
+        MeasurementSchedulerImp measurementSchedulerImple = new MeasurementSchedulerImp();
         measurementSchedulerImple.getSunTimeInfo();
     }
 
@@ -30,7 +30,7 @@ public class MeasurementSchedulerImpl extends TimerTask implements MeasurementSc
         Thread thread = new Thread(){
             @Override
             public void run() {
-                MeasurementSchedulerImpl measurementSchedulerImple = new MeasurementSchedulerImpl();
+                MeasurementSchedulerImp measurementSchedulerImple = new MeasurementSchedulerImp();
                 Timer timer = new Timer();
                 timer.scheduleAtFixedRate(measurementSchedulerImple, 10000, 5000);
             }
@@ -58,7 +58,7 @@ public class MeasurementSchedulerImpl extends TimerTask implements MeasurementSc
             try {
                 Timer job = new Timer();
                 if(util.resetSignal(localTime)){
-                    CropEnvirServiceImpl cropEnvirServiceImple = new CropEnvirServiceImpl();
+                    CropEnvirServiceImp cropEnvirServiceImple = new CropEnvirServiceImp();
                     job.scheduleAtFixedRate(cropEnvirServiceImple, 600000,5400000);
                     Thread.sleep(2000);
                     job.cancel();
