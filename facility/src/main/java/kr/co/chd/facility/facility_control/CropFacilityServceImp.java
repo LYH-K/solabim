@@ -7,7 +7,7 @@ import java.io.*;
 @Service
 public class CropFacilityServceImp implements CropFacilityService{
     @Override
-    public void updateCrioFacilityInfo(CropEnvirInfo cropEnvirInfo){
+    public void updateCropFacilityInfo(CropEnvirInfo cropEnvirInfo){
         final String filePath = "/home/pi/Desktop/facilityControlInfo/control.txt";
         BufferedWriter bufferedWriter = null;
         File file = new File(filePath);
