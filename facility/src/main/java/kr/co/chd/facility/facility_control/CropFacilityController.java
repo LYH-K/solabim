@@ -17,7 +17,7 @@ public class CropFacilityController {
     public Map<String, String> receiveFacilityInfo(@RequestBody CropEnvirInfo cropEnvirInfo) {
         System.out.println(cropEnvirInfo.isResetSignal());
 
-        cropFacilityService.saveCrioFacilityInfo(cropEnvirInfo);
+        cropFacilityService.updateCrioFacilityInfo(cropEnvirInfo);
 
         Map<String, String> msg = new HashMap<String, String>();
         msg.put("code", "200");
