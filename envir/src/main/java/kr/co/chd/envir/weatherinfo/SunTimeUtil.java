@@ -1,11 +1,10 @@
-package kr.co.chd.envir.weather_info;
+package kr.co.chd.envir.weatherinfo;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.TimerTask;
@@ -29,15 +28,18 @@ public class SunTimeUtil extends TimerTask{
 
         String currentDate = localDate.getYear()+ "" + localDate.getMonthValue() + "" + localDate.getDayOfMonth();
 
-        StringBuffer urlBuffer = new StringBuffer(WEATHER_SERVICE_URL);
-        urlBuffer.append("?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + SERVICE_KEY);
-        urlBuffer.append("&" + URLEncoder.encode("locdate", StandardCharsets.UTF_8) + "=" + URLEncoder.encode(currentDate, StandardCharsets.UTF_8));
-        urlBuffer.append("&" + URLEncoder.encode("location", StandardCharsets.UTF_8) + "=" + URLEncoder.encode(LOCAL, StandardCharsets.UTF_8));
+//        StringBuffer urlBuffer = new StringBuffer(WEATHER_SERVICE_URL);
+//        urlBuffer.append("?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + SERVICE_KEY);
+//        urlBuffer.append("&" + URLEncoder.encode("locdate", StandardCharsets.UTF_8) + "=" + URLEncoder.encode(currentDate, StandardCharsets.UTF_8));
+//        urlBuffer.append("&" + URLEncoder.encode("location", StandardCharsets.UTF_8) + "=" + URLEncoder.encode(LOCAL, StandardCharsets.UTF_8));
+
+        String url = WEATHER_SERVICE_URL + "?serviceKey=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D" +
+                "&locdate=" + URLEncoder.encode(currentDate) + "&location=" + URLEncoder.encode(LOCAL);
 
         // Used by OkHttp API
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(urlBuffer.toString())
+                .url(url.toString())
                 .addHeader("Content-type", "application/json")
                 .build();
 

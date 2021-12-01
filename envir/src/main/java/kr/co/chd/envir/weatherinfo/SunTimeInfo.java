@@ -1,4 +1,4 @@
-package kr.co.chd.envir.weather_info;
+package kr.co.chd.envir.weatherinfo;
 
 import java.time.LocalTime;
 
