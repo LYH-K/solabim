@@ -42,6 +42,7 @@
         FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
           AND  DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') like #{value}
+        ORDER BY date DESC
     </select>
 
     <select id="selectRGB" resultType="kr.co.chd.system.analysis_management.CropData">
