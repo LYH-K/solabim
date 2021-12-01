@@ -1,6 +1,4 @@
-package kr.co.chd.envir.envir_management;
-
-import java.time.LocalDate;
+package kr.co.chd.envir.management;
 
 public interface MeasurementScheduler {
     public void getSunTimeInfo() throws Exception;

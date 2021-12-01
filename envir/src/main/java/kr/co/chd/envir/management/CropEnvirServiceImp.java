@@ -1,14 +1,11 @@
-package kr.co.chd.envir.envir_management;
+package kr.co.chd.envir.management;
 
-import kr.co.chd.envir.envir_device.MeasureCropEnvirUtil;
-import kr.co.chd.envir.weather_info.SunTimeInfo;
-import kr.co.chd.envir.weather_info.SunTimeUtil;
+import kr.co.chd.envir.device.MeasureCropEnvirUtil;
+import kr.co.chd.envir.weatherinfo.SunTimeInfo;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.TimerTask;
 
 public class CropEnvirServiceImp extends TimerTask implements CropEnvirService {

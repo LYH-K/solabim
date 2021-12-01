@@ -1,9 +1,9 @@
-package kr.co.chd.envir.envir_device;
+package kr.co.chd.envir.device;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.i2c.I2CBus;
-import kr.co.chd.envir.envir_management.CropEnvirInfo;
+import kr.co.chd.envir.management.CropEnvirInfo;
 
 import java.io.IOException;
 import java.util.TimerTask;
@@ -11,15 +11,6 @@ import java.util.TimerTask;
 public class MeasureCropEnvirUtil extends TimerTask {
     private static float illuminance;
     public static CropEnvirInfo cropEnvirInfo;
-
-    public static void main(String[] args) throws Exception {
-        MeasureCropEnvirUtil measureCropEnvirUtil = new MeasureCropEnvirUtil();
-        measureCropEnvirUtil.measure();
-        System.out.println("******************************************");
-        System.out.println(cropEnvirInfo.getIlluminance());
-        System.out.println(cropEnvirInfo.getVerticalAngle());
-        System.out.println(cropEnvirInfo.getHorizontalAngle());
-    }
 
     //측정
     public CropEnvirInfo measure() throws Exception {
