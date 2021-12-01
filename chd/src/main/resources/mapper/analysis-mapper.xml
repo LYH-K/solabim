@@ -15,6 +15,7 @@
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
         GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
         ORDER BY date DESC
+        LIMIT 0,10
     </select>
 
     <select id = "select" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropAverage">

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
     <head>
@@ -38,9 +40,27 @@
             </tr>
         </table>
 
-        <div id="table" align="center"></div>
+        <div id="table" align="center">
 
+            <table border="2" align="center">
+                <tr>
+                    <th width="120" align="center">NO</th>
+                    <th width="120" align="center">날짜</th>
+                    <th width="120" align="center">조도 평균(LUX)</th>
+                    <th width="120" align="center">생장률 분석(%)</th>
+                </tr>
 
+                <c:forEach items="${list}" var="list" varStatus="no" >
+                    <tr>
+                        <td width="120" align="center">${no.count}</td>
+                        <td width="120" align="center">${list.date}</td>
+                        <td width="120" align="center">${list.illuminanceAvg}</td>
+                        <td width="120" align="center">${list.growthAvg}</td>
+                    </tr>
+                </c:forEach>
+
+            </table>
+        </div>
 
         <script>
             <%--var list = '${list}';--%>

@@ -26,11 +26,11 @@ public class CropAverage implements Serializable {
         this.growthAvg = growthAvg;
     }
 
-    public int getilluminanceAvg() {
+    public int getIlluminanceAvg() {
         return illuminanceAvg;
     }
 
-    public void setilluminanceAvg(int illuminanceAvg) {
+    public void setIlluminanceAvg(int illuminanceAvg) {
         this.illuminanceAvg = illuminanceAvg;
     }
 }
