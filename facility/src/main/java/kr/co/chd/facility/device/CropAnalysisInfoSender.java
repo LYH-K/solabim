@@ -6,7 +6,7 @@ import java.io.File;
 
 public class CropAnalysisInfoSender {
 
-    public void sendInfo(String cropRGB){
+    public void sendCropAnalysisInfo(String cropRGB){
         try {
             final MediaType MULTIPART = MediaType.parse("multipart/form-data");
             final String requestUrl = "http://192.168.0.127:80/chd/analysis";

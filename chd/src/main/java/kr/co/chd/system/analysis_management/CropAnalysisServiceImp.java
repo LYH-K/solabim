@@ -62,6 +62,8 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
         saveCropFacilityInfo(cropAnalysis);
 
+
+
        // analysisMapper.insert(cropAnalysis);
     }
 
@@ -69,6 +71,8 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     @Override
     public void saveCropFacilityInfo(CropAnalysis CropAnalysis){
         File imagesFile = new File(path);
+        FileOutputStream fileOutputStreamCSI = null;
+        FileOutputStream fileOutputStreamCVI = null;
 
         //오늘 날짜에 해당하는 폴더가 없으면 생성
         if(!imagesFile.isDirectory()){
@@ -76,14 +80,27 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         }
 
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(path +"//"+ CropAnalysis.getCropSideImageURL());
-            fileOutputStream.write(CropAnalysis.getCropSideImage().getBytes());//측면 이미지 저장
+            fileOutputStreamCSI = new FileOutputStream(path +"//"+ CropAnalysis.getCropSideImageURL());
+            fileOutputStreamCSI.write(CropAnalysis.getCropSideImage().getBytes());//측면 이미지 저장
+            fileOutputStreamCSI.flush();
 
-            FileOutputStream fileOutputStream2 = new FileOutputStream(path +"//"+ CropAnalysis.getCropVerticalImageURL());
-            fileOutputStream2.write(CropAnalysis.getCropVerticalImage().getBytes());//수직 이미지 저장
+            fileOutputStreamCVI = new FileOutputStream(path +"//"+ CropAnalysis.getCropVerticalImageURL());
+            fileOutputStreamCVI.write(CropAnalysis.getCropVerticalImage().getBytes());//수직 이미지 저장
+            fileOutputStreamCVI.flush();
 
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            try {
+                if(fileOutputStreamCSI != null){
+                    fileOutputStreamCSI.close();
+                }
+                if(fileOutputStreamCVI != null){
+                    fileOutputStreamCVI.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

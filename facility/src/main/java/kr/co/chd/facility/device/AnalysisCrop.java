@@ -34,7 +34,7 @@ public class AnalysisCrop {
     private String printStream(Process process)
             throws IOException, InterruptedException {
         process.waitFor();
-        String cropRGB;
+        String cropRGB = null;
         try (InputStream pythonResult = process.getInputStream()) {
             cropRGB = readPythonResult(pythonResult, System.out);
         }
@@ -50,7 +50,7 @@ public class AnalysisCrop {
 
             String[] rgbs = steamToString.split("'");
 
-            cropRGB = rgbs[1];
+            cropRGB = rgbs[0];
         } catch (IOException e) {
             e.printStackTrace();
         }

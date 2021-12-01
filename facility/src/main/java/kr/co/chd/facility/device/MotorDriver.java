@@ -70,7 +70,7 @@ public class MotorDriver {
             AnalysisCrop analysisCrop = new AnalysisCrop();
             String cropRGB = analysisCrop.analysisCrop();
             System.out.println("clear");
-            cropAnalysisInfoSender.sendInfo(cropRGB);
+            cropAnalysisInfoSender.sendCropAnalysisInfo(cropRGB);
         }
     }
 
