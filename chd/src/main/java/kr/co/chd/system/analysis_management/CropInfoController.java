@@ -21,6 +21,8 @@ public class CropInfoController {
 
     @PostMapping("/analysis")//농작물 측면, 수직, 생장률 받는다.
     public Map<String,String> receiveAnalysisInfo(CropAnalysis cropAnalysis){
+        cropAnalysis = cropAnalysisService.analysisCrop(cropAnalysis);
+
         cropAnalysisService.addCropAnalysis(cropAnalysis);
 
         Map<String,String> msg = new HashMap<String, String>();

@@ -44,4 +44,14 @@
           AND  DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') like #{value}
     </select>
 
+    <select id="selectRGB" resultType="kr.co.chd.system.analysis_management.CropData">
+        SELECT AVG(CROP_SIDE_R) AS cropSideR,
+               AVG(CROP_SIDE_G) AS cropSideG,
+               AVG(CROP_SIDE_B) AS cropSideB,
+               AVG(CROP_VERTICAL_R) AS cropVerticalR,
+               AVG(CROP_VERTICAL_G) AS cropVerticalG,
+               AVG(CROP_VERTICAL_B) AS cropVerticalB
+        FROM CROP_ANALYSIS_DATA
+    </select>
+
 </mapper>

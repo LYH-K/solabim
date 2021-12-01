@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-class CropFacilityServiceImple implements CropFacilityService {
+class CropFacilityServiceImp implements CropFacilityService {
     //농작물 환경 정보 송신
     @Override
     public void sendCropEnvirInfo (CropEnvirInfo cropenvirInfo) {
