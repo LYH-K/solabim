@@ -85,7 +85,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             fileOutputStream.write(CropAnalysis.getCropSideImage().getBytes());//측면 이미지 저장
 
             FileOutputStream fileOutputStream2 = new FileOutputStream(path +"//"+ CropAnalysis.getCropVerticalImageURL());
-            fileOutputStream2.write(CropAnalysis.getCropSideImage().getBytes());//수직 이미지 저장
+            fileOutputStream2.write(CropAnalysis.getCropVerticalImage().getBytes());//수직 이미지 저장
 
         }catch (Exception e){
             e.printStackTrace();
