@@ -2,7 +2,6 @@ package kr.co.chd.facility.device;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
-import kr.co.chd.facility.facility_control.CropAnalysis;
 
 public class MotorDriver {
     CropAnalysisInfoSender cropAnalysisInfoSender = new CropAnalysisInfoSender();
@@ -68,8 +67,10 @@ public class MotorDriver {
         gpio.shutdown();
         
         if(resetSignal != true){
-            CropAnalysis cropAnalysis = new CropAnalysis();//농작물 촬영 및 분석 이후 반환해주는 객체로 변경할 것
-            cropAnalysisInfoSender.sendInfo(cropAnalysis);
+            AnalysisCrop analysisCrop = new AnalysisCrop();
+            String cropRGB = analysisCrop.analysisCrop();
+            System.out.println("clear");
+            cropAnalysisInfoSender.sendInfo(cropRGB);
         }
     }
 

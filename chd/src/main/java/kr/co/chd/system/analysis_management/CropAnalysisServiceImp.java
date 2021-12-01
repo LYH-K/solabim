@@ -1,12 +1,10 @@
 package kr.co.chd.system.analysis_management;
 
-import org.apache.ibatis.io.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.List;
 import java.util.Properties;
 
@@ -14,14 +12,11 @@ import java.util.Properties;
 public class CropAnalysisServiceImp implements CropAnalysisService {
     @Autowired
     private CropAnalysisMapper analysisMapper;
-    @Autowired
-    private CropAnalysis cropAnalysis;
-    private int imageNo = 0; // 이미지 넘버 추가
+
     private String today = LocalDate.now().toString();//오늘 날짜
     private String path = "C:\\cropImage\\"+today;//수신한 이미지들을 저장할 폴더
-    private final String propertiesPath = "spring/analysis_no.properties";
+    private final String propertiesPath = "C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties";
     private Properties imageNoProperties;
-
 
     //수신한 이미지의 생장률, 측면, 수직 이미지 url 등록
     @Override
@@ -31,7 +26,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         int imageNo = 0;
 
         try{
-            fileInputStream = new FileInputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
+            fileInputStream = new FileInputStream(propertiesPath);
             imageNoProperties = new Properties();
             imageNoProperties.load(fileInputStream);
             imageNo = Integer.parseInt(imageNoProperties.getProperty("imageNo"));
@@ -44,7 +39,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             imageNo++;
             imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
             System.out.println(imageNoProperties.getProperty("imageNo"));
-            fileOutputStream = new FileOutputStream("C:\\Users\\sdm05\\IntelliJ\\solabim\\chd\\src\\main\\resources\\spring\\analysisno.properties");
+            fileOutputStream = new FileOutputStream(propertiesPath);
             imageNoProperties.store(fileOutputStream,"변경");
             fileOutputStream.flush();
 
@@ -67,7 +62,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
         saveCropFacilityInfo(cropAnalysis);
 
-        analysisMapper.insert(cropAnalysis);
+       // analysisMapper.insert(cropAnalysis);
     }
 
     //수신한 이미지를 저장

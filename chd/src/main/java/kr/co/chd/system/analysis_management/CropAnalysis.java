@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Component
 public class CropAnalysis implements Serializable {
+    private String cropRGB;
     private int growth;
     private String cropSideImageURL;
     private String cropVerticalImageURL;
@@ -14,6 +15,14 @@ public class CropAnalysis implements Serializable {
     private MultipartFile cropVerticalImage;
 
     public CropAnalysis() {
+    }
+
+    public String getCropRGB() {
+        return cropRGB;
+    }
+
+    public void setCropRGB(String cropRGB) {
+        this.cropRGB = cropRGB;
     }
 
     public int getGrowth() {
