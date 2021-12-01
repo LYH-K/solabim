@@ -12,15 +12,6 @@ public class MeasureCropEnvirUtil extends TimerTask {
     private static float illuminance;
     public static CropEnvirInfo cropEnvirInfo;
 
-    public static void main(String[] args) throws Exception {
-        MeasureCropEnvirUtil measureCropEnvirUtil = new MeasureCropEnvirUtil();
-        measureCropEnvirUtil.measure();
-        System.out.println("******************************************");
-        System.out.println(cropEnvirInfo.getIlluminance());
-        System.out.println(cropEnvirInfo.getVerticalAngle());
-        System.out.println(cropEnvirInfo.getHorizontalAngle());
-    }
-
     //측정
     public CropEnvirInfo measure() throws Exception {
         CropEnvirInfo cropEnvirInfoMeasure = new CropEnvirInfo();

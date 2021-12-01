@@ -15,12 +15,6 @@ public class SunTimeUtil extends TimerTask{
     private static final String LOCAL = "서울";
     public static SunTimeInfo sunTimeInfo;
 
-    public static void main(String[] args) throws Exception {
-        searchSunTime(LocalDate.now());
-        System.out.println(sunTimeInfo.getSunRise());
-        System.out.println(sunTimeInfo.getSunSet());
-    }
-
     //태양광 측정명령
     public static SunTimeInfo searchSunTime(LocalDate localDate)
             throws Exception {

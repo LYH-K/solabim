@@ -20,11 +20,6 @@ public class MeasurementSchedulerImp extends TimerTask implements MeasurementSch
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        MeasurementSchedulerImp measurementSchedulerImple = new MeasurementSchedulerImp();
-        measurementSchedulerImple.getSunTimeInfo();
-    }
-
     @Override
     public void getSunTimeInfo() throws Exception {
         Thread thread = new Thread(){
