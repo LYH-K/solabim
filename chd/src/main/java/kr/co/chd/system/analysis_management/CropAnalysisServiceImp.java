@@ -109,6 +109,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     }
 
     public List<CropAverage> searchCropList(int no){
+        no = (no -1) * 10;
         List<CropAverage> cropAverageList = analysisMapper.selectByNo(no);
 
         return cropAverageList;

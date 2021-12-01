@@ -14,7 +14,7 @@
         SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date ,ROUND(AVG(ENVIR.ILLUMINANCE),1) AS illuminanceAvg, (ANALYSIS.GROWTH) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
         GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
-        ORDER BY date DESC;
+        ORDER BY date DESC
     </select>
 
     <select id = "select" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropAverage">
@@ -24,17 +24,15 @@
         <if test = "!value.equals('') and value != null">
             HAVING date like '%${value}%'
         </if>
-        ORDER BY date DESC;
+        ORDER BY date DESC
     </select>
 
-    <select id = "selectByNo" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropAverage">
-        SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date ,ROUND(AVG(ENVIR.ILLUMINANCE),1) AS illuminanceAvg, (ANALYSIS.GROWTH) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
+    <select id = "selectByNo" parameterType="int"  resultType="kr.co.chd.system.analysis_management.CropAverage">
+        SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date ,ROUND(AVG(ENVIR.ILLUMINANCE),1) AS luxAvg, (ANALYSIS.GROWTH) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
         GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
-        <if test = "!value.equals('') and value != null">
-            HAVING date like '%${value}%'
-        </if>
-        ORDER BY date DESC;
+        ORDER BY date DESC
+        LIMIT #{no},10
     </select>
 
     <select id = "selectByDate" parameterType="String" resultType="kr.co.chd.system.analysis_management.CropInfo">
