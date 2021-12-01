@@ -108,6 +108,12 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         return cropAverageList;
     }
 
+    public List<CropAverage> searchCropList(int no){
+        List<CropAverage> cropAverageList = analysisMapper.selectByNo(no);
+
+        return cropAverageList;
+    }
+
     @Override
     public String predictHarvest() {
         LocalDate today = LocalDate.now();

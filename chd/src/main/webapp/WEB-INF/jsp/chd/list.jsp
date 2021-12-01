@@ -19,8 +19,8 @@
                 <th width="120" align="center">출하 예측 일자</th>
             </tr>
             <tr>
-                <td width="120" align="center"><a href='/chd/view/?date=${list.get(list.size()-1).date}'>
-                ${list.get(list.size()-1).date}</a></td>
+                <td width="120" align="center"><a href='/chd/view/?date=${list.get(0).date}'>
+                ${list.get(0).date}</a></td>
                 <td width="120" align="center">${list.get(list.size()-1).illuminanceAvg}</td>
                 <td width="120" align="center">${list.get(list.size()-1).growthAvg}</td>
                 <td width="120" align="center">${predictHarvest}</td>
@@ -69,7 +69,7 @@
 
                 var tag = "<table border='2'>"
                     + "<tr><th>NO</th><th>날짜</th><th>조도 평균(Lux)</th><th>생장률 평균(%)</th></tr>"
-                for (var i = json.length-1; i >=0; i--) {
+                for (var i = 0; i < json.length; i++) {
                     tag +=
                         "<tr>" +"<td align = center>"+(i+1)+"</td>"
                         + "<td align = center><a href='/chd/view/?date=" + json[i].date + "'>"

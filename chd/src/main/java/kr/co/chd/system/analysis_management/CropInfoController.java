@@ -50,6 +50,14 @@ public class CropInfoController {
         return cropAverageList;
     }
 
+    @GetMapping(value = "/list/{no}" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<CropAverage> searchCropList(@PathVariable int no) {
+        System.out.println(no);
+        List<CropAverage> cropAverageList = cropAnalysisService.searchCropList(no);
+
+        return cropAverageList;
+    }
+
     @GetMapping("/view")
     public ModelAndView searchView(String date){
         //질의 쿼리문으로 받아야지 날짜가 다 들어옴

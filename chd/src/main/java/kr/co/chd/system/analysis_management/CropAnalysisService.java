@@ -5,6 +5,7 @@ import java.util.List;
 public interface CropAnalysisService {
     public void addCropAnalysis(CropAnalysis cropAnalysis);
     public List<CropAverage> searchCropList();
+    public List<CropAverage> searchCropList(int no);
     public List<CropAverage> searchCropList(String date);
     public String predictHarvest();
     public List<CropInfo> searchAnalysisInfo(String date);
