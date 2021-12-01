@@ -7,18 +7,15 @@ import kr.co.chd.envir.envir_management.CropEnvirInfo;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.TimerTask;
 
 @Component
-public class MeasureCropEnvirUtil {
-    static float illuminance;
-    public static void main(String[] args) throws Exception {
-        MeasureCropEnvirUtil measureEnvirUtil = new MeasureCropEnvirUtil();
-        System.out.println("result : " + measureEnvirUtil.measure().getIlluminance());
-    }
-    
+public class MeasureCropEnvirUtil extends TimerTask {
+    private static float illuminance;
+    public static CropEnvirInfo cropEnvirInfo;
+
     //측정
     public CropEnvirInfo measure() throws Exception {
-        CropEnvirInfo cropEnvirInfo = new CropEnvirInfo();
 
         final GpioController gpio = GpioFactory.getInstance();
 
@@ -216,5 +213,14 @@ public class MeasureCropEnvirUtil {
     private void horizontalReset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = (360 - maxAngle) / 30 * 336;
         motor.step(angle);
+    }
+
+    @Override
+    public void run() {
+        try {
+            measure();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

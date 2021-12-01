@@ -8,18 +8,20 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.TimerTask;
 
-public class SunTimeUtil {
+public class SunTimeUtil extends TimerTask{
     private static final String WEATHER_SERVICE_URL = "http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo";
     private static final String SERVICE_KEY = "=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D";
     private static final String LOCAL = "서울";
+    public static SunTimeInfo sunTimeInfo;
 
     //태양광 측정명령
     public static SunTimeInfo searchSunTime(LocalDate localDate)
             throws Exception {
         localDate = LocalDate.now();
 
-        String currentDate = localDate.toString();
+        String currentDate = localDate.getYear()+ "" + localDate.getMonthValue() + "" + localDate.getDayOfMonth();
 
         StringBuffer urlBuffer = new StringBuffer(WEATHER_SERVICE_URL);
         urlBuffer.append("?" + URLEncoder.encode("serviceKey", StandardCharsets.UTF_8) + SERVICE_KEY);
@@ -38,11 +40,14 @@ public class SunTimeUtil {
             if (response.code() == 200) {
                 String xml = response.body().string();
                 sun = sunRiseAndSet(xml);
-            }else {
+            } else {
                 return searchSunTime(localDate);
             }
         }
-        return sun;
+
+        sunTimeInfo = sun;
+
+        return sunTimeInfo;
     }
 
     //공공 데이터 xml문자열 파싱
@@ -77,10 +82,21 @@ public class SunTimeUtil {
     }
 
     //위치 변경 신호
-    public static boolean resetSignal(LocalTime localTime, SunTimeInfo sunTimeInfo) throws Exception {
+    public static boolean resetSignal(LocalTime localTime) throws Exception {
         if(localTime.isAfter(sunTimeInfo.getSunRise()) && localTime.isBefore(sunTimeInfo.getSunSet())){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void run() {
+        SunTimeUtil sunTimeUtil = new SunTimeUtil();
+        try {
+            sunTimeInfo = sunTimeUtil.searchSunTime(LocalDate.now());
+            System.out.println(sunTimeInfo.getSunRise());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
