@@ -9,21 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.TimerTask;
 
-public class CropEnvirServiceImple implements CropEnvirService {
+public class CropEnvirServiceImple extends TimerTask implements CropEnvirService {
     public static SunTimeInfo sunTimeInfo;
     public static boolean resetSignal;
-
-    @Autowired
-    private MeasureCropEnvirUtil measureCropEnvirUtile;
-
-    static {
-        try {
-            sunTimeInfo = SunTimeUtil.searchSunTime(LocalDate.now());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //농작물 환경 정보 측정
     @Override
@@ -81,4 +71,16 @@ public class CropEnvirServiceImple implements CropEnvirService {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void run() {
+        try {
+            CropEnvirInfo cropEnvirInfo = measureCropEnvir();
+            sendCropEnvirInfo(cropEnvirInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
