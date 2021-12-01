@@ -63,7 +63,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             }
         }
 
-        saveCropFacilityInfo(cropAnalysis);
+        saveCropImage(cropAnalysis);
 
         System.out.println(cropAnalysis.getGrowth());
 
@@ -72,7 +72,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
     //수신한 이미지를 저장
     @Override
-    public void saveCropFacilityInfo(CropAnalysis CropAnalysis){
+    public void saveCropImage(CropAnalysis CropAnalysis){
         File imagesFile = new File(path);
         FileOutputStream fileOutputStreamCSI = null;
         FileOutputStream fileOutputStreamCVI = null;

@@ -9,6 +9,6 @@ public interface CropAnalysisService {
     public List<CropAverage> searchCropList(String date);
     public String predictHarvest();
     public List<CropInfo> searchAnalysisInfo(String date);
-    public void saveCropFacilityInfo(CropAnalysis CropAnalysis);
+    public void saveCropImage(CropAnalysis CropAnalysis);
     public CropAnalysis analysisCrop(CropAnalysis cropAnalysis);
 }
