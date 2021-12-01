@@ -53,7 +53,8 @@
                 <c:forEach items="${list}" var="list" varStatus="no" >
                     <tr>
                         <td width="120" align="center">${no.count}</td>
-                        <td width="120" align="center">${list.date}</td>
+                        <td width="120" align="center"><a href='/chd/view/?date=${list.date}'>
+                        ${list.date}</a></td>
                         <td width="120" align="center">${list.illuminanceAvg}</td>
                         <td width="120" align="center">${list.growthAvg}</td>
                     </tr>
