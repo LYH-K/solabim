@@ -1,19 +1,14 @@
 package kr.co.chd.envir.envir_management;
 
-import kr.co.chd.envir.envir_device.MeasureCropEnvirUtil;
-import kr.co.chd.envir.weather_info.SunTimeInfo;
 import kr.co.chd.envir.weather_info.SunTimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MeasurementSchedulerImple extends TimerTask implements MeasurementScheduler {
+public class MeasurementSchedulerImpl extends TimerTask implements MeasurementScheduler {
     private static LocalDateTime localDateTime;
     private static SunTimeUtil util = new SunTimeUtil();
 
@@ -26,7 +21,7 @@ public class MeasurementSchedulerImple extends TimerTask implements MeasurementS
     }
 
     public static void main(String[] args) throws Exception {
-        MeasurementSchedulerImple measurementSchedulerImple = new MeasurementSchedulerImple();
+        MeasurementSchedulerImpl measurementSchedulerImple = new MeasurementSchedulerImpl();
         measurementSchedulerImple.getSunTimeInfo();
     }
 
@@ -35,7 +30,7 @@ public class MeasurementSchedulerImple extends TimerTask implements MeasurementS
         Thread thread = new Thread(){
             @Override
             public void run() {
-                MeasurementSchedulerImple measurementSchedulerImple = new MeasurementSchedulerImple();
+                MeasurementSchedulerImpl measurementSchedulerImple = new MeasurementSchedulerImpl();
                 Timer timer = new Timer();
                 timer.scheduleAtFixedRate(measurementSchedulerImple, 10000, 5000);
             }
@@ -63,7 +58,7 @@ public class MeasurementSchedulerImple extends TimerTask implements MeasurementS
             try {
                 Timer job = new Timer();
                 if(util.resetSignal(localTime)){
-                    CropEnvirServiceImple cropEnvirServiceImple = new CropEnvirServiceImple();
+                    CropEnvirServiceImpl cropEnvirServiceImple = new CropEnvirServiceImpl();
                     job.scheduleAtFixedRate(cropEnvirServiceImple, 600000,5400000);
                     Thread.sleep(2000);
                     job.cancel();

@@ -4,18 +4,26 @@ import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.i2c.I2CBus;
 import kr.co.chd.envir.envir_management.CropEnvirInfo;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.TimerTask;
 
-@Component
 public class MeasureCropEnvirUtil extends TimerTask {
     private static float illuminance;
     public static CropEnvirInfo cropEnvirInfo;
 
+    public static void main(String[] args) throws Exception {
+        MeasureCropEnvirUtil measureCropEnvirUtil = new MeasureCropEnvirUtil();
+        measureCropEnvirUtil.measure();
+        System.out.println("******************************************");
+        System.out.println(cropEnvirInfo.getIlluminance());
+        System.out.println(cropEnvirInfo.getVerticalAngle());
+        System.out.println(cropEnvirInfo.getHorizontalAngle());
+    }
+
     //측정
     public CropEnvirInfo measure() throws Exception {
+        CropEnvirInfo cropEnvirInfoMeasure = new CropEnvirInfo();
 
         final GpioController gpio = GpioFactory.getInstance();
 
@@ -51,32 +59,50 @@ public class MeasureCropEnvirUtil extends TimerTask {
         horizontalMotor.setStepSequence(single_step_sequence);
         horizontalMotor.setStepsPerRevolution(2038);
 
-        int verticalAngle = maxVerticalAngle(verticalMotor);
-
-        System.out.println("verticalMotor");
-        //세로축 모터 30도
         verticalMotor(verticalMotor);
 
         System.out.println("maxVerticalAngle");
-        maxVerticalAngle(verticalMotor);
+        int maxVerticalAngle = maxVerticalAngle(verticalMotor);
+
+        //세로축 모터 30도
+        verticalMotor(verticalMotor);
+
+        boolean verticalAngle = maxVerticalAngle > 90 ? true : false;
 
         //최대 각도로 돌아가기
         System.out.println("maxVerticalMotor");
-        maxVerticalMotor(cropEnvirInfo.getVerticalAngle(), verticalMotor);
+        maxVerticalMotor(maxVerticalAngle, verticalMotor);
 
         //가로축 모터 30도
         horizontalMotor(horizontalMotor);
+        
+        //가로축 모터 최대 가로축 각도
+        cropEnvirInfoMeasure = maxHorizontalMotor(horizontalMotor);
+        
+        //verticalAngle 90도이상일 경우 가로축 180도 돌게 하기 위해서
+        if(verticalAngle){
+            cropEnvirInfoMeasure.setHorizontalAngle(cropEnvirInfoMeasure.getHorizontalAngle() + 180);
+        }
+        
+        //60도 넘길 경우 최대로 각도를 60도로 제한
+        if((60 < maxVerticalAngle && maxVerticalAngle < 120)){
+            maxVerticalAngle = 60;
+        }
 
-         cropEnvirInfo = maxHorizontalMotor(horizontalMotor);
-         cropEnvirInfo.setVerticalAngle(verticalAngle);
+        cropEnvirInfoMeasure.setVerticalAngle(maxVerticalAngle);
 
-        verticalReset(cropEnvirInfo.getVerticalAngle(),verticalMotor);
-        horizontalReset(cropEnvirInfo.getHorizontalAngle(), horizontalMotor);
+        verticalReset(cropEnvirInfoMeasure.getVerticalAngle(),verticalMotor);
+        horizontalReset(cropEnvirInfoMeasure.getHorizontalAngle(), horizontalMotor);
+
+        System.out.println(cropEnvirInfoMeasure.getVerticalAngle());
+        System.out.println(cropEnvirInfoMeasure.getHorizontalAngle());
 
         verticalMotor.stop();
         horizontalMotor.stop();
 
         gpio.shutdown();
+
+        cropEnvirInfo = cropEnvirInfoMeasure;
 
         return cropEnvirInfo;
     }
@@ -109,10 +135,6 @@ public class MeasureCropEnvirUtil extends TimerTask {
                 max = cropEnvirInfos[i].getIlluminance();
                 angle = cropEnvirInfos[i].getVerticalAngle();
             }
-        }
-
-        if(angle > 60) {
-            angle = 60;
         }
 
         return angle;
