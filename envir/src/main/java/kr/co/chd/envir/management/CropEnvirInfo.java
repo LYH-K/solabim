@@ -1,7 +1,10 @@
 package kr.co.chd.envir.management;
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
+@Component
 public class CropEnvirInfo implements Serializable {
     private int cropEnvirNo;
     private float illuminance;

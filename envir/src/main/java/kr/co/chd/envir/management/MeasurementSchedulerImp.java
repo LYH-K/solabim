@@ -1,66 +1,23 @@
 package kr.co.chd.envir.management;
 
+import com.sun.scenario.effect.Crop;
+import kr.co.chd.envir.weatherinfo.SunTimeInfo;
 import kr.co.chd.envir.weatherinfo.SunTimeUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class MeasurementSchedulerImp extends TimerTask implements MeasurementScheduler {
-    private static LocalDateTime localDateTime;
-    private static SunTimeUtil util = new SunTimeUtil();
-
-    static {
-        try {
-            util.searchSunTime(LocalDate.now());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+@Service
+public class MeasurementSchedulerImp implements MeasurementScheduler {
+    @Autowired
+    public SunTimeUtil sunTimeUtil;
+    private Logger logger = (Logger) LogManager.getLogger(MeasurementSchedulerImp.class);
 
     @Override
-    public void getSunTimeInfo() throws Exception {
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                MeasurementSchedulerImp measurementSchedulerImple = new MeasurementSchedulerImp();
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(measurementSchedulerImple, 10000, 5000);
-            }
-        };
-
-        thread.start();
-    }
-
-    //
-    @Override
-    public void run() {
-        localDateTime = LocalDateTime.now();
-        LocalDate localDate = LocalDate.of(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getMinute());
-        LocalTime localTime = LocalTime.of(localDateTime.getHour(), localDateTime.getMinute());
-        LocalTime midnight = LocalTime.of(0,10);
-        LocalTime mid = LocalTime.of(0, 20);
-
-        if(localTime.isAfter(midnight) && localTime.isBefore(mid)){
-            try {
-                util.searchSunTime(localDate);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                Timer job = new Timer();
-                if(util.resetSignal(localTime)){
-                    CropEnvirServiceImp cropEnvirServiceImple = new CropEnvirServiceImp();
-                    job.scheduleAtFixedRate(cropEnvirServiceImple, 600000,5400000);
-                    Thread.sleep(2000);
-                    job.cancel();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    @Scheduled(cron = "*/1 * * * * *")
+    public void getSunTimeInfo()  {
+        System.out.println("되는가?");
     }
 }

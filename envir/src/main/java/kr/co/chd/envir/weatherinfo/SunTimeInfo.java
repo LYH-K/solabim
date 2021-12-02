@@ -1,7 +1,10 @@
 package kr.co.chd.envir.weatherinfo;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalTime;
 
+@Component
 public class SunTimeInfo {
     private LocalTime sunRise;
     private LocalTime sunSet;

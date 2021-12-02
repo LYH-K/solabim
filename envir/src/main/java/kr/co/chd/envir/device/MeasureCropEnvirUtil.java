@@ -4,11 +4,12 @@ import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.i2c.I2CBus;
 import kr.co.chd.envir.management.CropEnvirInfo;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.TimerTask;
 
-public class MeasureCropEnvirUtil extends TimerTask {
+@Component
+public class MeasureCropEnvirUtil {
     private static float illuminance;
     public static CropEnvirInfo cropEnvirInfo;
 
@@ -226,14 +227,5 @@ public class MeasureCropEnvirUtil extends TimerTask {
     private void horizontalReset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = (360 - maxAngle) / 30 * 336;
         motor.step(angle);
-    }
-
-    @Override
-    public void run() {
-        try {
-            measure();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

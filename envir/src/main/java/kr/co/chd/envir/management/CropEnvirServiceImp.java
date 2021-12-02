@@ -4,11 +4,16 @@ import kr.co.chd.envir.device.MeasureCropEnvirUtil;
 import kr.co.chd.envir.weatherinfo.SunTimeInfo;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.TimerTask;
 
-public class CropEnvirServiceImp extends TimerTask implements CropEnvirService {
+@Service
+public class CropEnvirServiceImp implements CropEnvirService {
+    @Autowired
     public static SunTimeInfo sunTimeInfo;
     public static boolean resetSignal;
 
@@ -68,16 +73,4 @@ public class CropEnvirServiceImp extends TimerTask implements CropEnvirService {
             e.printStackTrace();
         }
     }
-
-
-    @Override
-    public void run() {
-        try {
-            CropEnvirInfo cropEnvirInfo = measureCropEnvir();
-            sendCropEnvirInfo(cropEnvirInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }
