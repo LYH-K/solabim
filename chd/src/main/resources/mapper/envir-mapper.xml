@@ -7,6 +7,6 @@
     <insert id = "insert" parameterType="kr.co.chd.system.management.CropEnvirInfo">
         INSERT INTO CROP_ENVIR_INFO
             (ILLUMINANCE,VERTICAL_ANGLE,HORIZONTAL_ANGLE)
-        VALUES(#{illuminance},#{vertical_angle},#{horizontal_angle});
+        VALUES(${illuminance},${verticalAngle},${horizontalAngle})
     </insert>
 </mapper>

@@ -12,4 +12,5 @@ public interface CropAnalysisService {
     public void saveCropImage(CropAnalysis CropAnalysis);
     public CropAnalysis analysisCrop(CropAnalysis cropAnalysis);
     public CropAnalysis searchImage(int no);
+    public void addCropEnvirInfo(CropEnvirInfo cropEnvirInfo);
 }

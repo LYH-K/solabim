@@ -73,11 +73,11 @@
                 <th width="120" align="center">출하 예측 일자</th>
             </tr>
             <tr>
-                <td width="120" align="center"><a href="/chd/view/?date=2021.12.03">
+                <td width="120" align="center"><a href="/chd/view/?date=${list.get(0).date}">
                     2021.12.03</a></td>
-                <td width="120" align="center">294</td>
-                <td width="120" align="center">161</td>
-                <td width="120" align="center">2021-12-03</td>
+                <td width="120" align="center">${list.get(0).illuminanceAvg}</td>
+                <td width="120" align="center">${list.get(0).growthAvg}</td>
+                <td width="120" align="center">${predictHarvest}</td>
             </tr>
             </tbody>
         </table>
@@ -88,7 +88,7 @@
             <div class="card-header">
                 <svg class="svg-inline--fa fa-chart-area fa-w-16 me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chart-area" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM372.7 159.5L288 216l-85.3-113.7c-5.1-6.8-15.5-6.3-19.9 1L96 248v104h384l-89.9-187.8c-3.2-6.5-11.4-8.7-17.4-4.7z"></path></svg><!-- <i class="fas fa-chart-area me-1"></i> Font Awesome fontawesome.com -->날짜 별 농작물 분석 정보</div>
             <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas id="myAreaChart" width="930" height="274" style="display: block; height: 244px; width: 827px;" class="chartjs-render-monitor"></canvas></div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted">Updated </div>
         </div>
     </div>
     <div class="card mb-4">
@@ -101,20 +101,18 @@
                 </thead>
 
                 <tbody>
-
-                <tr>
-                    <td width="120" align="center">1</td>
-                    <td width="120" align="center"><a href="/chd/view/?date=2021.12.03">
-                        2021.12.03</a></td>
-                    <td width="120" align="center">294</td>
-                    <td width="120" align="center">161</td>
-                </tr>
-
+                    <c:forEach items="${list}" var="list" varStatus="no" >
+                        <tr>
+                            <td width="120" align="center">${no.count}</td>
+                            <td width="120" align="center"><a href='/chd/view/?date=${list.date}'>
+                                    ${list.date}</a></td>
+                            <td width="120" align="center">${list.illuminanceAvg}</td>
+                            <td width="120" align="center">${list.growthAvg}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table></div>
                 <div class="dataTable-bottom"><div class="dataTable-info">Showing 1 to 10 of 57 entries</div><nav class="dataTable-pagination"><ul class="dataTable-pagination-list"><li class="active"><a href="#" data-page="1">1</a></li><li class=""><a href="#" data-page="2">2</a></li><li class=""><a href="#" data-page="3">3</a></li><li class=""><a href="#" data-page="4">4</a></li><li class=""><a href="#" data-page="5">5</a></li><li class=""><a href="#" data-page="6">6</a></li><li class="pager"><a href="#" data-page="2">›</a></li></ul></nav></div><div class="input-group">
-
-
                 </div></div>
         </div>
     </div>

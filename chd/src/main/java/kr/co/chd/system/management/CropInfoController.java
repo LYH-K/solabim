@@ -106,8 +106,13 @@ public class CropInfoController {
     }
 
     @PostMapping("/envir") //농작물 환경 정보 수신
-    public Map<String, String> reciveEnvirInfo(CropEnvirInfo cropEnvirInfo) throws InterruptedException {
-        cropEnvirMapper.insert(cropEnvirInfo);
+    public Map<String, String> reciveEnvirInfo(@RequestBody CropEnvirInfo cropEnvirInfo) throws InterruptedException {
+        try{
+            cropAnalysisService.addCropEnvirInfo(cropEnvirInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         cropFacilityService.sendCropEnvirInfo(cropEnvirInfo);
         Map<String, String> msg = new HashMap<String, String>();
         msg.put("code", "200");

@@ -14,6 +14,9 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     @Autowired
     private CropAnalysisMapper analysisMapper;
     @Autowired
+    private CropEnvirMapper cropEnvirMapper;
+
+    @Autowired
     private CropData cropData;
 
     private String today = LocalDate.now().toString();//오늘 날짜
@@ -187,5 +190,12 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
         cropAnalysis.setGrowth(sideGrowth + verticalGrowth / 2);
         return cropAnalysis;
+    }
+
+    @Override
+    public void addCropEnvirInfo(CropEnvirInfo cropEnvirInfo){
+        if(cropEnvirInfo.isResetSignal() != true){
+            cropEnvirMapper.insert(cropEnvirInfo);
+        }
     }
 }

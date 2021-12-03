@@ -9,7 +9,7 @@ import java.util.List;
 
 public class WatchServiceDriver {
     private StringBuilder controlInfo = new StringBuilder();
-    private MotorDriver motorMapper = new MotorDriver();
+    private MotorDriver motorDriver = new MotorDriver();
 
     public static void main(String args[]) {
         new WatchServiceDriver().checkCropFacilityInfo();
@@ -32,7 +32,7 @@ public class WatchServiceDriver {
                     WatchEvent.Kind<?> kind = event.kind();
                     Path context = (Path) event.context();
                     readFile();// 수신한 정보를 읽고 controlInfo에 저장
-                    motorMapper.controlFacility(controlInfo);
+                    motorDriver.controlFacility(controlInfo);
                 }
                 if (!watchKey.reset()) {
                     break;
