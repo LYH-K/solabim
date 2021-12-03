@@ -36,8 +36,8 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
 
             System.out.println(imageNo);
 
-            cropAnalysis.setCropSideImageURL("cropSideImage"+imageNo+".jpg");
-            cropAnalysis.setCropVerticalImageURL("cropVerticleImage"+imageNo+".jpg");
+            cropAnalysis.setCropSideImageURL(path+"\\cropSideImage"+imageNo+".jpg");
+            cropAnalysis.setCropVerticalImageURL(path+"\\cropVerticleImage"+imageNo+".jpg");
 
             imageNo++;
             imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
@@ -83,11 +83,11 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         }
 
         try {
-            fileOutputStreamCSI = new FileOutputStream(path +"//"+ CropAnalysis.getCropSideImageURL());
+            fileOutputStreamCSI = new FileOutputStream(CropAnalysis.getCropSideImageURL());
             fileOutputStreamCSI.write(CropAnalysis.getCropSideImage().getBytes());//측면 이미지 저장
             fileOutputStreamCSI.flush();
 
-            fileOutputStreamCVI = new FileOutputStream(path +"//"+ CropAnalysis.getCropVerticalImageURL());
+            fileOutputStreamCVI = new FileOutputStream(CropAnalysis.getCropVerticalImageURL());
             fileOutputStreamCVI.write(CropAnalysis.getCropVerticalImage().getBytes());//수직 이미지 저장
             fileOutputStreamCVI.flush();
 
@@ -123,11 +123,19 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         return cropAverageList;
     }
 
+    @Override
     public List<CropAverage> searchCropList(int no){
         no = (no -1) * 10;
         List<CropAverage> cropAverageList = analysisMapper.selectByNo(no);
 
         return cropAverageList;
+    }
+
+    @Override
+    public CropAnalysis searchImage(int no){
+        CropAnalysis cropAnalysis = analysisMapper.selectImage(no);
+
+        return cropAnalysis;
     }
 
     @Override
@@ -163,6 +171,8 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     @Override
     public CropAnalysis analysisCrop(CropAnalysis cropAnalysis) {
         cropData = analysisMapper.selectRGB();
+
+        System.out.println(cropAnalysis.getCropRGB());
 
         String[] rgb = cropAnalysis.getCropRGB().split(",");
         List<Integer> intRGB = new ArrayList<Integer>();

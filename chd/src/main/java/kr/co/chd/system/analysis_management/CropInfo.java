@@ -3,6 +3,7 @@ package kr.co.chd.system.analysis_management;
 import java.io.Serializable;
 
 public class CropInfo implements Serializable {
+    private int no;
     private String date;
     private String time;
     private int growth;
@@ -13,6 +14,14 @@ public class CropInfo implements Serializable {
     private String cropVerticalImageURL;
 
     public CropInfo(){
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
     public String getDate() {
@@ -39,28 +48,12 @@ public class CropInfo implements Serializable {
         this.growth = growth;
     }
 
-    public int getilluminance() {
+    public int getIlluminance() {
         return illuminance;
     }
 
-    public void setilluminance(int illuminance) {
+    public void setIlluminance(int illuminance) {
         this.illuminance = illuminance;
-    }
-
-    public String getCropSideImageURL() {
-        return cropSideImageURL;
-    }
-
-    public void setCropSideImageURL(String cropSideImageURL) {
-        this.cropSideImageURL = cropSideImageURL;
-    }
-
-    public String getCropVerticalImageURL() {
-        return cropVerticalImageURL;
-    }
-
-    public void setCropVerticalImageURL(String cropVerticalImageURL) {
-        this.cropVerticalImageURL = cropVerticalImageURL;
     }
 
     public int getHorizontalAngle() {
@@ -77,5 +70,21 @@ public class CropInfo implements Serializable {
 
     public void setVerticalAngle(int verticalAngle) {
         this.verticalAngle = verticalAngle;
+    }
+
+    public String getCropSideImageURL() {
+        return cropSideImageURL;
+    }
+
+    public void setCropSideImageURL(String cropSideImageURL) {
+        this.cropSideImageURL = cropSideImageURL;
+    }
+
+    public String getCropVerticalImageURL() {
+        return cropVerticalImageURL;
+    }
+
+    public void setCropVerticalImageURL(String cropVerticalImageURL) {
+        this.cropVerticalImageURL = cropVerticalImageURL;
     }
 }

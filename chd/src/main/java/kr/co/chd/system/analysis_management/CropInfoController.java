@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +72,44 @@ public class CropInfoController {
         modelAndView.addObject("list",cropInfoList);
 
         return modelAndView;
+    }
+
+    @GetMapping(value = "/view/{no}" ,produces= MediaType.IMAGE_PNG_VALUE)
+    public @ResponseBody byte[] searchImage(@PathVariable int no){
+        CropAnalysis cropAnalysis = cropAnalysisService.searchImage(no);
+        File cropSideImage = new File(cropAnalysis.getCropSideImageURL());
+
+        System.out.println(cropSideImage.length());
+
+        FileInputStream fileInputStream = null;
+
+
+        int count = 0;
+        byte buffer [] = new byte[1024];
+        byte cropImage[] = new byte[Integer.parseInt(String.valueOf(cropSideImage.length()))];
+
+        try{
+            fileInputStream = new FileInputStream(cropSideImage);
+
+            while((count = fileInputStream.read(cropImage)) != -1){
+                System.out.println(count);
+            }
+
+            System.out.println(cropImage.length);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(fileInputStream != null){
+                    fileInputStream.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return cropImage;
     }
 
     @PostMapping("/envir") //농작물 환경 정보 수신
