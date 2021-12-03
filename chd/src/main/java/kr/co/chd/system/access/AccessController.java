@@ -14,8 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/chd")
-public class
-AccessController {
+public class AccessController {
     @Autowired
     public AccessService accessService;
 

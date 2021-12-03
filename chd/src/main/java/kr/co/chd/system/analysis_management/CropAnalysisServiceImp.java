@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -12,6 +13,8 @@ import java.util.Properties;
 public class CropAnalysisServiceImp implements CropAnalysisService {
     @Autowired
     private CropAnalysisMapper analysisMapper;
+    @Autowired
+    private CropData cropData;
 
     private String today = LocalDate.now().toString();//오늘 날짜
     private String path = "C:\\cropImage\\"+today;//수신한 이미지들을 저장할 폴더
@@ -60,16 +63,16 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             }
         }
 
-        saveCropFacilityInfo(cropAnalysis);
+        saveCropImage(cropAnalysis);
 
+        System.out.println(cropAnalysis.getGrowth());
 
-
-       // analysisMapper.insert(cropAnalysis);
+        analysisMapper.insert(cropAnalysis);
     }
 
     //수신한 이미지를 저장
     @Override
-    public void saveCropFacilityInfo(CropAnalysis CropAnalysis){
+    public void saveCropImage(CropAnalysis CropAnalysis){
         File imagesFile = new File(path);
         FileOutputStream fileOutputStreamCSI = null;
         FileOutputStream fileOutputStreamCVI = null;
@@ -155,5 +158,29 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         List<CropInfo> cropInfoList = analysisMapper.selectByDate(date);
 
         return cropInfoList;
+    }
+
+    @Override
+    public CropAnalysis analysisCrop(CropAnalysis cropAnalysis) {
+        cropData = analysisMapper.selectRGB();
+
+        String[] rgb = cropAnalysis.getCropRGB().split(",");
+        List<Integer> intRGB = new ArrayList<Integer>();
+        for (int i = 0; i < rgb.length; i++) {
+            intRGB.add(Integer.parseInt(rgb[i]));
+        }
+
+        int sideR = (int)(intRGB.get(0) / cropData.getCropSideR());
+        int sideG = (int)(intRGB.get(1) / cropData.getCropSideG());
+        int sideB = (int)(intRGB.get(2) / cropData.getCropSideB());
+        int sideGrowth = (int)Math.round(((sideR * 0.299) + (sideG * 0.587) + (sideB * 0.114)) * 100);
+
+        int verticalR = (int)(intRGB.get(3) / cropData.getCropVerticalR());
+        int verticalG = (int)(intRGB.get(4) / cropData.getCropVerticalG());
+        int verticalB = (int)(intRGB.get(5) / cropData.getCropVerticalB());
+        int verticalGrowth = (int)Math.round(((verticalR * 0.299) + (verticalG * 0.587) + (verticalB * 0.114)) * 100);
+
+        cropAnalysis.setGrowth(sideGrowth + verticalGrowth / 2);
+        return cropAnalysis;
     }
 }

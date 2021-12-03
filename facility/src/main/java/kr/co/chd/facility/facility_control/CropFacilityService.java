@@ -6,5 +6,5 @@ import java.io.IOException;
 
 @Service
 public interface CropFacilityService {
-    public void saveCrioFacilityInfo(CropEnvirInfo cropEnvirInfo);
+    public void updateCropFacilityInfo(CropEnvirInfo cropEnvirInfo);
 }

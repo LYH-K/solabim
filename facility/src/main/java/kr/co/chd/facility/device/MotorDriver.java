@@ -43,7 +43,6 @@ public class MotorDriver {
         single_step_sequence[2] = (byte) 0b0100;
         single_step_sequence[3] = (byte) 0b1000;
 
-
         verticalmotor.setStepsPerRevolution(2038);//1바퀴를 360도 (2038)
         horizontalmotor.setStepsPerRevolution(2038);//1바퀴를 360도 (2038)
 
