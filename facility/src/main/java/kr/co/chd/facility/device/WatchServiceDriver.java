@@ -12,10 +12,10 @@ public class WatchServiceDriver {
     private MotorDriver motorMapper = new MotorDriver();
 
     public static void main(String args[]) {
-        new WatchServiceDriver().startService();
+        new WatchServiceDriver().checkCropFacilityInfo();
     }
 
-    public void startService(){
+    public void checkCropFacilityInfo(){
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
 
@@ -64,5 +64,4 @@ public class WatchServiceDriver {
             }
         }
     }
-
 }

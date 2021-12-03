@@ -25,6 +25,8 @@ public class CropInfoController {
     public Map<String,String> receiveAnalysisInfo(CropAnalysis cropAnalysis){
         cropAnalysis = cropAnalysisService.analysisCrop(cropAnalysis);
 
+        System.out.println(cropAnalysis.getCropSideImage().getSize());
+
         cropAnalysisService.addCropAnalysis(cropAnalysis);
 
         Map<String,String> msg = new HashMap<String, String>();
@@ -78,24 +80,16 @@ public class CropInfoController {
     public @ResponseBody byte[] searchImage(@PathVariable int no){
         CropAnalysis cropAnalysis = cropAnalysisService.searchImage(no);
         File cropSideImage = new File(cropAnalysis.getCropSideImageURL());
-
-        System.out.println(cropSideImage.length());
-
         FileInputStream fileInputStream = null;
 
-
         int count = 0;
-        byte buffer [] = new byte[1024];
         byte cropImage[] = new byte[Integer.parseInt(String.valueOf(cropSideImage.length()))];
 
         try{
             fileInputStream = new FileInputStream(cropSideImage);
 
             while((count = fileInputStream.read(cropImage)) != -1){
-                System.out.println(count);
             }
-
-            System.out.println(cropImage.length);
 
         }catch (Exception e){
             e.printStackTrace();

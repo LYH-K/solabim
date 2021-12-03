@@ -32,7 +32,7 @@ public class MotorDriver {
         String parseInfo[] = controlInfo.toString().split("/");
         newHorizontalAngle = Integer.parseInt(parseInfo[0]);//새로 측정된 세로축
         newVerticalAngle = Integer.parseInt(parseInfo[1]);//새로 측정된 가로축
-        boolean resetSignal = Boolean.parseBoolean(parseInfo[2]);
+        resetSignal = Boolean.parseBoolean(parseInfo[2]);
 
         gpio.setShutdownOptions(true, PinState.LOW, verticalpins);
         gpio.setShutdownOptions(true, PinState.LOW, horizontalpins);
@@ -75,11 +75,11 @@ public class MotorDriver {
             horizontalAngle = newHorizontalAngle;//현재 가로축 각도 업데이트
             verticalAngle = newVerticalAngle;//현재 세로축 각도 업데이트
 
-            //AnalysisCrop analysisCrop = new AnalysisCrop();
-            //String cropRGB = analysisCrop.analysisCrop();//사진 촬영 및 분석
-            //System.out.println("clear");
+            AnalysisCrop analysisCrop = new AnalysisCrop();
+            String cropRGB = analysisCrop.analysisCrop();//사진 촬영 및 분석
+            System.out.println("clear");
 
-            //cropAnalysisInfoSender.sendInfo(cropRGB);
+            cropAnalysisInfoSender.sendCropAnalysisInfo(cropRGB);
         }
 
         verticalmotor.stop();

@@ -41,7 +41,7 @@
 
         <c:forEach items="${list}" var="list">
             <tr>
-                <td width="120" align="center"><a href="/chd/view/1" data-title="농작물 이미지" data-lightbox="example-set">2021.11.25</a>
+                <td width="120" align="center"><a href="/chd/view/${list.no}" data-title="${list.time} 농작물 수직 이미지" data-lightbox="example-set">${list.time}</a>
                     <a style="display:none;"/></td>
                 <td width="120" align="center">${list.growth}</td>
                 <td width="120" align="center">${list.illuminance}</td>

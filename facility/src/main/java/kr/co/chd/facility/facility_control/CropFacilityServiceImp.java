@@ -1,11 +1,10 @@
 package kr.co.chd.facility.facility_control;
 
 import org.springframework.stereotype.Service;
-
 import java.io.*;
 
 @Service
-public class CropFacilityServceImp implements CropFacilityService{
+public class CropFacilityServiceImp implements CropFacilityService{
     @Override
     public void updateCropFacilityInfo(CropEnvirInfo cropEnvirInfo){
         final String filePath = "/home/pi/Desktop/facilityControlInfo/control.txt";

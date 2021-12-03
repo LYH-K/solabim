@@ -34,19 +34,14 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             imageNoProperties.load(fileInputStream);
             imageNo = Integer.parseInt(imageNoProperties.getProperty("imageNo"));
 
-            System.out.println(imageNo);
-
             cropAnalysis.setCropSideImageURL(path+"\\cropSideImage"+imageNo+".jpg");
             cropAnalysis.setCropVerticalImageURL(path+"\\cropVerticleImage"+imageNo+".jpg");
 
             imageNo++;
             imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
-            System.out.println(imageNoProperties.getProperty("imageNo"));
             fileOutputStream = new FileOutputStream(propertiesPath);
             imageNoProperties.store(fileOutputStream,"변경");
             fileOutputStream.flush();
-
-            System.out.println(imageNo);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -175,19 +170,19 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         System.out.println(cropAnalysis.getCropRGB());
 
         String[] rgb = cropAnalysis.getCropRGB().split(",");
-        List<Integer> intRGB = new ArrayList<Integer>();
+        List<Float> intRGB = new ArrayList<Float>();
         for (int i = 0; i < rgb.length; i++) {
-            intRGB.add(Integer.parseInt(rgb[i]));
+            intRGB.add(Float.parseFloat(rgb[i]));
         }
 
-        int sideR = (int)(intRGB.get(0) / cropData.getCropSideR());
-        int sideG = (int)(intRGB.get(1) / cropData.getCropSideG());
-        int sideB = (int)(intRGB.get(2) / cropData.getCropSideB());
+        int sideR = (int)(intRGB.get(0) / (int)cropData.getCropSideR());
+        int sideG = (int)(intRGB.get(1) / (int)cropData.getCropSideG());
+        int sideB = (int)(intRGB.get(2) / (int)cropData.getCropSideB());
         int sideGrowth = (int)Math.round(((sideR * 0.299) + (sideG * 0.587) + (sideB * 0.114)) * 100);
 
-        int verticalR = (int)(intRGB.get(3) / cropData.getCropVerticalR());
-        int verticalG = (int)(intRGB.get(4) / cropData.getCropVerticalG());
-        int verticalB = (int)(intRGB.get(5) / cropData.getCropVerticalB());
+        int verticalR = (int)(intRGB.get(3) / (int)cropData.getCropVerticalR());
+        int verticalG = (int)(intRGB.get(4) / (int)cropData.getCropVerticalG());
+        int verticalB = (int)(intRGB.get(5) / (int)cropData.getCropVerticalB());
         int verticalGrowth = (int)Math.round(((verticalR * 0.299) + (verticalG * 0.587) + (verticalB * 0.114)) * 100);
 
         cropAnalysis.setGrowth(sideGrowth + verticalGrowth / 2);
