@@ -4,11 +4,19 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 
-@Component
 public class SunTimeInfo {
     private LocalTime sunRise;
     private LocalTime sunSet;
     private boolean resetSignal;;
+
+    @Override
+    public String toString() {
+        return "SunTimeInfo{" +
+                "sunRise=" + sunRise +
+                ", sunSet=" + sunSet +
+                ", resetSignal=" + resetSignal +
+                '}';
+    }
 
     public SunTimeInfo(){
     }

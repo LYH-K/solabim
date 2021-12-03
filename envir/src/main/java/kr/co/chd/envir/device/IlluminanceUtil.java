@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Component
 public class IlluminanceUtil {
 
     public static final byte I2C_ADDRESS_23 = 0x23;

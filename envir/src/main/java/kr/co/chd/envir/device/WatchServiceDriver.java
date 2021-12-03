@@ -21,16 +21,8 @@ public class WatchServiceDriver {
     private CropEnvirServiceImp cropEnvirServiceImp = new CropEnvirServiceImp();
     private SunTimeInfo sunTimeInfo = new SunTimeInfo();
 
-    static {
-        try {
-            sunTimeUtil.searchSunTime(LocalDate.now());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     //1시간 30분 마다 디바이스 작동
-    public void MeasureInfostartService(){
+    public void measureInfostartService(){
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
 
@@ -46,7 +38,7 @@ public class WatchServiceDriver {
                 for (WatchEvent<?> event : events) {
                     WatchEvent.Kind<?> kind = event.kind();
                     Path context = (Path) event.context();
-                    MeasureInforeadFile();
+                    measureInforeadFile();
                     boolean singal = Boolean.valueOf(resetSignal.toString());
                     if(singal){
                         cropEnvirServiceImp.measureCropEnvir();
@@ -63,7 +55,7 @@ public class WatchServiceDriver {
     }
 
     //1시간 30분마다 읽기
-    public void MeasureInforeadFile(){
+    public void measureInforeadFile(){
         File file = new File("/home/pi/Desktop/envirIfo/MeasureSend.txt");
         BufferedReader bufferedReader = null;
 

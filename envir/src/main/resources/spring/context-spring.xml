@@ -6,19 +6,21 @@
        xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/task
-        http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+        http://www.springframework.org/schema/task/spring-task.xsd">
 
     <context:annotation-config/>
     <context:component-scan base-package="kr.co.chd.envir" />
+
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <task:executor id="executor" pool-size="10"/>
-    <task:scheduler id="scheduler" pool-size="20"/>
+    <task:scheduler id="scheduler" pool-size="20" />
+
     <mvc:annotation-driven />
 
     <mvc:default-servlet-handler/>
