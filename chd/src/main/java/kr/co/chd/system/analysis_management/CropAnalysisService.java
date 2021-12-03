@@ -11,4 +11,5 @@ public interface CropAnalysisService {
     public List<CropInfo> searchAnalysisInfo(String date);
     public void saveCropImage(CropAnalysis CropAnalysis);
     public CropAnalysis analysisCrop(CropAnalysis cropAnalysis);
+    public CropAnalysis searchImage(int no);
 }
