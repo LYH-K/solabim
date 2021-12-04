@@ -23,9 +23,6 @@ public class CropInfoController {
     @PostMapping("/analysis")//농작물 측면, 수직, 생장률 받는다.
     public Map<String,String> receiveAnalysisInfo(CropAnalysis cropAnalysis){
         cropAnalysis = cropAnalysisService.analysisCrop(cropAnalysis);
-
-        System.out.println(cropAnalysis.getCropSideImage().getSize());
-
         cropAnalysisService.addCropAnalysis(cropAnalysis);
 
         Map<String,String> msg = new HashMap<String, String>();
@@ -49,7 +46,6 @@ public class CropInfoController {
 
     @GetMapping(value = "/list" ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CropAverage> searchCropList(String date) {
-        System.out.println(date);
         List<CropAverage> cropAverageList = cropAnalysisService.searchCropList(date);
 
         return cropAverageList;
@@ -57,7 +53,6 @@ public class CropInfoController {
 
     @GetMapping(value = "/list/{no}" ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CropAverage> searchCropList(@PathVariable int no) {
-        System.out.println(no);
         List<CropAverage> cropAverageList = cropAnalysisService.searchCropList(no);
 
         return cropAverageList;
@@ -66,7 +61,6 @@ public class CropInfoController {
     @GetMapping("/view")
     public ModelAndView searchView(String date){
         //질의 쿼리문으로 받아야지 날짜가 다 들어옴
-        System.out.println(date);
         ModelAndView modelAndView = new ModelAndView("chd/view");
         List<CropInfo> cropInfoList = cropAnalysisService.searchAnalysisInfo(date);
 

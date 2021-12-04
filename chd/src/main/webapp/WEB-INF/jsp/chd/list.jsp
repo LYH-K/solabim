@@ -74,7 +74,7 @@
             </tr>
             <tr>
                 <td width="120" align="center"><a href="/chd/view/?date=${list.get(0).date}">
-                    2021.12.03</a></td>
+                    ${list.get(0).date}</a></td>
                 <td width="120" align="center">${list.get(0).illuminanceAvg}</td>
                 <td width="120" align="center">${list.get(0).growthAvg}</td>
                 <td width="120" align="center">${predictHarvest}</td>

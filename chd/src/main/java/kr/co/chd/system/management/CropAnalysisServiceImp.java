@@ -62,9 +62,6 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         }
 
         saveCropImage(cropAnalysis);
-
-        System.out.println(cropAnalysis.getGrowth());
-
         analysisMapper.insert(cropAnalysis);
     }
 
@@ -169,8 +166,6 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     @Override
     public CropAnalysis analysisCrop(CropAnalysis cropAnalysis) {
         cropData = analysisMapper.selectRGB();
-
-        System.out.println(cropAnalysis.getCropRGB());
 
         String[] rgb = cropAnalysis.getCropRGB().split(",");
         List<Float> intRGB = new ArrayList<Float>();
