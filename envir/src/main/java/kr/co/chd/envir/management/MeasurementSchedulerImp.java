@@ -1,10 +1,5 @@
 package kr.co.chd.envir.management;
 
-import kr.co.chd.envir.weatherinfo.SunTimeInfo;
-import kr.co.chd.envir.weatherinfo.SunTimeUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
