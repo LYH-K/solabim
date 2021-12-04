@@ -9,10 +9,24 @@ import java.io.IOException;
 public class CropEnvirService {
     public static SunTimeInfo sunTimeInfo;
 
+    public static void main(String[] args) {
+        CropEnvirService cropEnvirService = new CropEnvirService();
+        CropEnvirInfo cropEnvirInfo = new CropEnvirInfo();
+        cropEnvirInfo.setHorizontalAngle(180);
+        cropEnvirInfo.setVerticalAngle(60);
+        cropEnvirInfo.setResetSignal(false);
+        try {
+            cropEnvirService.sendCropEnvirInfo(cropEnvirInfo);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     //농작물 환경 정보 측정
     public void measureCropEnvir(boolean resetSignal) throws Exception{
         CropEnvirInfo cropEnvirInfo = new MeasureCropEnvirUtil().measure();
         System.out.println("setResetSignal");
+        System.out.println("resetSignal");
         cropEnvirInfo.setResetSignal(resetSignal);
         System.out.println("sendCropEnvirInfo");
         sendCropEnvirInfo(cropEnvirInfo);

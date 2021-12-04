@@ -48,7 +48,7 @@ public class CropEnvirInfo implements Serializable {
         return resetSignal;
     }
 
-    public void setResetSignal(boolean resetSignal) {
+    public void  setResetSignal(boolean resetSignal) {
         this.resetSignal = resetSignal;
     }
 }
