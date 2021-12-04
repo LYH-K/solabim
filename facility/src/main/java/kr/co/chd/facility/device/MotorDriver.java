@@ -5,10 +5,12 @@ import com.pi4j.io.gpio.*;
 
 public class MotorDriver {
     CropAnalysisInfoSender cropAnalysisInfoSender = new CropAnalysisInfoSender();
-    private int horizontalAngle = 0;
-    private int verticalAngle = 0;
+    private int horizontalAngle = 0;//현재 세로축 각도
+    private int verticalAngle = 0;//현재 가로축 각도
+    private int newHorizontalAngle = 0;//방금 측정된 세로축 각도
+    private int newVerticalAngle = 0;//방금 측정된 가로축 각도
     private boolean resetSignal = false;
-    
+
     final GpioController gpio = GpioFactory.getInstance();
 
     final GpioPinDigitalOutput[] verticalpins = {
@@ -28,11 +30,9 @@ public class MotorDriver {
 
     public void controlFacility(StringBuilder controlInfo) throws InterruptedException {
         String parseInfo[] = controlInfo.toString().split("/");
-        horizontalAngle = Integer.parseInt(parseInfo[0]);
-        verticalAngle = Integer.parseInt(parseInfo[1]);
-        boolean resetSignal = Boolean.parseBoolean(parseInfo[2]);
-
-        System.out.println(horizontalAngle);
+        newHorizontalAngle = Integer.parseInt(parseInfo[0]);//새로 측정된 세로축
+        newVerticalAngle = Integer.parseInt(parseInfo[1]);//새로 측정된 가로축
+        resetSignal = Boolean.parseBoolean(parseInfo[2]);
 
         gpio.setShutdownOptions(true, PinState.LOW, verticalpins);
         gpio.setShutdownOptions(true, PinState.LOW, horizontalpins);
@@ -43,34 +43,49 @@ public class MotorDriver {
         single_step_sequence[2] = (byte) 0b0100;
         single_step_sequence[3] = (byte) 0b1000;
 
-        verticalmotor.setStepsPerRevolution(2038);//1바퀴를 360도 (2038)
-        horizontalmotor.setStepsPerRevolution(2038);//1바퀴를 360도 (2038)
-
         verticalmotor.setStepInterval(2); // 움직이는 시간 간격 2초가 제일 빠르고 뒤로 갈 수록 느려짐
         verticalmotor.setStepSequence(single_step_sequence); //스텝 방식 설정
         horizontalmotor.setStepInterval(2); // 움직이는 시간 간격 2초가 제일 빠르고 뒤로 갈 수록 느려짐
         horizontalmotor.setStepSequence(single_step_sequence); //스텝 방식 설정
 
-        System.out.println("   Motor FORWARD for 2 revolutions.");
-        verticalmotor.rotate(1);//setStepsPerRevolution에 설정한 만큼 1바퀴
-        System.out.println("   Motor STOPPED for 2 seconds.");
-        Thread.sleep(2000);
+        if(resetSignal ==true){
+            System.out.println("vertical change");
+            verticalmotor.step((-verticalAngle)*6);
+            Thread.sleep(2000);
 
-        System.out.println("   Motor FORWARD for 2 revolutions.");
-        horizontalmotor.rotate(1);//setStepsPerRevolution에 설정한 만큼 1바퀴
-        System.out.println("   Motor STOPPED for 2 seconds.");
-        Thread.sleep(2000);
+            System.out.println("horizontal change");
+            horizontalmotor.step((-horizontalAngle)*6);
+            Thread.sleep(2000);
+
+            verticalAngle = 0;
+            horizontalAngle = 0;
+        } else{
+            System.out.println("vertical change");
+            verticalmotor.step((-verticalAngle)*6);//세로축 각도를 0도로 변경한다.
+            Thread.sleep(2000);
+
+            System.out.println("horizontal change");
+            horizontalmotor.step((newHorizontalAngle - horizontalAngle)*6); // 가로축 각도 변경
+            Thread.sleep(2000);
+
+            System.out.println("vertical change");
+            verticalmotor.step(newVerticalAngle*6); //세로축 각도 변경
+            Thread.sleep(2000);
+
+            horizontalAngle = newHorizontalAngle;//현재 가로축 각도 업데이트
+            verticalAngle = newVerticalAngle;//현재 세로축 각도 업데이트
+
+            AnalysisCrop analysisCrop = new AnalysisCrop();
+            String cropRGB = analysisCrop.analysisCrop();//사진 촬영 및 분석
+            System.out.println("clear");
+
+            cropAnalysisInfoSender.sendCropAnalysisInfo(cropRGB);
+        }
 
         verticalmotor.stop();
         horizontalmotor.stop();
         gpio.shutdown();
-        
-        if(resetSignal != true){
-            AnalysisCrop analysisCrop = new AnalysisCrop();
-            String cropRGB = analysisCrop.analysisCrop();
-            System.out.println("clear");
-            cropAnalysisInfoSender.sendCropAnalysisInfo(cropRGB);
-        }
     }
-
 }
+
+

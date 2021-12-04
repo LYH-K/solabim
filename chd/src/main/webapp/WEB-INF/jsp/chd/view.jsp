@@ -7,6 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+
 
 <html>
     <head>
@@ -35,7 +41,8 @@
 
         <c:forEach items="${list}" var="list">
             <tr>
-                <td width="120" align="center">${list.time}</td>
+                <td width="120" align="center"><a href="/chd/view/${list.no}" data-title="${list.time} 농작물 수직 이미지" data-lightbox="example-set">${list.time}</a>
+                    <a style="display:none;"/></td>
                 <td width="120" align="center">${list.growth}</td>
                 <td width="120" align="center">${list.illuminance}</td>
                 <td width="120" align="center">${list.horizontalAngle}</td>

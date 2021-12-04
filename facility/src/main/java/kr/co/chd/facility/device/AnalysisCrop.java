@@ -49,8 +49,10 @@ public class AnalysisCrop {
             String steamToString = IOUtils.toString(input);
 
             String[] rgbs = steamToString.split("'");
-
+            System.out.println(rgbs);
             cropRGB = rgbs[0];
+
+            System.out.println(steamToString);
         } catch (IOException e) {
             e.printStackTrace();
         }
