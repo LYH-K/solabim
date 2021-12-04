@@ -45,8 +45,8 @@
                     <a style="display:none;"/></td>
                 <td width="120" align="center">${list.growth}</td>
                 <td width="120" align="center">${list.illuminance}</td>
-                <td width="120" align="center">${list.horizontalAngle}</td>
                 <td width="120" align="center">${list.verticalAngle}</td>
+                <td width="120" align="center">${list.horizontalAngle}</td>
             </tr>
         </c:forEach>
     </table>

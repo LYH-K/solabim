@@ -11655,23 +11655,24 @@ body {
 .dataTable-table > thead > tr > td,
 .dataTable-table > thead > tr > th {
   vertical-align: top;
+  text-align: center;
   padding: 0.5rem 0.5rem;
 }
 
 .dataTable-table > thead > tr > th {
   vertical-align: bottom;
-  text-align: left;
+  text-align: center;
   border-bottom: none;
 }
 
 .dataTable-table > tfoot > tr > th {
   vertical-align: bottom;
-  text-align: left;
+  text-align: center;
 }
 
 .dataTable-table th {
   vertical-align: bottom;
-  text-align: left;
+  text-align: center;
 }
 
 .dataTable-table th a {
