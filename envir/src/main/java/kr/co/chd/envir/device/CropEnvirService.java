@@ -1,36 +1,29 @@
-package kr.co.chd.envir.management;
+package kr.co.chd.envir.device;
 
-import kr.co.chd.envir.device.MeasureCropEnvirUtil;
 import kr.co.chd.envir.weatherinfo.SunTimeInfo;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.TimerTask;
 
-@Service
-public class CropEnvirServiceImp implements CropEnvirService {
-    @Autowired
+public class CropEnvirService {
     public static SunTimeInfo sunTimeInfo;
-    public static boolean resetSignal;
 
     //농작물 환경 정보 측정
-    @Override
-    public CropEnvirInfo measureCropEnvir() throws Exception{
+    public void measureCropEnvir(boolean resetSignal) throws Exception{
         CropEnvirInfo cropEnvirInfo = new MeasureCropEnvirUtil().measure();
+        System.out.println("setResetSignal");
         cropEnvirInfo.setResetSignal(resetSignal);
-        return cropEnvirInfo;
+        System.out.println("sendCropEnvirInfo");
+        sendCropEnvirInfo(cropEnvirInfo);
     }
 
     //송신
-    @Override
     public void sendCropEnvirInfo(CropEnvirInfo cropEnvirInfo) throws Exception {
+        System.out.println("send...");
         try {
             OkHttpClient client = new OkHttpClient();
-            String strURL = "http://localhost/chd/envir";
+            String strURL = "http://192.168.0.127/chd/envir";
 
             StringBuffer json = new StringBuffer();
             json.append("{");
@@ -65,6 +58,7 @@ public class CropEnvirServiceImp implements CropEnvirService {
                     System.out.println(response.body());
                     if (response.body() != null) {
                         System.out.println(response.body().string());
+                        System.out.println("성공 ");
                     }
                 }
             });
@@ -72,5 +66,6 @@ public class CropEnvirServiceImp implements CropEnvirService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("cut");
     }
 }

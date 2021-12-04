@@ -74,6 +74,10 @@ public class CropInfoController {
 
     @PostMapping("/envir") //농작물 환경 정보 수신
     public Map<String, String> reciveEnvirInfo(CropEnvirInfo cropEnvirInfo) throws InterruptedException {
+        if(cropEnvirInfo.isResetSignal()){
+            cropEnvirInfo.setHorizontalAngle(0);
+            cropEnvirInfo.setVerticalAngle(0);
+        }
         cropEnvirMapper.insert(cropEnvirInfo);
         cropFacilityService.sendCropEnvirInfo(cropEnvirInfo);
         Map<String, String> msg = new HashMap<String, String>();

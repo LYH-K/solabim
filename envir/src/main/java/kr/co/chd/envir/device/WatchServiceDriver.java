@@ -1,32 +1,31 @@
 package kr.co.chd.envir.device;
 
-import kr.co.chd.envir.management.CropEnvirServiceImp;
-import kr.co.chd.envir.weatherinfo.SunTimeInfo;
-import kr.co.chd.envir.weatherinfo.SunTimeUtil;
-import org.springframework.stereotype.Component;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.*;
-import java.time.LocalDate;
 import java.util.List;
 
-@Component
 public class WatchServiceDriver {
-    private StringBuilder nowDate = new StringBuilder();
     private StringBuilder resetSignal = new StringBuilder();
-    private static SunTimeUtil sunTimeUtil = new SunTimeUtil();
-    private CropEnvirServiceImp cropEnvirServiceImp = new CropEnvirServiceImp();
-    private SunTimeInfo sunTimeInfo = new SunTimeInfo();
+    private CropEnvirService cropEnvirService = new CropEnvirService();
+
+    public static void main(String[] args) {
+        WatchServiceDriver watchServiceDriver = new WatchServiceDriver();
+        System.out.println("start");
+        watchServiceDriver.measureInfostartService();
+    }
 
     //1시간 30분 마다 디바이스 작동
     public void measureInfostartService(){
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
 
-            Path path = Paths.get("/home/pi/Desktop/envirIfo");
+            Path path = Paths.get(
+                    "/home/pi/Desktop/envirInfo"
+//                    "C:\\Users\\ydj29\\Desktop"
+            );
             path.register(watchService,
                     StandardWatchEventKinds.ENTRY_CREATE,
                     StandardWatchEventKinds.ENTRY_DELETE,
@@ -40,8 +39,9 @@ public class WatchServiceDriver {
                     Path context = (Path) event.context();
                     measureInforeadFile();
                     boolean singal = Boolean.valueOf(resetSignal.toString());
-                    if(singal){
-                        cropEnvirServiceImp.measureCropEnvir();
+                    System.out.println(singal);
+                    if(!singal){
+                        cropEnvirService.measureCropEnvir(singal);
                     }
                 }
                 if (!watchKey.reset()) {
@@ -56,7 +56,10 @@ public class WatchServiceDriver {
 
     //1시간 30분마다 읽기
     public void measureInforeadFile(){
-        File file = new File("/home/pi/Desktop/envirIfo/MeasureSend.txt");
+        File file = new File(
+                "/home/pi/Desktop/envirInfo/MeasureSend.txt"
+//                "C:\\Users\\ydj29\\Desktop\\sun\\MeasureSend.txt"
+        );
         BufferedReader bufferedReader = null;
 
         try {

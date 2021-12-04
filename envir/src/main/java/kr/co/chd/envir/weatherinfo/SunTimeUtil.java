@@ -2,25 +2,25 @@ package kr.co.chd.envir.weatherinfo;
 
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Component
+
 public class SunTimeUtil {
     private static final String WEATHER_SERVICE_URL = "http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo";
-    private static final String SERVICE_KEY = "=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D";
+    private static final String SERVICE_KEY = "7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D";
     private static final String LOCAL = "서울";
 
     //일출 및 일몰 조회
-    public SunTimeInfo searchSunTime() throws Exception {
+    public SunTimeInfo getSunTime() throws Exception {
         LocalDate localDate = LocalDate.now();
         String currentDate = localDate.getYear() + "" + localDate.getMonthValue() + "" + localDate.getDayOfMonth();
-
-        String url = WEATHER_SERVICE_URL + "?serviceKey=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D" +
-                "&locdate=" + URLEncoder.encode(currentDate) + "&location=" + URLEncoder.encode(LOCAL);
+        String url = WEATHER_SERVICE_URL + "?serviceKey=" + SERVICE_KEY + "&locdate=" + URLEncoder.encode(currentDate, "UTF-8") + "&location=" + URLEncoder.encode(LOCAL, "UTF-8");
 
         // Used by OkHttp API
         OkHttpClient client = new OkHttpClient();
@@ -74,11 +74,28 @@ public class SunTimeUtil {
     }
 
     //위치 변경 신호
-    public static boolean resetSignal(SunTimeInfo sunTimeInfo) throws Exception {
+    public boolean resetSignal(SunTimeInfo sunTimeInfo) throws Exception {
         LocalTime localTime = LocalTime.now();
-        if (localTime.isAfter(sunTimeInfo.getSunRise()) && localTime.isBefore(sunTimeInfo.getSunSet())) {
+        if (localTime.isBefore(sunTimeInfo.getSunRise()) && localTime.isAfter(sunTimeInfo.getSunSet())) {
             return true;
         }
         return false;
+    }
+
+    //위치 변경 신호 쓰기
+    public void resetSingnalWrite(SunTimeInfo sunTimeInfo) throws Exception {
+        boolean resetSignal = resetSignal(sunTimeInfo);
+
+        BufferedWriter bufferedWriter = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(
+                                "/home/pi/Desktop/envirInfo/MeasureSend.txt"
+//                                "C:\\Users\\ydj29\\Desktop\\MeasureSend.txt"
+                        )));
+
+        bufferedWriter.write(String.valueOf(resetSignal));
+        bufferedWriter.flush();
+
+        bufferedWriter.close();
     }
 }

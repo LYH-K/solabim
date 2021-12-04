@@ -3,14 +3,12 @@ package kr.co.chd.envir.device;
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.*;
 import com.pi4j.io.i2c.I2CBus;
-import kr.co.chd.envir.management.CropEnvirInfo;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 public class MeasureCropEnvirUtil {
     private static float illuminance;
-    public static CropEnvirInfo cropEnvirInfo;
+    private static final long time = 2000;
 
     //측정
     public CropEnvirInfo measure() throws Exception {
@@ -93,9 +91,7 @@ public class MeasureCropEnvirUtil {
 
         gpio.shutdown();
 
-        cropEnvirInfo = cropEnvirInfoMeasure;
-
-        return cropEnvirInfo;
+        return cropEnvirInfoMeasure;
     }
 
     //세로축 최대값 구하기
@@ -139,7 +135,7 @@ public class MeasureCropEnvirUtil {
 
             illuminance = bh1750fvi.getOptical();
 
-            Thread.sleep(10000);
+            Thread.sleep(time);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +154,7 @@ public class MeasureCropEnvirUtil {
     //세로축 각도
     private void verticalMotor(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
         verticalMotor.step(-336);
-        Thread.sleep(10000);
+        Thread.sleep(time);
     }
 
     //세로축 각도 최대 위치로
@@ -170,7 +166,7 @@ public class MeasureCropEnvirUtil {
     //가로축 각도
     private void horizontalMotor(GpioStepperMotorComponent horizontalMotor) throws InterruptedException {
         horizontalMotor.step(-336);
-        Thread.sleep(10000);
+        Thread.sleep(time);
     }
 
     //가로축 각도 최대각도

@@ -1,22 +1,11 @@
 package kr.co.chd.envir.weatherinfo;
 
-import org.springframework.stereotype.Component;
-
 import java.time.LocalTime;
 
 public class SunTimeInfo {
     private LocalTime sunRise;
     private LocalTime sunSet;
-    private boolean resetSignal;;
-
-    @Override
-    public String toString() {
-        return "SunTimeInfo{" +
-                "sunRise=" + sunRise +
-                ", sunSet=" + sunSet +
-                ", resetSignal=" + resetSignal +
-                '}';
-    }
+    private boolean resetSignal;
 
     public SunTimeInfo(){
     }
