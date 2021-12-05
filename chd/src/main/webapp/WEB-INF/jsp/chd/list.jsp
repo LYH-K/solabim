@@ -132,7 +132,7 @@
         <table border="2" id="old" align="center">
             <tr>
                 <td>
-                    <input id="search" value="YYYY.MM.DD" />
+                    <input id="search" placeholder="YYYY.MM.DD" />
                 </td>
                 <td>
                     <button type="button"  onclick="sendData()" >검색</button>
