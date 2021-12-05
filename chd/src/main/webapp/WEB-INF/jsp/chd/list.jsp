@@ -32,7 +32,7 @@
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="chd.html">Crop</a>
+        <a class="navbar-brand ps-3">Crop</a>
         <!-- Sidebar Toggle-->
 
         <!-- Navbar Search-->
@@ -44,10 +44,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><svg class="svg-inline--fa fa-user fa-w-14 fa-fw" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-user fa-fw"></i> Font Awesome fontawesome.com --></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-
-
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    <li><a class="dropdown-item" href="/chd/logout">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -56,31 +53,32 @@
 <div class="container-fluid px-5" style="
     margin-top: 75px;
 ">
-    <h1 class="mt-4" style="margin = 24" align="center">오늘 농작물 분석 정보</h1>
-
     <div class="card mb-4">
-        <table border="2" align="center">
-            <thead>
-            <tr><th colspan="4">
-                <h1>오늘의 농작물 분석 정보</h1>
-            </th>
-            </tr></thead>
-            <tbody>
-            <tr>
-                <th width="120" align="center">날짜</th>
-                <th width="120" align="center">조도 평균(LUX)</th>
-                <th width="120" align="center">생장률 분석(%)</th>
-                <th width="120" align="center">출하 예측 일자</th>
-            </tr>
-            <tr>
-                <td width="120" align="center"><a href="/chd/view/?date=${list.get(0).date}">
-                    ${list.get(0).date}</a></td>
-                <td width="120" align="center">${list.get(0).illuminanceAvg}</td>
-                <td width="120" align="center">${list.get(0).growthAvg}</td>
-                <td width="120" align="center">${predictHarvest}</td>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="card-body">
+            <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns"><div class="dataTable-top"><div class="dataTable-dropdown"></div></div><div class="dataTable-container"><table id="datatablesSimple2" class="dataTable-table">
+                <thead>
+                <tr><th data-sortable="" align="center" colspan="4" class = "dataTable-table">오늘의 농작물 분석 정보</th></tr>
+                </thead>
+                <thead>
+                <tr><th data-sortable="" style="width: 25%;">날짜</th><th data-sortable="" style="width: 25%;">생장률 평균(%)</th><th data-sortable="" style="width: 25%;">조도 평균(Lux)</th><th data-sortable="" style="width: 25%;">출하 예측 일자</th></tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td width="120" align="center"><a href="/chd/view/?date=${list.get(0).date}">
+                        ${list.get(0).date}</a></td>
+                    <td width="120" align="center">${list.get(0).growthAvg}</td>
+                    <td width="120" align="center">${list.get(0).illuminanceAvg}</td>
+                    <td width="120" align="center">${predictHarvest}</td>
+
+                </tr>
+                </tbody>
+
+            </table></div>
+                <div class="input-group">
+                </div></div>
+        </div>
     </div>
 
     <div class="col-xl-6">
@@ -95,12 +93,12 @@
         <div class="card-header">
             <svg class="svg-inline--fa fa-table fa-w-16 me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"></path></svg><!-- <i class="fas fa-table me-1"></i> Font Awesome fontawesome.com -->날짜 별 농작물 분석 정보</div>
         <div class="card-body">
-            <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns"><div class="dataTable-top"><div class="dataTable-dropdown"></div><div class="dataTable-search"><input class="dataTable-input" placeholder="ex) 2021.12.02" type="text"><button class="btn btn-primary" id="btnNavbarSearch" type="button" style="heigt=38;height: 38px;margin-bottom: 2px;margin-left: 30px;"><svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fas fa-search"></i> Font Awesome fontawesome.com --></button></div></div><div class="dataTable-container"><table id="datatablesSimple" class="dataTable-table">
+            <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns"><div class="dataTable-top"><div class="dataTable-dropdown"></div><div class="dataTable-search"><input class="dataTable-input" placeholder="ex) 2021.12.02" type="text" id="search"><button class="btn btn-primary" id="btnNavbarSearch" type="button" onclick="sendData()" style="heigt=38;height: 38px;margin-bottom: 2px;margin-left: 30px;"><svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fas fa-search"></i> Font Awesome fontawesome.com --></button></div></div><div class="dataTable-container"><table id="datatablesSimple" class="dataTable-table">
                 <thead>
-                <tr><th data-sortable="" style="width: 10%;"><a href="#" class="dataTable	sorter">번호</a></th><th data-sortable="" style="30%"><a href="#" class="dataTable-sorter">날짜</a></th><th data-sortable="" style="width: 30%;"><a href="#" class="dataTable-sorter">생장률 평균(%)</a></th><th data-sortable="" style="width: 30%;"><a href="#" class="dataTable-sorter">조도(Lux)</a></th></tr>
+                <tr><th data-sortable="" style="width: 10%;">번호</th><th data-sortable="" style="width: 30%;">날짜</th><th data-sortable="" style="width: 30%;">생장률 평균(%)</th><th data-sortable="" style="width: 30%;">조도(Lux)</th></tr>
                 </thead>
 
-                <tbody>
+                <tbody id = "table">
                     <c:forEach items="${list}" var="list" varStatus="no" >
                         <tr>
                             <td width="120" align="center">${no.count}</td>
@@ -111,6 +109,7 @@
                         </tr>
                     </c:forEach>
                 </tbody>
+
             </table></div>
                 <div class="dataTable-bottom"><div class="dataTable-info">Showing 1 to 10 of 57 entries</div><nav class="dataTable-pagination"><ul class="dataTable-pagination-list"><li class="active"><a href="#" data-page="1">1</a></li><li class=""><a href="#" data-page="2">2</a></li><li class=""><a href="#" data-page="3">3</a></li><li class=""><a href="#" data-page="4">4</a></li><li class=""><a href="#" data-page="5">5</a></li><li class=""><a href="#" data-page="6">6</a></li><li class="pager"><a href="#" data-page="2">›</a></li></ul></nav></div><div class="input-group">
                 </div></div>
@@ -120,7 +119,6 @@
     <div class="text-muted">Copyright © Your Website 2021</div>
     <div>
         <a href="#">Privacy Policy</a>
-        ·
         <a href="#">Terms &amp; Conditions</a>
     </div>
 </div>
@@ -132,5 +130,44 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="js/datatables-simple-demo.js"></script>
 
+<script>
+    <%--var list = '${list}';--%>
+
+    function sendData() {
+        xmlRequest = new XMLHttpRequest();
+
+        request = document.getElementById('search').value;
+
+        console.log(request);
+
+        xmlRequest.open("GET","/chd/list/?date="+request,true);
+        xmlRequest.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+
+        xmlRequest.send();
+
+        xmlRequest.onreadystatechange = getData;
+
+    }
+
+    function getData(){
+        if(xmlRequest.status == 200){
+            var text = xmlRequest.responseText;
+            var json = JSON.parse(text);//문자열을 제이슨으로 변형
+        }
+
+        var tag = "<table border='2'>"
+        for (var i = 0; i < json.length; i++) {
+            tag +=
+                "<tr>" +"<td align = center>"+(i+1)+"</td>"
+                + "<td align = center><a href='/chd/view/?date=" + json[i].date + "'>"
+                + json[i].date + "</a></td><td align = center>"
+                + json[i].illuminanceAvg + "</td><td align = center>"
+                + json[i].growthAvg + "</td></tr >";
+        }
+
+        tag += "</table>";
+        document.getElementById("table").innerHTML = tag;
+    }
+</script>
 
 </body></html>
