@@ -1,31 +1,41 @@
 package kr.co.chd.envir.device;
 
-import kr.co.chd.envir.weatherinfo.SunTimeInfo;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 public class CropEnvirService {
-    public static SunTimeInfo sunTimeInfo;
-
-    public static void main(String[] args) {
-        CropEnvirService cropEnvirService = new CropEnvirService();
-        CropEnvirInfo cropEnvirInfo = new CropEnvirInfo();
-        cropEnvirInfo.setHorizontalAngle(180);
-        cropEnvirInfo.setVerticalAngle(60);
-        cropEnvirInfo.setResetSignal(false);
-        try {
-            cropEnvirService.sendCropEnvirInfo(cropEnvirInfo);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     //농작물 환경 정보 측정
     public void measureCropEnvir(boolean resetSignal) throws Exception{
         CropEnvirInfo cropEnvirInfo = new MeasureCropEnvirUtil().measure();
         System.out.println("setResetSignal");
+        int horizontalAngle = cropEnvirInfo.getHorizontalAngle();
+        int verticalAngle = cropEnvirInfo.getVerticalAngle();
+
+        if(verticalAngle >= 60 && verticalAngle <= 120){
+            cropEnvirInfo.setVerticalAngle(60);
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() + 180);
+            if(cropEnvirInfo.getHorizontalAngle() >= 360){
+                cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 360);
+            }
+        } else if(verticalAngle > 120) {
+            cropEnvirInfo.setVerticalAngle(180 - cropEnvirInfo.getVerticalAngle());
+        } else  if(verticalAngle < 0 || horizontalAngle < 0) {
+            cropEnvirInfo.setHorizontalAngle(0);
+            cropEnvirInfo.setCropEnvirNo(0);
+        } else {
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() + 180);
+            if (cropEnvirInfo.getHorizontalAngle() >= 360) {
+                cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 360);
+            }
+        }
+
+        System.out.println();
+
+        System.out.println(cropEnvirInfo.getHorizontalAngle() + "horizontal");
+        System.out.println(cropEnvirInfo.getVerticalAngle() + "vertical");
         System.out.println("resetSignal");
         cropEnvirInfo.setResetSignal(resetSignal);
         System.out.println("sendCropEnvirInfo");
