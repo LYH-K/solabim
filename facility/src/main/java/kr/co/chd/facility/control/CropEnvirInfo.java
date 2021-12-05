@@ -1,4 +1,4 @@
-package kr.co.chd.facility.facility_control;
+package kr.co.chd.facility.control;
 
 import java.io.Serializable;
 

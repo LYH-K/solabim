@@ -1,4 +1,4 @@
-package kr.co.chd.envir.weatherinfo;
+package kr.co.chd.envir.weather;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,7 +27,7 @@ public class SunTimeUtil extends TimerTask{
 //        urlBuffer.append("&" + URLEncoder.encode("locdate", StandardCharsets.UTF_8) + "=" + URLEncoder.encode(currentDate, StandardCharsets.UTF_8));
 //        urlBuffer.append("&" + URLEncoder.encode("location", StandardCharsets.UTF_8) + "=" + URLEncoder.encode(LOCAL, StandardCharsets.UTF_8));
 
-        String url = WEATHER_SERVICE_URL + "?serviceKey=7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D" +
+        String url = WEATHER_SERVICE_URL + SERVICE_KEY +
                 "&locdate=" + URLEncoder.encode(currentDate) + "&location=" + URLEncoder.encode(LOCAL);
 
         // Used by OkHttp API

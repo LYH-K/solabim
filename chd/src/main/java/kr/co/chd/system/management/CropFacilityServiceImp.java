@@ -1,7 +1,5 @@
-package kr.co.chd.system.analysis_management;
+package kr.co.chd.system.management;
 
-import kr.co.chd.system.analysis_management.CropEnvirInfo;
-import kr.co.chd.system.analysis_management.CropFacilityService;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;

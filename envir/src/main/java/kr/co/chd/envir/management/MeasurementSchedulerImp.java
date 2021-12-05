@@ -1,6 +1,6 @@
 package kr.co.chd.envir.management;
 
-import kr.co.chd.envir.weatherinfo.SunTimeUtil;
+import kr.co.chd.envir.weather.SunTimeUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

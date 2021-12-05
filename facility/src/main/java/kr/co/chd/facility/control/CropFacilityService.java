@@ -1,8 +1,6 @@
-package kr.co.chd.facility.facility_control;
+package kr.co.chd.facility.control;
 
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public interface CropFacilityService {

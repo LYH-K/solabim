@@ -6,8 +6,108 @@
 <html>
     <head>
         <title>농작물 분석 정보 목록</title>
+        <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+        <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.themes.fusion.js"></script>
+        <script type="text/javascript">
+            const chartData =[
+                {
+                    "label" : "${list.get(9).date}",
+                    "value" : "${list.get(9).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(9).date} {br} 생장률(%) : ${list.get(9).growthAvg} {br} 조도(Lux) : ${list.get(9).illuminanceAvg}"},
+
+                { "label" : "${list.get(8).date}",
+                    "value" : "${list.get(8).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(8).date} {br} 생장률(%) : ${list.get(8).growthAvg} {br} 조도(Lux) : ${list.get(8).illuminanceAvg}"},
+
+                { "label" : "${list.get(7).date}",
+                    "value" : "${list.get(7).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(7).date} {br} 생장률(%) : ${list.get(7).growthAvg} {br} 조도(Lux) : ${list.get(7).illuminanceAvg}"},
+
+                { "label" : "${list.get(6).date}",
+                    "value" : "${list.get(6).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(6).date} {br} 생장률(%) : ${list.get(6).growthAvg} {br} 조도(Lux) : ${list.get(6).illuminanceAvg}"},
+
+                { "label" : "${list.get(5).date}",
+                    "value" : "${list.get(5).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(5).date} {br} 생장률(%) : ${list.get(5).growthAvg} {br} 조도(Lux) : ${list.get(5).illuminanceAvg}"},
+
+                { "label" : "${list.get(4).date}",
+                    "value" : "${list.get(4).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(4).date} {br} 생장률(%) : ${list.get(4).growthAvg} {br} 조도(Lux) : ${list.get(4).illuminanceAvg}"},
+
+                { "label" : "${list.get(3).date}",
+                    "value" : "${list.get(3).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(3).date} {br} 생장률(%) : ${list.get(3).growthAvg} {br} 조도(Lux) : ${list.get(3).illuminanceAvg}"},
+
+                { "label" : "${list.get(2).date}",
+                    "value" : "${list.get(2).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(2).date} {br} 생장률(%) : ${list.get(2).growthAvg} {br} 조도(Lux) : ${list.get(2).illuminanceAvg}"},
+
+                { "label" : "${list.get(1).date}",
+                    "value" : "${list.get(1).growthAvg}",
+                    "tooltext" : "시간 : ${list.get(1).date} {br} 생장률(%) : ${list.get(1).growthAvg} {br} 조도(Lux) : ${list.get(1).illuminanceAvg}"},
+
+                { "label" : "${list.get(0).date}",
+                "value" : "${list.get(0).growthAvg}",
+                "tooltext" : "시간 : ${list.get(0).date} {br} 생장률(%) : ${list.get(0).growthAvg} {br} 조도(Lux) : ${list.get(0).illuminanceAvg}"}
+            ],
+
+            chartConfig = {
+                type : 'splinearea',
+                renderAt : 'chart-container',
+                width : '100%',
+                height : '400',
+                dataFormat : 'json',
+                dataSource :{
+                    "chart" : {
+                        "caption" : "오늘의 농작물 정보",
+                        "xAxisName" : "시간",
+                        "yAxisName" : "생장률",
+                        "theme" : "fusion"
+                    },
+
+                    data : chartData
+                }, options: {
+                    tooltips : {
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 10
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            text:"생장률(%)",
+                            min: 0,
+                            max: 100,
+                            maxTicksLimit: 11
+                        },
+                        gridLines: {
+                            color: "rgb(178, 195, 152)",
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+            FusionCharts.ready(function(){
+                var fusioncharts = new FusionCharts(chartConfig);
+                fusioncharts.render();
+            });
+        </script>
     </head>
     <body>
+    <div id="chart-container">FusionCharts XT will load here!</div>
         <table border="2" align="center">
             <tr>
                 <th colspan="4">
@@ -79,7 +179,6 @@
                 xmlRequest.send();
 
                 xmlRequest.onreadystatechange = getData;
-
             }
 
             function getData(){
@@ -102,10 +201,6 @@
                 tag += "</table>";
                 document.getElementById("table").innerHTML = tag;
             }
-
-
         </script>
-
-
     </body>
 </html>

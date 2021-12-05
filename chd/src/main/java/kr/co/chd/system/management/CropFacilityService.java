@@ -1,4 +1,4 @@
-package kr.co.chd.system.analysis_management;
+package kr.co.chd.system.management;
 
 
 public interface CropFacilityService {

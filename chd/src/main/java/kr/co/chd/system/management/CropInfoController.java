@@ -1,11 +1,10 @@
-package kr.co.chd.system.analysis_management;
+package kr.co.chd.system.management;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -83,7 +82,6 @@ public class CropInfoController {
 
         FileInputStream fileInputStream = null;
 
-
         int count = 0;
         byte buffer [] = new byte[1024];
         byte cropImage[] = new byte[Integer.parseInt(String.valueOf(cropSideImage.length()))];
@@ -120,6 +118,11 @@ public class CropInfoController {
         msg.put("code", "200");
         msg.put("message", "OK");
         return msg;
+    }
+
+    @GetMapping("/test")
+    public ModelAndView test() {
+        return new ModelAndView("test");
     }
 
 }

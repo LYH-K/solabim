@@ -1,7 +1,7 @@
 package kr.co.chd.envir.management;
 
 import kr.co.chd.envir.device.MeasureCropEnvirUtil;
-import kr.co.chd.envir.weatherinfo.SunTimeInfo;
+import kr.co.chd.envir.weather.SunTimeInfo;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
