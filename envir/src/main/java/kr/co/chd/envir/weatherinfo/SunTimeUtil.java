@@ -90,8 +90,7 @@ public class SunTimeUtil {
                 new OutputStreamWriter(
                         new FileOutputStream(
                                 "/home/pi/Desktop/envirInfo/MeasureSend.txt"
-//                                "C:\\Users\\ydj29\\Desktop\\MeasureSend.txt"
-                        )));
+                       )));
 
         bufferedWriter.write(String.valueOf(resetSignal));
         bufferedWriter.flush();
