@@ -24,7 +24,6 @@ public class WatchServiceDriver {
 
             Path path = Paths.get(
                     "/home/pi/Desktop/envirInfo"
-//                    "C:\\Users\\ydj29\\Desktop"
             );
             path.register(watchService,
                     StandardWatchEventKinds.ENTRY_CREATE,
@@ -58,7 +57,6 @@ public class WatchServiceDriver {
     public void measureInforeadFile(){
         File file = new File(
                 "/home/pi/Desktop/envirInfo/MeasureSend.txt"
-//                "C:\\Users\\ydj29\\Desktop\\sun\\MeasureSend.txt"
         );
         BufferedReader bufferedReader = null;
 
