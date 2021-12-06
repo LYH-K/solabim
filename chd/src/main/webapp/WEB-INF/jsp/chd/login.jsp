@@ -44,6 +44,7 @@
                     <div class="text-muted">Copyright © Your Website 2021</div>
                     <div>
                         <a href="#">Privacy Policy</a>
+                        ·
                         <a href="#">Terms &amp; Conditions</a>
                     </div>
                 </div>

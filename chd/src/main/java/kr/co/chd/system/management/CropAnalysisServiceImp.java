@@ -38,7 +38,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             imageNo = Integer.parseInt(imageNoProperties.getProperty("imageNo"));
 
             cropAnalysis.setCropSideImageURL(path+"\\cropSideImage"+imageNo+".jpg");
-            cropAnalysis.setCropVerticalImageURL(path+"\\cropVerticleImage"+imageNo+".jpg");
+            cropAnalysis.setCropVerticalImageURL(path+"\\cropVerticalImage"+imageNo+".jpg");
 
             imageNo++;
             imageNoProperties.setProperty("imageNo",String.valueOf(imageNo));
@@ -138,7 +138,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
         LocalDate today = LocalDate.now();
         List<CropAverage> cropAverageList = analysisMapper.selectAll();
 
-        int maxGrowth = cropAverageList.get(cropAverageList.size() - 1).getGrowthAvg();
+        int maxGrowth = cropAverageList.get(0).getGrowthAvg();
 
         LocalDate predictDate;
         int dataAvgGrowth = maxGrowth / cropAverageList.size();
