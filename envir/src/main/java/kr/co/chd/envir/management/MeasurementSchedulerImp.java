@@ -48,8 +48,8 @@ public class MeasurementSchedulerImp implements  MeasurementScheduler {
             bufferedWriter = new BufferedWriter(
                     new OutputStreamWriter(
                             new FileOutputStream(
-                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt"
-//                                    "C:\\Users\\ydj29\\Desktop\\sun\\MeasureSend.txt"
+//                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt"
+                                    "C:\\Users\\ydj29\\Desktop\\sun\\MeasureSend.txt"
                             )));
 
             bufferedWriter.write(String.valueOf(resetSignal));

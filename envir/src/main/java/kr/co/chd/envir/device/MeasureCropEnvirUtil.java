@@ -229,6 +229,6 @@ public class MeasureCropEnvirUtil {
 
     //가로축 각도 초기화
     private void horizontalReset(GpioStepperMotorComponent motor) {
-        motor.step(0);
+        motor.step(2038);
     }
 }
