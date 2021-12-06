@@ -10,15 +10,6 @@ public class MeasureCropEnvirUtil {
     private static float illuminance;
     private static final int time = 5000;
 
-    public static void main(String[] args) {
-        MeasureCropEnvirUtil measureCropEnvirUtil = new MeasureCropEnvirUtil();
-        try {
-            measureCropEnvirUtil.measure();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     //측정
     public CropEnvirInfo measure() {
         final GpioController gpio = GpioFactory.getInstance();
