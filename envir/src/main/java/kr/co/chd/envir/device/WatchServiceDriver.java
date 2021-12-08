@@ -41,6 +41,8 @@ public class WatchServiceDriver {
                     System.out.println(singal);
                     if(!singal){
                         cropEnvirService.measureCropEnvir(singal);
+                    } else {
+                        System.out.println("watch continue");
                     }
                 }
                 if (!watchKey.reset()) {

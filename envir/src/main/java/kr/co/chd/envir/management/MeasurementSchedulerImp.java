@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Component
 public class MeasurementSchedulerImp implements  MeasurementScheduler {
     private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
-    private final long time = 3600000;
+    private final long time = 150000;
 
     //1시간 30분마다 작동
     @Override
@@ -48,8 +48,7 @@ public class MeasurementSchedulerImp implements  MeasurementScheduler {
             bufferedWriter = new BufferedWriter(
                     new OutputStreamWriter(
                             new FileOutputStream(
-//                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt"
-                                    "C:\\Users\\ydj29\\Desktop\\sun\\MeasureSend.txt"
+                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt"
                             )));
 
             bufferedWriter.write(String.valueOf(resetSignal));

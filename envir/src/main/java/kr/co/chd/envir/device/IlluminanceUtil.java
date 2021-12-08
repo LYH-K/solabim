@@ -35,6 +35,10 @@ public class IlluminanceUtil {
     private final String i2cName;
     private final String logPrefix;
 
+    public static void main(String[] args) {
+        illuminanceMeasurement();
+    }
+
     private final AtomicInteger useCount = new AtomicInteger(0);
 
     private static final ConcurrentHashMap<String, IlluminanceUtil> map = new ConcurrentHashMap<String, IlluminanceUtil>();
@@ -126,5 +130,28 @@ public class IlluminanceUtil {
         byte[] data = read(SENSOR_DATA_LENGTH);
 
         return (float)((((int)(data[0] & 0xff) << 8) + (int)(data[1] & 0xff)) / 1.2);
+    }
+
+    private static float illuminanceMeasurement(){
+        float illuminance = 0;
+        IlluminanceUtil bh1750fvi = null;
+        try {
+
+            bh1750fvi = IlluminanceUtil.getInstance(I2CBus.BUS_1, IlluminanceUtil.I2C_ADDRESS_23);
+
+            illuminance = bh1750fvi.getOptical();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bh1750fvi != null) {
+                try {
+                    bh1750fvi.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return illuminance;
     }
 }
