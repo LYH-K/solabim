@@ -15,30 +15,29 @@ import java.time.LocalTime;
 public class MeasurementSchedulerImp implements  MeasurementScheduler {
     private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
     private final long time = 150000;
+    private static int num = 0;
 
     //1시간 30분마다 작동
     @Override
-    @Scheduled(fixedDelay = time, initialDelay = 1000)
+    @Scheduled(fixedDelay = 1000, initialDelay = 1000)
     public void getTimeStart(){
         LocalTime localTime = LocalTime.now();
-        LocalTime startTime = LocalTime.of(7, 0 , 0);
-        LocalTime stopTime = LocalTime.of(18, 0, 0);
-        boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
 
-        System.out.println(signal + "************************************************************************************");
+        System.out.println(num);
 
-        if(signal){
+        if(num % 2 != 0){
             try {
                 System.out.println("stop**************************************");
-                resetSingnalWrite(signal);
+                resetSingnalWrite(true);
                 Thread.sleep(time);
             } catch (Exception e){
                 e.printStackTrace();
             }
         } else {
             System.out.println("start*****************************************");
-            resetSingnalWrite(signal);
+            resetSingnalWrite(false);
         }
+        num ++;
     }
 
     public void resetSingnalWrite(boolean resetSignal) {

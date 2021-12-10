@@ -4,45 +4,60 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.nio.file.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.List;
 
+import kr.co.chd.envir.device.CropEnvirInfo;
+import kr.co.chd.envir.device.CropEnvirService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WatchServiceDriver {
-    private StringBuilder resetSignal = new StringBuilder();
+    private static final Logger logger = LogManager.getLogger(WatchServiceDriver.class);
+
+    private StringBuffer resetSignal = new StringBuffer();
     private CropEnvirService cropEnvirService = new CropEnvirService();
 
     public static void main(String[] args) {
         WatchServiceDriver watchServiceDriver = new WatchServiceDriver();
-        System.out.println("start");
+
+        logger.debug("start");
+
         watchServiceDriver.measureInfostartService();
     }
 
-    //1시간 30분 마다 디바이스 작동
-    public void measureInfostartService(){
+    // 1시간 30분 마다 디바이스 작동
+    public void measureInfostartService() {
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
 
-            Path path = Paths.get(
-                    "/home/pi/Desktop/envirInfo"
-            );
-            path.register(watchService,
-                    StandardWatchEventKinds.ENTRY_CREATE,
-                    StandardWatchEventKinds.ENTRY_DELETE,
+            Path path = Paths.get("/home/pi/Desktop/envirInfo");
+            path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE,
                     StandardWatchEventKinds.ENTRY_MODIFY);
 
             while (true) {
                 WatchKey watchKey = watchService.take();
                 List<WatchEvent<?>> events = watchKey.pollEvents();
+
                 for (WatchEvent<?> event : events) {
                     WatchEvent.Kind<?> kind = event.kind();
                     Path context = (Path) event.context();
                     measureInforeadFile();
                     boolean singal = Boolean.valueOf(resetSignal.toString());
-                    System.out.println(singal);
-                    if(!singal){
+                    logger.debug(singal);
+
+                    if (!singal) {
                         cropEnvirService.measureCropEnvir(singal);
                     } else {
-                        System.out.println("watch continue");
+                        CropEnvirInfo cropEnvirInfo = new CropEnvirInfo();
+                        cropEnvirInfo.setResetSignal(true);
+                        cropEnvirService.sendCropEnvirInfo(cropEnvirInfo);
                     }
                 }
                 if (!watchKey.reset()) {
@@ -55,25 +70,23 @@ public class WatchServiceDriver {
         }
     }
 
-    //1시간 30분마다 읽기
-    public void measureInforeadFile(){
-        File file = new File(
-                "/home/pi/Desktop/envirInfo/MeasureSend.txt"
-        );
+    // 1시간 30분마다 읽기
+    public void measureInforeadFile() {
+        File file = new File("/home/pi/Desktop/envirInfo/MeasureSend.txt");
         BufferedReader bufferedReader = null;
 
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            resetSignal.replace(0,1000,bufferedReader.readLine());// 가져온다.
+            resetSignal.replace(0, 1000, bufferedReader.readLine());// 가져온다.
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if(bufferedReader != null){
+                if (bufferedReader != null) {
                     bufferedReader.close();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

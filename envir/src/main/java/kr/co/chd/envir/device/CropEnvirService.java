@@ -1,49 +1,47 @@
 package kr.co.chd.envir.device;
 
-import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 
-public class CropEnvirService {
+import kr.co.chd.envir.device.CropEnvirInfo;
+import kr.co.chd.envir.device.MeasureCropEnvirUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class CropEnvirService {
+    private Logger logger = LogManager.getLogger(CropEnvirService.class);
     //농작물 환경 정보 측정
     public void measureCropEnvir(boolean resetSignal) throws Exception{
         CropEnvirInfo cropEnvirInfo = new MeasureCropEnvirUtil().measure();
-        System.out.println("setResetSignal");
+
         int verticalAngle = cropEnvirInfo.getVerticalAngle();
         int horizontalAngle = cropEnvirInfo.getHorizontalAngle() + 180;
 
-        System.out.println();
-
-        if(verticalAngle > 60 && verticalAngle <= 90) {
-            cropEnvirInfo.setVerticalAngle(60);
-        } else if(verticalAngle > 90 && verticalAngle <= 120) {
-            cropEnvirInfo.setVerticalAngle(60);
-            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 180);
-        } else if(verticalAngle > 120) {
-            cropEnvirInfo.setVerticalAngle(180 - cropEnvirInfo.getVerticalAngle());
-            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 180);
-        }
-
-        if(cropEnvirInfo.getHorizontalAngle() / 360 != 0) {
-            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() % 360);
-        }
-
-        System.out.println("cropEnvirInfo.getVerticalAngle" + cropEnvirInfo.getVerticalAngle());
-        System.out.println("cropEnvirInfo.getHorizontalAngle" + cropEnvirInfo.getHorizontalAngle());
-
-        System.out.println(cropEnvirInfo.getHorizontalAngle() + "horizontal");
-        System.out.println(cropEnvirInfo.getVerticalAngle() + "vertical");
-        System.out.println("resetSignal");
         cropEnvirInfo.setResetSignal(resetSignal);
-        System.out.println("sendCropEnvirInfo");
+
+        logger.debug("horizontal : " + cropEnvirInfo.getVerticalAngle() + " , "
+                + "vertical : " + cropEnvirInfo.getHorizontalAngle() + " , "
+                + "illuminance : " + cropEnvirInfo.getIlluminance() + " , "
+                + "resetSignal : " + cropEnvirInfo.isResetSignal()
+        );
+
         sendCropEnvirInfo(cropEnvirInfo);
     }
 
     //송신
     public void sendCropEnvirInfo(CropEnvirInfo cropEnvirInfo) throws Exception {
-        System.out.println("send...");
+        if(cropEnvirInfo.isResetSignal() == true){
+            logger.debug("resetSignal : true");
+        }
+        logger.debug("send...");
         try {
             OkHttpClient client = new OkHttpClient();
             String strURL = "http://192.168.0.127/chd/envir";
@@ -73,15 +71,15 @@ public class CropEnvirService {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error");
+                    logger.debug("error");
                 }
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    System.out.println(response.body());
+                    logger.debug(response.body());
                     if (response.body() != null) {
-                        System.out.println(response.body().string());
-                        System.out.println("성공 ");
+                        logger.debug(response.body().string());
+                        logger.debug("성공 ");
                     }
                 }
             });
@@ -89,6 +87,7 @@ public class CropEnvirService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("cut");
+
+        logger.debug("end");
     }
 }

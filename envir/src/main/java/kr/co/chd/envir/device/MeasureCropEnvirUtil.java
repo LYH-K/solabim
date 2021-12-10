@@ -1,15 +1,22 @@
 package kr.co.chd.envir.device;
 
-import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
-import com.pi4j.io.gpio.*;
-import com.pi4j.io.i2c.I2CBus;
-
 import java.io.IOException;
+import org.apache.logging.log4j.*;
+
+import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.io.i2c.I2CBus;
 
 
 public class MeasureCropEnvirUtil {
     private static float illuminance;
     private static final int time = 2000;
+    private static final Logger logger = LogManager.getLogger(MeasureCropEnvirUtil.class);
+
 
     //측정
     public CropEnvirInfo measure() {
@@ -54,17 +61,17 @@ public class MeasureCropEnvirUtil {
             horizontalMotor.setStepsPerRevolution(2038);
 
             //세로축 각도 최대각도 찾기
-            System.out.println("maxVerticalAngleStart");
-            int maxVerticalAngle = maxVerticalAngle(verticalMotor) - 30;
-            System.out.println("maxVerticalAngle : " + maxVerticalAngle);
+            logger.debug("maxVerticalAngleStart");
+            int maxVerticalAngle = maxVerticalAngle(verticalMotor);
 
             //최대 각도로 돌아가기
-            System.out.println("maxvertical" + maxVerticalAngle);
-            System.out.println("maxVerticalMotorStart");
+            logger.debug("maxVerticalAngle : " + maxVerticalAngle);
+            logger.debug("maxVerticalReturn");
             maxVerticalMotor(maxVerticalAngle, verticalMotor);
 
             //가로축 모터 최대 가로축 각도 및 조도세기 넣기
-            int maxHorizontalAngle = maxHorizontalMotor(horizontalMotor) - 30;
+            logger.debug("maxHorizontalAngleStart");
+            int maxHorizontalAngle = maxHorizontalMotor(horizontalMotor);
             horizontalMotor(horizontalMotor);
 
             //보내줄 내용 저장
@@ -72,15 +79,12 @@ public class MeasureCropEnvirUtil {
             cropEnvirInfoMeasure.setHorizontalAngle(maxHorizontalAngle);
             cropEnvirInfoMeasure.setIlluminance(illuminance);
 
-            System.out.println("getVerticalAngle" + cropEnvirInfoMeasure.getVerticalAngle());
-            System.out.println("getHorizontalAngle" + cropEnvirInfoMeasure.getHorizontalAngle());
-
             verticalReset(cropEnvirInfoMeasure.getVerticalAngle(), verticalMotor);
             horizontalReset(horizontalMotor);
 
-            System.out.println("resultvertical" + cropEnvirInfoMeasure.getVerticalAngle());
-            System.out.println("resulthorizontal" + cropEnvirInfoMeasure.getHorizontalAngle());
-            System.out.println("resultillumant" + cropEnvirInfoMeasure.getIlluminance());
+            logger.debug("resultvertical : " + cropEnvirInfoMeasure.getVerticalAngle());
+            logger.debug("resulthorizontal : " + cropEnvirInfoMeasure.getHorizontalAngle());
+            logger.debug("resultillumant : " + cropEnvirInfoMeasure.getIlluminance());
 
             verticalMotor.stop();
             horizontalMotor.stop();
@@ -99,6 +103,7 @@ public class MeasureCropEnvirUtil {
     //세로축 최대값 구하기
     private int maxVerticalAngle(GpioStepperMotorComponent verticalMotor) throws Exception {
         CropEnvirInfo[] cropEnvirInfos = new CropEnvirInfo[6];
+        logger.debug("verticalAngle : verticalIlluminance");
         for(int i = 0; i < 6; i++) {
             cropEnvirInfos[i] = new CropEnvirInfo();
             verticalMotor(verticalMotor);
@@ -115,8 +120,9 @@ public class MeasureCropEnvirUtil {
 
             cropEnvirInfos[i].setVerticalAngle((i + 1) * 30);
             cropEnvirInfos[i].setIlluminance(illuminance);
-            System.out.println(cropEnvirInfos[i].getVerticalAngle() - 30);
-            System.out.println(cropEnvirInfos[i].getIlluminance());
+            if(i > 0) {
+                logger.debug((cropEnvirInfos[i].getVerticalAngle() - 30) + " : " + cropEnvirInfos[i].getIlluminance());
+            }
         }
 
         float max = cropEnvirInfos[0].getIlluminance();
@@ -157,14 +163,13 @@ public class MeasureCropEnvirUtil {
 
     //세로축 각도
     private void verticalMotor(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
-        verticalMotor.step(-340);
+        verticalMotor.step(-335);
         Thread.sleep(time);
     }
 
     //세로축 각도 최대 위치로
     private void maxVerticalMotor(int MaxAngle, GpioStepperMotorComponent verticalMotor){
-        int angle = (((180 - MaxAngle)) / 30) * 340;
-        System.out.println("moveVertical" + angle);
+        int angle = (((180 - MaxAngle)) / 30) * 330;
         verticalMotor.step(angle);
     }
 
@@ -178,6 +183,7 @@ public class MeasureCropEnvirUtil {
     private int maxHorizontalMotor(GpioStepperMotorComponent horizontalMotor) throws Exception {
 
         CropEnvirInfo[] cropEnvirInfos = new CropEnvirInfo[12];
+        logger.debug("HorizontalAngle : HorizontalIlluminance");
 
         for(int i = 0; i < 12; i++) {
             cropEnvirInfos[i] = new CropEnvirInfo();
@@ -195,10 +201,14 @@ public class MeasureCropEnvirUtil {
 
             cropEnvirInfos[i].setHorizontalAngle((i + 1) * 30);
             cropEnvirInfos[i].setIlluminance(illuminance);
-            System.out.println("horizontalMotor" + (cropEnvirInfos[i].getHorizontalAngle()));
-            System.out.println("maxHorizontalMotor" + cropEnvirInfos[i].getIlluminance());
+            if(0 < i){
+                logger.debug((cropEnvirInfos[i].getHorizontalAngle() - 30) + " : " + cropEnvirInfos[i].getIlluminance());
+            }
             Thread.sleep(1000);
         }
+
+        logger.debug("360 : " + cropEnvirInfos[0].getIlluminance());
+
 
         float max = cropEnvirInfos[0].getIlluminance();
         int angle = 0;
@@ -210,8 +220,6 @@ public class MeasureCropEnvirUtil {
         }
 
         illuminance = max;
-        System.out.println("maxhorizontalilluminance " + max);
-        System.out.println("maxhorizontal " + angle);
 
         return angle;
     }
@@ -219,8 +227,6 @@ public class MeasureCropEnvirUtil {
     //세로축 각도 초기화
     private void verticalReset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = ((maxAngle / 30)) * 330;
-        System.out.println("reset" + maxAngle);
-        System.out.println("moveVerticalReset" + angle);
         motor.step(angle);
     }
 
