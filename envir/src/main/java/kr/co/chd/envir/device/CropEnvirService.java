@@ -2,8 +2,6 @@ package kr.co.chd.envir.device;
 
 import java.io.IOException;
 
-import kr.co.chd.envir.device.CropEnvirInfo;
-import kr.co.chd.envir.device.MeasureCropEnvirUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;

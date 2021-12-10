@@ -163,14 +163,14 @@ public class MeasureCropEnvirUtil {
 
     //세로축 각도
     private void verticalMotor(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
-        verticalMotor.step(-335);
+        verticalMotor.step(335);
         Thread.sleep(time);
     }
 
     //세로축 각도 최대 위치로
     private void maxVerticalMotor(int MaxAngle, GpioStepperMotorComponent verticalMotor){
         int angle = (((180 - MaxAngle)) / 30) * 330;
-        verticalMotor.step(angle);
+        verticalMotor.step(-angle);
     }
 
     //가로축 각도
@@ -227,7 +227,7 @@ public class MeasureCropEnvirUtil {
     //세로축 각도 초기화
     private void verticalReset(int maxAngle, GpioStepperMotorComponent motor) {
         int angle = ((maxAngle / 30)) * 330;
-        motor.step(angle);
+        motor.step(- angle);
     }
 
     //가로축 각도 초기화

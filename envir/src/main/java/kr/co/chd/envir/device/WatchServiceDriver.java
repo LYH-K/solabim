@@ -13,8 +13,6 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 
-import kr.co.chd.envir.device.CropEnvirInfo;
-import kr.co.chd.envir.device.CropEnvirService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

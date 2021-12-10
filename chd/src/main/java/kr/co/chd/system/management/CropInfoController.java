@@ -5,11 +5,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/chd")
 public class CropInfoController {
@@ -105,6 +100,22 @@ public class CropInfoController {
             cropAnalysisService.addCropEnvirInfo(cropEnvirInfo);
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+        int verticalAngle = cropEnvirInfo.getVerticalAngle();
+
+        if(verticalAngle > 60 && verticalAngle <= 90) {
+            cropEnvirInfo.setVerticalAngle(60);
+        } else if(verticalAngle > 90 && verticalAngle <= 120) {
+            cropEnvirInfo.setVerticalAngle(60);
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 180);
+        } else if(verticalAngle > 120) {
+            cropEnvirInfo.setVerticalAngle(180 - cropEnvirInfo.getVerticalAngle());
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 180);
+        }
+
+        if(cropEnvirInfo.getHorizontalAngle() / 360 != 0) {
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() % 360);
         }
 
         cropFacilityService.sendCropEnvirInfo(cropEnvirInfo);
