@@ -5,7 +5,7 @@ import java.time.LocalTime;
 public class SunTimeInfo {
     private LocalTime sunRise;
     private LocalTime sunSet;
-    private boolean resetSignal;;
+    private boolean resetSignal;
 
     public SunTimeInfo(){
     }

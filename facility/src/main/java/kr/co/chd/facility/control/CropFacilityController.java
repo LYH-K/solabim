@@ -14,8 +14,6 @@ public class CropFacilityController {
 
     @PostMapping("/control")
     public Map<String, String> receiveFacilityInfo(@RequestBody CropEnvirInfo cropEnvirInfo) {
-        System.out.println(cropEnvirInfo.isResetSignal());
-
         cropFacilityService.updateCropFacilityInfo(cropEnvirInfo);
 
         Map<String, String> msg = new HashMap<String, String>();

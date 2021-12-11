@@ -1,65 +1,65 @@
 package kr.co.chd.envir.management;
 
-import kr.co.chd.envir.weather.SunTimeUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.time.LocalTime;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class MeasurementSchedulerImp extends TimerTask implements MeasurementScheduler {
-    private static LocalDateTime localDateTime;
-    private static SunTimeUtil util = new SunTimeUtil();
+@Component
+public class MeasurementSchedulerImp implements  MeasurementScheduler {
+    private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
+    private final long time = 160000;
+    private static int num = 0;
 
-    static {
-        try {
-            util.searchSunTime(LocalDate.now());
-        } catch (Exception e) {
-            e.printStackTrace();
+    //1시간 30분마다 작동
+        @Override
+        @Scheduled(fixedDelay = 1000, initialDelay = 1000)
+        public void getTimeStart(){
+            LocalTime localTime = LocalTime.now();
+            LocalTime startTime = LocalTime.of(7, 0 , 0);
+            LocalTime stopTime = LocalTime.of(18, 0, 0);
+            boolean resetSignal = localTime.isAfter(stopTime);
+            boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
+
+            if(resetSignal){
+                if(signal){
+                    try {
+                        resetSingnalWrite(signal);
+                        Thread.sleep(time);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                } else {
+                    resetSingnalWrite(resetSignal);
+                    resetSingnalWrite(signal);
+                }
         }
     }
 
-    @Override
-    public void getSunTimeInfo() throws Exception {
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                MeasurementSchedulerImp measurementSchedulerImple = new MeasurementSchedulerImp();
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(measurementSchedulerImple, 10000, 5000);
-            }
-        };
+    private void resetSingnalWrite(boolean signal) {
+        BufferedWriter bufferedWriter = null;
 
-        thread.start();
-    }
+        try{
+            bufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(
+                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt")));
 
-    //
-    @Override
-    public void run() {
-        localDateTime = LocalDateTime.now();
-        LocalDate localDate = LocalDate.of(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getMinute());
-        LocalTime localTime = LocalTime.of(localDateTime.getHour(), localDateTime.getMinute());
-        LocalTime midnight = LocalTime.of(0,10);
-        LocalTime mid = LocalTime.of(0, 20);
-
-        if(localTime.isAfter(midnight) && localTime.isBefore(mid)){
-            try {
-                util.searchSunTime(localDate);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                Timer job = new Timer();
-                if(util.resetSignal(localTime)){
-                    CropEnvirServiceImp cropEnvirServiceImple = new CropEnvirServiceImp();
-                    job.scheduleAtFixedRate(cropEnvirServiceImple, 600000,5400000);
-                    Thread.sleep(2000);
-                    job.cancel();
+            bufferedWriter.write(String.valueOf(signal));
+            bufferedWriter.flush();
+        } catch (IOException e){
+            if(bufferedWriter != null){
+                try{
+                    bufferedWriter.close();
+                }catch (IOException ex){
+                    ex.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }

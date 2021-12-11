@@ -10,6 +10,15 @@ public class CropAverage implements Serializable {
     public CropAverage() {
     }
 
+    @Override
+    public String toString() {
+        return "CropAverage{" +
+                "date='" + date + '\'' +
+                ", growthAvg=" + growthAvg +
+                ", illuminanceAvg=" + illuminanceAvg +
+                '}';
+    }
+
     public String getDate() {
         return date;
     }
