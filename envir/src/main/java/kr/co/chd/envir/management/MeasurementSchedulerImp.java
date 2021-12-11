@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Component
 public class MeasurementSchedulerImp implements  MeasurementScheduler {
     private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
-    private final long time = 150000;
+    private final long time = 160000;
     private static int num = 0;
 
     //1시간 30분마다 작동
@@ -22,6 +22,31 @@ public class MeasurementSchedulerImp implements  MeasurementScheduler {
     @Scheduled(fixedDelay = 1000, initialDelay = 1000)
     public void getTimeStart(){
         LocalTime localTime = LocalTime.now();
+
+//        LocalTime localTime = LocalTime.now();
+//        LocalTime startTime = LocalTime.of(7, 0 , 0);
+//        LocalTime stopTime = LocalTime.of(19, 0, 0);
+//        boolean resetSignal = localTime.isAfter(stopTime);
+//        LocalTime stopTime = LocalTime.of(18, 0, 0);
+//        boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
+//
+//        if(resetSignal){
+//            System.out.println(signal + "************************************************************************************");
+//
+//            if(signal){
+//                try {
+//                    System.out.println("stop**************************************");
+//                    resetSingnalWrite(signal);
+//                    Thread.sleep(time);
+//                } catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            } else {
+//                resetSingnalWrite(resetSignal);
+//                System.out.println("start");
+//                System.out.println("start*****************************************");
+//                resetSingnalWrite(signal);
+//            }
 
         System.out.println(num);
 

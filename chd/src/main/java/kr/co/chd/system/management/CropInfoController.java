@@ -108,10 +108,10 @@ public class CropInfoController {
             cropEnvirInfo.setVerticalAngle(60);
         } else if(verticalAngle > 90 && verticalAngle <= 120) {
             cropEnvirInfo.setVerticalAngle(60);
-            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 180);
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() + 180);
         } else if(verticalAngle > 120) {
             cropEnvirInfo.setVerticalAngle(180 - cropEnvirInfo.getVerticalAngle());
-            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() - 180);
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() + 180);
         }
 
         if(cropEnvirInfo.getHorizontalAngle() / 360 != 0) {
