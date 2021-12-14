@@ -102,13 +102,13 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     //모든 날짜 검색
     @Override
     public List<CropAverage> searchCropList(Map<String, String> condition) {
-        List<CropAverage> cropAverageList = analysisMapper.selectAll(condition);
+        List<CropAverage> cropAverageList = analysisMapper.select(condition);
 
         return cropAverageList;
     }
 
     @Override
-    public List<CropAverage> searchCrops(){
+    public List<CropAverage> searchCropList(){
         return analysisMapper.selectInfo();
     }
 
@@ -130,7 +130,7 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     @Override
     public String predictHarvest() {
         LocalDate today = LocalDate.now();
-        List<CropAverage> cropAverageList = analysisMapper.select();
+        List<CropAverage> cropAverageList = analysisMapper.selectAll();
 
         int maxGrowth = cropAverageList.get(0).getGrowthAvg();
 
@@ -190,14 +190,14 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
             intRGB.add(Float.parseFloat(rgb[i]));
         }
 
-        int sideR = (int)(intRGB.get(0) / (int)cropData.getCropSideR());
-        int sideG = (int)(intRGB.get(1) / (int)cropData.getCropSideG());
-        int sideB = (int)(intRGB.get(2) / (int)cropData.getCropSideB());
+        int sideR = (int)(intRGB.get(0) / cropData.getCropSideR());
+        int sideG = (int)(intRGB.get(1) / cropData.getCropSideG());
+        int sideB = (int)(intRGB.get(2) / cropData.getCropSideB());
         int sideGrowth = (int)Math.round(((sideR * 0.299) + (sideG * 0.587) + (sideB * 0.114)) * 100);
 
-        int verticalR = (int)(intRGB.get(3) / (int)cropData.getCropVerticalR());
-        int verticalG = (int)(intRGB.get(4) / (int)cropData.getCropVerticalG());
-        int verticalB = (int)(intRGB.get(5) / (int)cropData.getCropVerticalB());
+        int verticalR = (int)(intRGB.get(3) / cropData.getCropVerticalR());
+        int verticalG = (int)(intRGB.get(4) / cropData.getCropVerticalG());
+        int verticalB = (int)(intRGB.get(5) / cropData.getCropVerticalB());
         int verticalGrowth = (int)Math.round(((verticalR * 0.299) + (verticalG * 0.587) + (verticalB * 0.114)) * 100);
 
         cropAnalysis.setGrowth(sideGrowth + verticalGrowth / 2);
@@ -215,5 +215,4 @@ public class CropAnalysisServiceImp implements CropAnalysisService {
     public int countBoard() {
         return analysisMapper.countBoard();
     }
-
 }

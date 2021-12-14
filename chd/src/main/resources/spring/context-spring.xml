@@ -32,6 +32,8 @@
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/chd/login"/>
             <mvc:exclude-mapping path="/chd/css/styles.css"/>
+            <mvc:exclude-mapping path="/chd/envir"/>
+            <mvc:exclude-mapping path="/chd/analysis"/>
             <bean class="kr.co.chd.system.access.AccessServiceImp"/>
         </mvc:interceptor>
     </mvc:interceptors>

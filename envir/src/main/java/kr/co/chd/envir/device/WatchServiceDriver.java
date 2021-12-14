@@ -1,25 +1,26 @@
 package kr.co.chd.envir.device;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.nio.file.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.List;
 
 public class WatchServiceDriver {
-    private static final Logger logger = LogManager.getLogger(WatchServiceDriver.class);
-
     private StringBuffer resetSignal = new StringBuffer();
     private CropEnvirService cropEnvirService = new CropEnvirService();
 
     public static void main(String[] args) {
         WatchServiceDriver watchServiceDriver = new WatchServiceDriver();
 
-        logger.debug("start");
+        System.out.println("start");
 
         watchServiceDriver.measureInfostartService();
     }
@@ -42,7 +43,7 @@ public class WatchServiceDriver {
                     Path context = (Path) event.context();
                     measureInforeadFile();
                     boolean singal = Boolean.valueOf(resetSignal.toString());
-                    logger.debug(singal);
+                    System.out.println(singal);
 
                     if (!singal) {
                         cropEnvirService.measureCropEnvir(singal);

@@ -75,8 +75,8 @@ public class MotorDriver {
             horizontalAngle = newHorizontalAngle;//현재 가로축 각도 업데이트
             verticalAngle = newVerticalAngle;//현재 세로축 각도 업데이트
 
-            AnalysisCrop analysisCrop = new AnalysisCrop();
-            String cropRGB = analysisCrop.analysisCrop();//사진 촬영 및 분석
+            CropAnalysis cropAnalysis = new CropAnalysis();
+            String cropRGB = cropAnalysis.analysisCrop();//사진 촬영 및 분석
             System.out.println("clear");
 
             cropAnalysisInfoSender.sendCropAnalysisInfo(cropRGB);

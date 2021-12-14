@@ -28,11 +28,9 @@
         overflow: visible;
         vertical-align: -.125em
     }
-
     .svg-inline--fa.fa-w-16 {
         width: 1em
     }
-
     .fa-layers svg.svg-inline--fa {
         bottom: 0;
         left: 0;
@@ -41,16 +39,13 @@
         right: 0;
         top: 0
     }
-
     .fa-layers svg.svg-inline--fa {
         -webkit-transform-origin: center center;
         transform-origin: center center
     }
-
     .fa-ul > li {
         position: relative
     }
-
     @-webkit-keyframes fa-spin {
         0% {
             -webkit-transform: rotate(0);
@@ -72,7 +67,6 @@
             transform: rotate(360deg)
         }
     }
-
     .hay{
         text-decoration:none;
     }
@@ -96,7 +90,6 @@
     </style>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet">
     <link href="/chd/css/styles.css" rel="stylesheet">
-
     <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
     <script type="text/javascript"
             src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.themes.fusion.js"></script>
@@ -111,7 +104,6 @@
             },
             </c:forEach>
         ]
-
         chartConfig = {
             type: 'splinearea',
             renderAt: 'chart-container',
@@ -121,7 +113,7 @@
             dataSource: {
                 data: chartData,
                 "chart": {
-                    "caption": "오늘의 농작물 정보", //차트 제목
+                    "caption": "${list.get(9).date} ~ ${list.get(0).date} 농작물 분석 정보", //차트 제목
                     "captionFont" : "Lora",       //차트 폰트
                     "captionFontSize" : 20,       //차트 폰트 크기
                     "xAxisName": "날짜",
@@ -185,7 +177,6 @@
     </script>
 </head>
 <body class="sb-nav-fixed" style="font-family: Lora; font-weight: 700">
-
 <div>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success">
         <a class="navbar-brand ps-3" href="/chd/list">Crop</a>
@@ -195,7 +186,14 @@
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><svg class="svg-inline--fa fa-user fa-w-14 fa-fw" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path></svg><!-- <i class="fas fa-user fa-fw"></i> Font Awesome fontawesome.com --></a>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <svg class="svg-inline--fa fa-user fa-w-14 fa-fw" aria-hidden="true" focusable="false"
+                         data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 448 512" data-fa-i2svg="">
+                        <path fill="currentColor"
+                              d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
+                    </svg><!-- <i class="fas fa-user fa-fw"></i> Font Awesome fontawesome.com --></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/chd/logout">Logout</a></li>
                 </ul>
@@ -229,6 +227,7 @@
                         </thead>
                         <tbody>
                         <tr>
+
                             <td width="120" align="center"><a href="/chd/view/?date=${list.get(0).date}" class="hy" >
                                 ${list.get(0).date}</a></td>
                             <td width="120" align="center">${list.get(0).growthAvg}</td>
@@ -358,14 +357,11 @@
 
         var request = document.getElementById('search').value;
 
-
         if (request == null) {
             request = "";
         }
 
         let requestJson = {"date": request, "pageNo": pageNo.toString()};
-
-        console.log("-------->" + JSON.stringify(requestJson));
 
         xmlRequest.open("POST", "/chd/list", true);
         xmlRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -377,12 +373,9 @@
     }
 
     function getData() {
-
         var text = xmlRequest.responseText;
         var json = JSON.parse(text);//문자열을 제이슨으로 변형
         var cropAverages = json.cropAverages;
-
-        console.log("응답 json : " + text);
 
         var tag = "<table border='2'>"
         for (var i = 0; i < cropAverages.length; i++) {

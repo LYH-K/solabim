@@ -30,7 +30,6 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>
                 classpath:spring/context-spring.xml
-                classpath:spring/context-mybatis.xml
             </param-value>
         </init-param>
     </servlet>

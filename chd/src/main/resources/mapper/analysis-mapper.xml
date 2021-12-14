@@ -10,7 +10,7 @@
         VALUES(#{growth}, #{cropSideImageURL}, #{cropVerticalImageURL});
     </insert>
 
-    <select id = "selectAll"  parameterType="Map" resultType="kr.co.chd.system.management.CropAverage">
+    <select id = "select"  parameterType="Map" resultType="kr.co.chd.system.management.CropAverage">
         SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date, ROUND(AVG(ENVIR.ILLUMINANCE),1) AS illuminanceAvg, ROUND(AVG(ANALYSIS.GROWTH), 1) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
         GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
@@ -23,7 +23,7 @@
         </if>
     </select>
 
-    <select id="select" resultType="kr.co.chd.system.management.CropAverage">
+    <select id="selectAll" resultType="kr.co.chd.system.management.CropAverage">
         SELECT DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date, ROUND(AVG(ENVIR.ILLUMINANCE),1) AS illuminanceAvg, ROUND(AVG(ANALYSIS.GROWTH), 1) AS growthAvg FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
         WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
         GROUP BY DATE_FORMAT(ENVIR.DATE_TIME,'%Y/%M/%D')
@@ -53,14 +53,8 @@
         SELECT ENVIR.ENVIR_NO AS no, DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') AS date, DATE_FORMAT(ENVIR.DATE_TIME,'%H:%i') AS time, ENVIR.ILLUMINANCE AS illuminance, ENVIR.HORIZONTAL_ANGLE AS horizontalAngle, ENVIR.VERTICAL_ANGLE AS verticalAngle,
         ANALYSIS.GROWTH AS growth, ANALYSIS.CROP_SIDE_IMAGE AS cropSideImageURL , ANALYSIS.CROP_VERTICAL_IMAGE AS cropVerticalImageURL
         FROM CROP_ANALYSIS_INFO ANALYSIS ,CROP_ENVIR_INFO ENVIR
-        <where>
-            <if test="true">
-                AND ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
-            </if>
-            <if test="value != null and value != ''">
-                AND  DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') like #{value}
-            </if>
-        </where>
+        WHERE ANALYSIS.ANALYSIS_NO = ENVIR.ENVIR_NO
+          AND  DATE_FORMAT(ENVIR.DATE_TIME,'%Y.%m.%d') like #{value}
         ORDER BY time DESC
     </select>
 

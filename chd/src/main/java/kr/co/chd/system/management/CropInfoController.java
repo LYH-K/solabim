@@ -1,14 +1,13 @@
 package kr.co.chd.system.management;
 
-import jakarta.servlet.http.HttpSession;
 import kr.co.chd.system.page.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +39,12 @@ public class CropInfoController {
         ModelAndView modelAndView = new ModelAndView("chd/list");
         List<CropAverage> cropAverageList = cropAnalysisService.searchCropList(new HashMap<>());
         String predictHarvest = cropAnalysisService.predictHarvest();
-        int totalData = cropAnalysisService.countBoard();
-
+        int totalData = cropAnalysisService.countBoard() + 1;
 
         modelAndView.addObject("list", cropAverageList);
         modelAndView.addObject("predictHarvest",predictHarvest);
         modelAndView.addObject("total",totalData);
-        modelAndView.addObject("top", cropAnalysisService.searchCrops());
+        modelAndView.addObject("top", cropAnalysisService.searchCropList());
 
         return modelAndView;
     }
@@ -132,6 +130,22 @@ public class CropInfoController {
             cropAnalysisService.addCropEnvirInfo(cropEnvirInfo);
         }catch (Exception e){
             e.printStackTrace();
+        }
+
+        int verticalAngle = cropEnvirInfo.getVerticalAngle();
+
+        if(verticalAngle > 60 && verticalAngle <= 90) {
+            cropEnvirInfo.setVerticalAngle(60);
+        } else if(verticalAngle > 90 && verticalAngle <= 120) {
+            cropEnvirInfo.setVerticalAngle(60);
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() + 180);
+        } else if(verticalAngle > 120) {
+            cropEnvirInfo.setVerticalAngle(180 - cropEnvirInfo.getVerticalAngle());
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() + 180);
+        }
+
+        if(cropEnvirInfo.getHorizontalAngle() / 360 != 0) {
+            cropEnvirInfo.setHorizontalAngle(cropEnvirInfo.getHorizontalAngle() % 360);
         }
 
         cropFacilityService.sendCropEnvirInfo(cropEnvirInfo);

@@ -5,7 +5,6 @@ import okhttp3.*;
 import java.io.File;
 
 public class CropAnalysisInfoSender {
-
     public void sendCropAnalysisInfo(String cropRGB){
         try {
             final MediaType MULTIPART = MediaType.parse("multipart/form-data");

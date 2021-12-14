@@ -15,43 +15,49 @@ import java.time.LocalTime;
 public class MeasurementSchedulerImp implements  MeasurementScheduler {
     private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
     private final long time = 160000;
-    private static int num = 0;
 
     //1시간 30분마다 작동
-        @Override
-        @Scheduled(fixedDelay = 1000, initialDelay = 1000)
-        public void getTimeStart(){
-            LocalTime localTime = LocalTime.now();
-            LocalTime startTime = LocalTime.of(7, 0 , 0);
-            LocalTime stopTime = LocalTime.of(18, 0, 0);
-            boolean resetSignal = localTime.isAfter(stopTime);
-            boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
+    @Override
+    @Scheduled(fixedDelay = 10000, initialDelay = 1000)
+    public void getTimeStart(){
+        LocalTime localTime = LocalTime.now();
+        LocalTime startTime = LocalTime.of(7, 0 , 0);
+        LocalTime stopTime = LocalTime.of(18, 0, 0);
+        boolean resetSignal = localTime.isAfter(stopTime);
+        boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
 
-            if(resetSignal){
-                if(signal){
-                    try {
-                        resetSingnalWrite(signal);
-                        Thread.sleep(time);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                } else {
-                    resetSingnalWrite(resetSignal);
-                    resetSingnalWrite(signal);
+        if(resetSignal){
+            System.out.println(signal);
+
+            if(signal){
+                try {
+                    logger.debug("stop**************************************");
+//                    resetSingnalWrite(resetSignal);
+                    Thread.sleep(time);
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
-        }
-    }
+            } else {
 
-    private void resetSingnalWrite(boolean signal) {
+                System.out.println("start");
+                logger.debug("start*****************************************");
+                resetSingnalWrite(resetSignal);
+            }
+    }
+}
+
+
+    private void resetSingnalWrite(boolean resetSignal) {
         BufferedWriter bufferedWriter = null;
 
         try{
             bufferedWriter = new BufferedWriter(
                     new OutputStreamWriter(
                             new FileOutputStream(
-                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt")));
+                                    "/home/pi/Desktop/envirInfo/MeasureSend.txt"
+                            )));
 
-            bufferedWriter.write(String.valueOf(signal));
+            bufferedWriter.write(String.valueOf(resetSignal));
             bufferedWriter.flush();
         } catch (IOException e){
             if(bufferedWriter != null){
@@ -63,4 +69,4 @@ public class MeasurementSchedulerImp implements  MeasurementScheduler {
             }
         }
     }
-}
+    }

@@ -136,7 +136,7 @@
             dataFormat : 'json',
             dataSource :{
                 "chart" : {
-                    "caption": "${list.get(0).date} 농작물 정보", //차트 제목
+                    "caption": "${list.get(0).date} 농작물 분석 정보", //차트 제목
                     "captionFont" : "Lora",       //차트 폰트
                     "captionFontSize" : 20,       //차트 폰트 크기
                     "xAxisName": "시간",
@@ -273,7 +273,6 @@
                 </table>
             </div>
         </div>
-    </div>
     <div class="d-flex align-items-center justify-content-between small">
         <div class="text-muted">Copyright © Your Website 2021</div>
         <div>
