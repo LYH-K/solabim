@@ -14,11 +14,11 @@ import java.time.LocalTime;
 @Component
 public class MeasurementSchedulerImp implements  MeasurementScheduler {
     private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
-    private final long time = 160000;
+    private final long time = 3600000;
 
-    //1시간 30분마다 작동
+    //1시간마다 작동
     @Override
-    @Scheduled(fixedDelay = 10000, initialDelay = 1000)
+    @Scheduled(fixedRate = time, initialDelay = 1000)
     public void getTimeStart(){
         LocalTime localTime = LocalTime.now();
         LocalTime startTime = LocalTime.of(7, 0 , 0);
@@ -46,7 +46,7 @@ public class MeasurementSchedulerImp implements  MeasurementScheduler {
     }
 }
 
-
+    //
     private void resetSingnalWrite(boolean resetSignal) {
         BufferedWriter bufferedWriter = null;
 

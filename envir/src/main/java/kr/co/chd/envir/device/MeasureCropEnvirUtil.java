@@ -15,7 +15,7 @@ public class MeasureCropEnvirUtil {
     private static float illuminance;
     private static final int time = 2000;
 
-    //측정
+    //조도 및 각도 측정
     public CropEnvirInfo measure() {
         final GpioController gpio = GpioFactory.getInstance();
 

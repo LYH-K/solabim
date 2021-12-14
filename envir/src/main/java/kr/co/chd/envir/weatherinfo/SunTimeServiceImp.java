@@ -1,17 +1,13 @@
 package kr.co.chd.envir.weatherinfo;
 
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
-public class SunTimeUtil {
+public class SunTimeServiceImp {
     private static final String WEATHER_SERVICE_URL = "http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo";
     private static final String SERVICE_KEY = "7BI%2FKhhpzf6YXg813%2BtypHOlSOfZjAUxeLOcw%2BU2eBXoHbeHKwtKcLCz%2BKNrpC8sYPh5VcYDwYXMsdiH%2BRxjpA%3D%3D";
     private static final String LOCAL = "서울";
@@ -72,29 +68,13 @@ public class SunTimeUtil {
 
         return sun;
     }
-
-    //위치 변경 신호
+    
+    //위치 초기화 신호
     public boolean resetSignal(SunTimeInfo sunTimeInfo) throws Exception {
         LocalTime localTime = LocalTime.now();
         if (localTime.isBefore(sunTimeInfo.getSunRise()) && localTime.isAfter(sunTimeInfo.getSunSet())) {
             return true;
         }
         return false;
-    }
-
-    //위치 변경 신호 쓰기
-    public void resetSingnalWrite(SunTimeInfo sunTimeInfo) throws Exception {
-        boolean resetSignal = resetSignal(sunTimeInfo);
-
-        BufferedWriter bufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(
-                        new FileOutputStream(
-                                "/home/pi/Desktop/envirInfo/MeasureSend.txt"
-                       )));
-
-        bufferedWriter.write(String.valueOf(resetSignal));
-        bufferedWriter.flush();
-
-        bufferedWriter.close();
     }
 }

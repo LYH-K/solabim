@@ -13,9 +13,10 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 
+//디바이스를 실행 시키기 위한 프로그램
 public class WatchServiceDriver {
     private StringBuffer resetSignal = new StringBuffer();
-    private CropEnvirService cropEnvirService = new CropEnvirService();
+    private CropEnvirServiceImp cropEnvirService = new CropEnvirServiceImp();
 
     public static void main(String[] args) {
         WatchServiceDriver watchServiceDriver = new WatchServiceDriver();
@@ -25,7 +26,6 @@ public class WatchServiceDriver {
         watchServiceDriver.measureInfostartService();
     }
 
-    // 1시간 30분 마다 디바이스 작동
     public void measureInfostartService() {
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
@@ -46,7 +46,8 @@ public class WatchServiceDriver {
                     System.out.println(singal);
 
                     if (!singal) {
-                        cropEnvirService.measureCropEnvir(singal);
+                        CropEnvirInfo cropEnvirInfo = cropEnvirService.measureCropEnvir(singal);
+                        cropEnvirService.sendCropEnvirInfo(cropEnvirInfo);
                     } else {
                         CropEnvirInfo cropEnvirInfo = new CropEnvirInfo();
                         cropEnvirInfo.setResetSignal(true);
@@ -63,7 +64,6 @@ public class WatchServiceDriver {
         }
     }
 
-    // 1시간 30분마다 읽기
     public void measureInforeadFile() {
         File file = new File("/home/pi/Desktop/envirInfo/MeasureSend.txt");
         BufferedReader bufferedReader = null;
