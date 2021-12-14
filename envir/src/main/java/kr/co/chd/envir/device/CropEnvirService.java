@@ -2,8 +2,6 @@ package kr.co.chd.envir.device;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import okhttp3.Call;
@@ -15,7 +13,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CropEnvirService {
-    private Logger logger = LogManager.getLogger(CropEnvirService.class);
     //농작물 환경 정보 측정
     public void measureCropEnvir(boolean resetSignal) throws Exception{
         CropEnvirInfo cropEnvirInfo = new MeasureCropEnvirUtil().measure();
@@ -25,7 +22,7 @@ public class CropEnvirService {
 
         cropEnvirInfo.setResetSignal(resetSignal);
 
-        logger.debug("horizontal : " + cropEnvirInfo.getVerticalAngle() + " , "
+        System.out.println("horizontal : " + cropEnvirInfo.getVerticalAngle() + " , "
                 + "vertical : " + cropEnvirInfo.getHorizontalAngle() + " , "
                 + "illuminance : " + cropEnvirInfo.getIlluminance() + " , "
                 + "resetSignal : " + cropEnvirInfo.isResetSignal()
@@ -37,9 +34,9 @@ public class CropEnvirService {
     //송신
     public void sendCropEnvirInfo(CropEnvirInfo cropEnvirInfo) throws Exception {
         if(cropEnvirInfo.isResetSignal() == true){
-            logger.debug("resetSignal : true");
+            System.out.println("resetSignal : true");
         }
-        logger.debug("send...");
+        System.out.println("send...");
         try {
             OkHttpClient client = new OkHttpClient();
             String strURL = "http://192.168.0.127/chd/envir";
@@ -69,15 +66,14 @@ public class CropEnvirService {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    logger.debug("error");
+                    System.out.println("error");
                 }
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    logger.debug(response.body());
+                    System.out.println(response.body());
                     if (response.body() != null) {
-                        logger.debug(response.body().string());
-                        logger.debug("성공 ");
+                        System.out.println(response.body().string());
                     }
                 }
             });
@@ -86,6 +82,6 @@ public class CropEnvirService {
             e.printStackTrace();
         }
 
-        logger.debug("end");
+        System.out.println("end");
     }
 }

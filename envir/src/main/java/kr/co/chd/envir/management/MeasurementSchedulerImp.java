@@ -15,57 +15,39 @@ import java.time.LocalTime;
 public class MeasurementSchedulerImp implements  MeasurementScheduler {
     private Logger logger = LogManager.getLogger(MeasurementSchedulerImp.class);
     private final long time = 160000;
-    private static int num = 0;
 
     //1시간 30분마다 작동
     @Override
-    @Scheduled(fixedDelay = 1000, initialDelay = 1000)
+    @Scheduled(fixedDelay = 10000, initialDelay = 1000)
     public void getTimeStart(){
         LocalTime localTime = LocalTime.now();
+        LocalTime startTime = LocalTime.of(7, 0 , 0);
+        LocalTime stopTime = LocalTime.of(18, 0, 0);
+        boolean resetSignal = localTime.isAfter(stopTime);
+        boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
 
-//        LocalTime localTime = LocalTime.now();
-//        LocalTime startTime = LocalTime.of(7, 0 , 0);
-//        LocalTime stopTime = LocalTime.of(19, 0, 0);
-//        boolean resetSignal = localTime.isAfter(stopTime);
-//        LocalTime stopTime = LocalTime.of(18, 0, 0);
-//        boolean signal = !(localTime.isBefore(stopTime) && localTime.isAfter(startTime));
-//
-//        if(resetSignal){
-//            System.out.println(signal + "************************************************************************************");
-//
-//            if(signal){
-//                try {
-//                    System.out.println("stop**************************************");
-//                    resetSingnalWrite(signal);
-//                    Thread.sleep(time);
-//                } catch (Exception e){
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                resetSingnalWrite(resetSignal);
-//                System.out.println("start");
-//                System.out.println("start*****************************************");
-//                resetSingnalWrite(signal);
-//            }
+        if(resetSignal){
+            System.out.println(signal);
 
-        System.out.println(num);
+            if(signal){
+                try {
+                    logger.debug("stop**************************************");
+//                    resetSingnalWrite(resetSignal);
+                    Thread.sleep(time);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            } else {
 
-        if(num % 2 != 0){
-            try {
-                System.out.println("stop**************************************");
-                resetSingnalWrite(true);
-                Thread.sleep(time);
-            } catch (Exception e){
-                e.printStackTrace();
+                System.out.println("start");
+                logger.debug("start*****************************************");
+                resetSingnalWrite(resetSignal);
             }
-        } else {
-            System.out.println("start*****************************************");
-            resetSingnalWrite(false);
-        }
-        num ++;
     }
+}
 
-    public void resetSingnalWrite(boolean resetSignal) {
+
+    private void resetSingnalWrite(boolean resetSignal) {
         BufferedWriter bufferedWriter = null;
 
         try{
@@ -87,4 +69,4 @@ public class MeasurementSchedulerImp implements  MeasurementScheduler {
             }
         }
     }
-}
+    }

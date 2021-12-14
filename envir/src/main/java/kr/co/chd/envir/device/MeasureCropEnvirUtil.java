@@ -1,7 +1,6 @@
 package kr.co.chd.envir.device;
 
 import java.io.IOException;
-import org.apache.logging.log4j.*;
 
 import com.pi4j.component.motor.impl.GpioStepperMotorComponent;
 import com.pi4j.io.gpio.GpioController;
@@ -15,8 +14,6 @@ import com.pi4j.io.i2c.I2CBus;
 public class MeasureCropEnvirUtil {
     private static float illuminance;
     private static final int time = 2000;
-    private static final Logger logger = LogManager.getLogger(MeasureCropEnvirUtil.class);
-
 
     //측정
     public CropEnvirInfo measure() {
@@ -61,16 +58,16 @@ public class MeasureCropEnvirUtil {
             horizontalMotor.setStepsPerRevolution(2038);
 
             //세로축 각도 최대각도 찾기
-            logger.debug("maxVerticalAngleStart");
+            System.out.println("maxVerticalAngleStart");
             int maxVerticalAngle = maxVerticalAngle(verticalMotor);
 
             //최대 각도로 돌아가기
-            logger.debug("maxVerticalAngle : " + maxVerticalAngle);
-            logger.debug("maxVerticalReturn");
+            System.out.println("maxVerticalAngle : " + maxVerticalAngle);
+            System.out.println("maxVerticalReturn");
             maxVerticalMotor(maxVerticalAngle, verticalMotor);
 
             //가로축 모터 최대 가로축 각도 및 조도세기 넣기
-            logger.debug("maxHorizontalAngleStart");
+            System.out.println("maxHorizontalAngleStart");
             int maxHorizontalAngle = maxHorizontalMotor(horizontalMotor);
             horizontalMotor(horizontalMotor);
 
@@ -82,9 +79,9 @@ public class MeasureCropEnvirUtil {
             verticalReset(cropEnvirInfoMeasure.getVerticalAngle(), verticalMotor);
             horizontalReset(horizontalMotor);
 
-            logger.debug("resultvertical : " + cropEnvirInfoMeasure.getVerticalAngle());
-            logger.debug("resulthorizontal : " + cropEnvirInfoMeasure.getHorizontalAngle());
-            logger.debug("resultillumant : " + cropEnvirInfoMeasure.getIlluminance());
+            System.out.println("resultvertical : " + cropEnvirInfoMeasure.getVerticalAngle());
+            System.out.println("resulthorizontal : " + cropEnvirInfoMeasure.getHorizontalAngle());
+            System.out.println("resultillumant : " + cropEnvirInfoMeasure.getIlluminance());
 
             verticalMotor.stop();
             horizontalMotor.stop();
@@ -103,7 +100,7 @@ public class MeasureCropEnvirUtil {
     //세로축 최대값 구하기
     private int maxVerticalAngle(GpioStepperMotorComponent verticalMotor) throws Exception {
         CropEnvirInfo[] cropEnvirInfos = new CropEnvirInfo[6];
-        logger.debug("verticalAngle : verticalIlluminance");
+        System.out.println("verticalAngle : verticalIlluminance");
         for(int i = 0; i < 6; i++) {
             cropEnvirInfos[i] = new CropEnvirInfo();
             verticalMotor(verticalMotor);
@@ -118,10 +115,8 @@ public class MeasureCropEnvirUtil {
             thread.run();
             thread.join();
 
-            cropEnvirInfos[i].setVerticalAngle((i + 1) * 30);
-            cropEnvirInfos[i].setIlluminance(illuminance);
-            if(i > 0) {
-                logger.debug((cropEnvirInfos[i].getVerticalAngle() - 30) + " : " + cropEnvirInfos[i].getIlluminance());
+           if(i > 0) {
+                cropEnvirInfos[i].setVerticalAngle((i + 1) * 30);
             }
         }
 
@@ -163,7 +158,7 @@ public class MeasureCropEnvirUtil {
 
     //세로축 각도
     private void verticalMotor(GpioStepperMotorComponent verticalMotor) throws InterruptedException {
-        verticalMotor.step(335);
+        verticalMotor.step(330);
         Thread.sleep(time);
     }
 
@@ -183,7 +178,7 @@ public class MeasureCropEnvirUtil {
     private int maxHorizontalMotor(GpioStepperMotorComponent horizontalMotor) throws Exception {
 
         CropEnvirInfo[] cropEnvirInfos = new CropEnvirInfo[12];
-        logger.debug("HorizontalAngle : HorizontalIlluminance");
+        System.out.println("HorizontalAngle : HorizontalIlluminance");
 
         for(int i = 0; i < 12; i++) {
             cropEnvirInfos[i] = new CropEnvirInfo();
@@ -199,15 +194,13 @@ public class MeasureCropEnvirUtil {
             thread.run();
             thread.join();
 
-            cropEnvirInfos[i].setHorizontalAngle((i + 1) * 30);
-            cropEnvirInfos[i].setIlluminance(illuminance);
-            if(0 < i){
-                logger.debug((cropEnvirInfos[i].getHorizontalAngle() - 30) + " : " + cropEnvirInfos[i].getIlluminance());
+           if(0 < i){
+                cropEnvirInfos[i].setHorizontalAngle((i + 1) * 30);
+                cropEnvirInfos[i].setIlluminance(illuminance);
             }
+
             Thread.sleep(1000);
         }
-
-        logger.debug("360 : " + cropEnvirInfos[0].getIlluminance());
 
 
         float max = cropEnvirInfos[0].getIlluminance();
