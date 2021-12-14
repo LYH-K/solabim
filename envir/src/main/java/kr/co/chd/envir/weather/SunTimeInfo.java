@@ -1,8 +1,9 @@
-package kr.co.chd.envir.weather;
+package kr.co.chd.envir.weatherinfo;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class SunTimeInfo {
+public class SunTimeInfo implements Serializable {
     private LocalTime sunRise;
     private LocalTime sunSet;
     private boolean resetSignal;
